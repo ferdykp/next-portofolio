@@ -1,5 +1,7 @@
 export default function Footer() {
   return (
-    <footer className="text-center py-6 text-gray-500 text-sm">© 2025</footer>
+    <footer className="py-8 text-center text-gray-500 border-t border-gray-700">
+      &copy; {new Date().getFullYear()} Ferdy Panggabean. All rights reserved.
+    </footer>
   );
 }

@@ -24,3 +24,35 @@ body {
   color: var(--foreground);
   font-family: monospace;
 }
+
+/* ===== Bubble Animation (floating logo) ===== */
+
+@keyframes bubble {
+  0%,
+  100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-bubble {
+  animation: bubble 6s ease-in-out infinite;
+}
+
+.delay-\[0s\] {
+  animation-delay: 0s;
+}
+.delay-\[0\.2s\] {
+  animation-delay: 0.2s;
+}
+.delay-\[0\.4s\] {
+  animation-delay: 0.4s;
+}
+.delay-\[0\.6s\] {
+  animation-delay: 0.6s;
+}
+.delay-\[0\.8s\] {
+  animation-delay: 0.8s;
+}

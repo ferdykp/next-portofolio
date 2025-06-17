@@ -4,7 +4,6 @@ export default function Navbar() {
   const [show, setShow] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
-  // useCallback supaya fungsi ini stabil dan tidak berubah tiap render
   const controlNavbar = useCallback(() => {
     if (typeof window !== "undefined") {
       if (window.scrollY > lastScrollY) {
@@ -14,7 +13,7 @@ export default function Navbar() {
       }
       setLastScrollY(window.scrollY);
     }
-  }, [lastScrollY]); // lastScrollY jadi dependency
+  }, [lastScrollY]);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -23,7 +22,15 @@ export default function Navbar() {
         window.removeEventListener("scroll", controlNavbar);
       };
     }
-  }, [controlNavbar]); // tambahkan controlNavbar sebagai dependency
+  }, [controlNavbar]);
+
+  const handleSmoothScroll = (e, targetId) => {
+    e.preventDefault();
+    const target = document.getElementById(targetId);
+    if (target) {
+      target.scrollIntoView({ behavior: "smooth" });
+    }
+  };
 
   return (
     <nav
@@ -31,51 +38,31 @@ export default function Navbar() {
         show ? "translate-y-0" : "-translate-y-full"
       }`}
     >
-      <a href="#home" className="text-xl font-bold">
+      <a
+        href="#home"
+        className="text-xl font-bold"
+        onClick={(e) => handleSmoothScroll(e, "home")}
+      >
         Ferdy
       </a>
       <div className="space-x-4 flex">
-        {/* menu tetap sama */}
-        <div className="hover:bg-blue-100 rounded-md transition">
-          <a
-            href="#home"
-            className="block px-4 py-2 text-gray-700 hover:text-blue-600"
-          >
-            Home
-          </a>
-        </div>
-        <div className="hover:bg-blue-100 rounded-md transition">
-          <a
-            href="#about"
-            className="block px-4 py-2 text-gray-700 hover:text-blue-600"
-          >
-            About
-          </a>
-        </div>
-        <div className="hover:bg-blue-100 rounded-md transition">
-          <a
-            href="#service"
-            className="block px-4 py-2 text-gray-700 hover:text-blue-600"
-          >
-            Service
-          </a>
-        </div>
-        <div className="hover:bg-blue-100 rounded-md transition">
-          <a
-            href="#portofolio"
-            className="block px-4 py-2 text-gray-700 hover:text-blue-600"
-          >
-            Portofolio
-          </a>
-        </div>
-        <div className="hover:bg-blue-100 rounded-md transition">
-          <a
-            href="#contact"
-            className="block px-4 py-2 text-gray-700 hover:text-blue-600"
-          >
-            Kontak
-          </a>
-        </div>
+        {[
+          { label: "Home", id: "home" },
+          { label: "About", id: "about" },
+          // { label: "Service", id: "service" },
+          { label: "Portofolio", id: "portofolio" },
+          { label: "Kontak", id: "contact" },
+        ].map(({ label, id }) => (
+          <div key={id} className="hover:bg-blue-100 rounded-md transition">
+            <a
+              href={`#${id}`}
+              onClick={(e) => handleSmoothScroll(e, id)}
+              className="block px-4 py-2 text-gray-700 hover:text-blue-600"
+            >
+              {label}
+            </a>
+          </div>
+        ))}
       </div>
     </nav>
   );
