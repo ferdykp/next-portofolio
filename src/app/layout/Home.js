@@ -25,25 +25,28 @@ export default function HomeSection() {
   return (
     <section
       id="home"
-      className="flex flex-col md:flex-row items-center gap-80 py-50"
+      className="flex flex-col md:flex-row items-center justify-center gap-10 md:gap-80 py-50 md:py-50 transition-all duration-500 ease-in-out"
     >
       <Image
         src="/assets/profile.jpeg"
         alt="Foto Ferdy"
         width={300}
         height={300}
-        className="rounded-full object-cover shadow-lg"
+        // className="rounded-full object-cover shadow-lg"
+        className="rounded-full object-cover shadow-lg w-40 h-60 md:w-72 md:h-100 transition-all duration-500 ease-in-out"
       />
-      <div>
-        <h1 className="text-4xl font-extrabold mb-4">Welcome to My Page</h1>
-        <p className="text-gray-700 text-3xl mb-6">
+      <div className="text-center md:text-left max-w-lg transition-all duration-500 ease-in-out">
+        <h1 className="text-3xl md:text-5xl font-extrabold mb-4">
+          Welcome to My Page
+        </h1>
+        <p className="text-gray-700 text-2xl md:text-3xl mb-6">
           I&apos;m <span ref={typedRef} className="text-blue-600" />
         </p>
         <p className="max-w-md text-gray-600 mb-8">
           Passionate about creating elegant and efficient web solutions using
           modern technologies like Next.js, Laravel, and IoT.
         </p>
-        <div className="flex items-center gap-6">
+        <div className="flex justify-center md:justify-start items-center gap-6">
           {[
             {
               href: "https://www.instagram.com/ferdy.panggabean/",
@@ -69,8 +72,8 @@ export default function HomeSection() {
               aria-label={label}
               className="group"
             >
-              <div className="p-3 border-2 border-white rounded-full transition-colors duration-200 group-hover:border-blue-400">
-                <Icon className="text-white w-6 h-6 transition-colors duration-200 group-hover:text-blue-400" />
+              <div className="p-3 border-2 border-white rounded-full transition-all duration-300 ease-in-out group-hover:border-blue-400 transform group-hover:scale-110">
+                <Icon className="text-white w-6 h-6 transition-colors duration-300 group-hover:text-blue-400" />
               </div>
             </a>
           ))}
