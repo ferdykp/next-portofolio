@@ -43,7 +43,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className={`bg-dark shadow-md px-6 py-4 flex justify-between items-center rounded font-mono font-bold fixed top-0 w-full z-50 transition-transform duration-300 ${
+      className={`bg-black shadow-md px-6 py-4 flex justify-between items-center rounded font-mono font-bold fixed top-0 w-full z-50 transition-transform duration-300 ${
         show ? "translate-y-0" : "-translate-y-full"
       }`}
     >
@@ -67,7 +67,7 @@ export default function Navbar() {
 
         {/* Mobile dropdown menu */}
         <div
-          className={`absolute right-0 mt-2 w-48 bg-dark rounded-md shadow-md overflow-hidden transition-all duration-300 z-40 ${
+          className={`absolute right-0 mt-2 w-48 bg-black rounded-md shadow-md overflow-hidden transition-all duration-300 z-40 ${
             isMenuOpen
               ? "hover:bg-black max-h-96 opacity-100"
               : "max-h-0 opacity-0"

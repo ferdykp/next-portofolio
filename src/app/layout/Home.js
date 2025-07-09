@@ -43,8 +43,8 @@ export default function HomeSection() {
           I&apos;m <span ref={typedRef} className="text-blue-600" />
         </p>
         <p className="max-w-md text-gray-600 mb-8">
-          Passionate about creating elegant and efficient web solutions using
-          modern technologies like Next.js, Laravel, and IoT.
+          Passionate about creating elegant and efficient website and IoT
+          solutions using modern technologies.
         </p>
         <div className="flex justify-center md:justify-start items-center gap-6">
           {[
