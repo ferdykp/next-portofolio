@@ -1,36 +1,14 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 
 export default function Navbar() {
-  const [show, setShow] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-  const controlNavbar = useCallback(() => {
-    if (typeof window !== "undefined") {
-      if (window.scrollY > lastScrollY) {
-        setShow(false);
-      } else {
-        setShow(true);
-      }
-      setLastScrollY(window.scrollY);
-    }
-  }, [lastScrollY]);
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.addEventListener("scroll", controlNavbar);
-      return () => {
-        window.removeEventListener("scroll", controlNavbar);
-      };
-    }
-  }, [controlNavbar]);
 
   const handleSmoothScroll = (e, targetId) => {
     e.preventDefault();
     const target = document.getElementById(targetId);
     if (target) {
       target.scrollIntoView({ behavior: "smooth" });
-      setIsMenuOpen(false); // close menu on click
+      setIsMenuOpen(false);
     }
   };
 
@@ -42,11 +20,8 @@ export default function Navbar() {
   ];
 
   return (
-    <nav
-      className={`bg-black shadow-md px-6 py-4 flex justify-between items-center rounded font-mono font-bold fixed top-0 w-full z-50 transition-transform duration-300 ${
-        show ? "translate-y-0" : "-translate-y-full"
-      }`}
-    >
+    // PENTING: Hapus class conditional "show ? ..." dan biarkan fixed top-0 w-full z-50
+    <nav className="bg-black shadow-md px-6 py-4 flex justify-between items-center rounded font-mono font-bold fixed top-0 w-full z-50">
       <a
         href="#home"
         className="text-xl font-bold text-white"
@@ -55,7 +30,7 @@ export default function Navbar() {
         Ferdy
       </a>
 
-      {/* Hamburger + Dropdown wrapper (relative for dropdown positioning) */}
+      {/* Mobile Menu */}
       <div className="md:hidden relative">
         <button
           className="text-white focus:outline-none"
@@ -65,12 +40,9 @@ export default function Navbar() {
           ☰
         </button>
 
-        {/* Mobile dropdown menu */}
         <div
           className={`absolute right-0 mt-2 w-48 bg-black rounded-md shadow-md overflow-hidden transition-all duration-300 z-40 ${
-            isMenuOpen
-              ? "hover:bg-black max-h-96 opacity-100"
-              : "max-h-0 opacity-0"
+            isMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
           }`}
         >
           {navItems.map(({ label, id }) => (
