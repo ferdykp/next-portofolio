@@ -10,7 +10,7 @@ export default function HomeSection() {
 
   useEffect(() => {
     const typed = new Typed(typedRef.current, {
-      strings: ["an Engineer", "a Developer", "an IoT Enthusiast"],
+      strings: ["an Software Engineer", "a Developer", "an IoT Enthusiast"],
       typeSpeed: 70,
       backSpeed: 40,
       backDelay: 2500,
@@ -29,8 +29,8 @@ export default function HomeSection() {
         <span className="text-blue-500 font-mono tracking-wider text-sm uppercase block mb-3">
           Available for Tech Projects
         </span>
-        <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white mb-4">
-          Hi, I&apos;m Ferdy Kurnia
+        <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white mb-4">
+          Hi, I&apos;m Ferdy Kurnia Panggabean
         </h1>
         <p className="text-zinc-400 text-xl md:text-2xl font-medium mb-6 min-h-[40px]">
           I am <span ref={typedRef} className="text-blue-500 font-semibold" />
