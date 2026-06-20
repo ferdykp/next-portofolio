@@ -11,11 +11,14 @@ import "swiper/css/pagination";
 
 export default function Portofolio() {
   const [activeProject, setActiveProject] = useState(null);
+  const [selectedCategory, setSelectedCategory] = useState("all");
   const modalRef = useRef();
 
+  // Ditambahkan properti 'category' di setiap proyek untuk sistem filter
   const projects = [
     {
       title: "Smart Public Street Light",
+      category: "iot",
       description:
         "IoT street lights use Arduino Nano, LDR, RTC, and PZEM. Telemetry data sent via LoRa (Antares, HTTP POST) to a centralized PHP web platform dashboard.",
       images: [
@@ -28,6 +31,7 @@ export default function Portofolio() {
     },
     {
       title: "IoT-Based Security and Monitoring System with GPS Tracking",
+      category: "iot",
       description:
         "An anti-theft motorcycle security system engineering using NodeMCU ESP8266 and a gyroscope sensor. Fully integrated with an IoT-based Android app that functions as a remote and live GPS tracker.",
       images: [
@@ -40,6 +44,7 @@ export default function Portofolio() {
     },
     {
       title: "Smart Dairy Delivery of Fresh Milk",
+      category: "iot",
       description:
         "End-to-end system monitors the milk distribution process from farms to factories by tracking milk quality integrity using cold-chain sensors, and ensuring smooth delivery optimization with GPS tracking.",
       images: [
@@ -53,6 +58,7 @@ export default function Portofolio() {
     },
     {
       title: "College Final Project - Image Processing Deep Learning",
+      category: "ai",
       description:
         "Computer Vision and Image Processing application using Deep Learning algorithms for the automated process of searching and detecting drowning/drifting victims in river streams.",
       images: [
@@ -65,6 +71,7 @@ export default function Portofolio() {
     },
     {
       title: "Platform Website Team SAR for Basarnas",
+      category: "web",
       description:
         "A collaborative rescue monitoring web platform built to showcase our group final project, including all related command center products, coordinates, and response features.",
       images: [
@@ -76,6 +83,7 @@ export default function Portofolio() {
     },
     {
       title: "Intelligent System for Detecting Laboratory Presence",
+      category: "smart-system",
       description:
         "A smart building automation monitoring system designed to detect human presence inside the electronics laboratory, enhancing facility safety profiles and dynamic energy efficiency.",
       images: [
@@ -87,6 +95,21 @@ export default function Portofolio() {
       techstack: ["Embedded Systems", "Sensors", "Node.js", "Dashboard"],
     },
   ];
+
+  // Daftar tombol kategori filter
+  const filterCategories = [
+    { id: "all", label: "All Projects" },
+    { id: "web", label: "Web Apps" },
+    { id: "iot", label: "IoT & Embedded" },
+    { id: "ai", label: "AI & Vision" },
+    { id: "smart-system", label: "Smart Systems" },
+  ];
+
+  // Melakukan filter project berdasarkan category state yang aktif
+  const filteredProjects =
+    selectedCategory === "all"
+      ? projects
+      : projects.filter((project) => project.category === selectedCategory);
 
   useEffect(() => {
     function handleClickOutside(event) {
@@ -101,7 +124,7 @@ export default function Portofolio() {
 
   return (
     <section id="portofolio" className="py-20 border-b border-zinc-800">
-      <div className="text-center max-w-2xl mx-auto mb-16">
+      <div className="text-center max-w-2xl mx-auto mb-10">
         <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white mb-4">
           Selected Portfolio
         </h2>
@@ -111,77 +134,104 @@ export default function Portofolio() {
         </p>
       </div>
 
-      {/* Grid 6 Proyek Lengkap */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {projects.map((project, idx) => (
-          <div
-            key={idx}
-            className="group bg-zinc-900/40 border border-zinc-800/80 rounded-xl overflow-hidden hover:border-zinc-700 transition-all duration-300 flex flex-col"
+      {/* TABS FILTER BUTTONS */}
+      <div className="flex flex-wrap justify-center items-center gap-2 mb-12 max-w-3xl mx-auto px-4">
+        {filterCategories.map((category) => (
+          <button
+            key={category.id}
+            onClick={() => setSelectedCategory(category.id)}
+            className={`px-4 py-2 text-xs font-mono rounded-lg border transition-all duration-200 relative ${
+              selectedCategory === category.id
+                ? "bg-zinc-800 border-zinc-700 text-white font-bold"
+                : "bg-zinc-900/20 border-transparent text-zinc-500 hover:text-zinc-300 hover:border-zinc-800"
+            }`}
           >
-            {/* KLIK AREA HANYA DI LUAR AREA NAVIGASI SLIDER */}
-            <div className="relative w-full h-48 bg-zinc-950 overflow-hidden">
-              <Swiper
-                modules={[Navigation, Pagination, Autoplay]}
-                spaceBetween={0}
-                slidesPerView={1}
-                pagination={{ clickable: true }}
-                autoplay={{ delay: 3000, disableOnInteraction: false }}
-                className="w-full h-full text-white"
-              >
-                {project.images.map((src, index) => (
-                  <SwiperSlide key={index}>
-                    <div
-                      className="relative w-full h-full cursor-pointer"
-                      onClick={() => setActiveProject(project)}
-                    >
-                      <Image
-                        src={src}
-                        alt={`${project.title} image ${index + 1}`}
-                        fill
-                        className="object-cover group-hover:scale-105 transition duration-500"
-                      />
-                    </div>
-                  </SwiperSlide>
-                ))}
-              </Swiper>
-              <span className="absolute top-3 left-3 text-[11px] bg-zinc-900/90 text-blue-400 font-mono px-2.5 py-1 border border-zinc-800 rounded-md z-10 pointer-events-none">
-                {project.field}
-              </span>
-            </div>
-
-            <div
-              onClick={() => setActiveProject(project)}
-              className="p-5 flex-1 flex flex-col justify-between cursor-pointer"
-            >
-              <div>
-                <h3 className="text-lg font-bold text-white group-hover:text-blue-400 transition mb-2 line-clamp-2">
-                  {project.title}
-                </h3>
-                <p className="text-zinc-400 text-sm line-clamp-3 mb-4">
-                  {project.description}
-                </p>
-              </div>
-
-              {/* Menampilkan 3 Tech Stack Teratas di Luar Card */}
-              <div className="flex flex-wrap gap-1.5 mt-auto pt-2">
-                {project.techstack.slice(0, 3).map((tech, i) => (
-                  <span
-                    key={i}
-                    className="text-xs bg-zinc-900 text-zinc-400 font-mono px-2 py-0.5 rounded border border-zinc-800/60"
-                  >
-                    {tech}
-                  </span>
-                ))}
-                {project.techstack.length > 3 && (
-                  <span className="text-xs text-zinc-500 font-mono px-1 py-0.5">
-                    +{project.techstack.length - 3} more
-                  </span>
-                )}
-              </div>
-            </div>
-          </div>
+            {category.label}
+          </button>
         ))}
       </div>
+
+      {/* Grid Proyek dengan animasi Framer Motion */}
+      <motion.div
+        layout
+        className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+      >
+        <AnimatePresence mode="popLayout">
+          {filteredProjects.map((project, idx) => (
+            <motion.div
+              layout
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.9 }}
+              transition={{ duration: 0.25 }}
+              key={project.title} // Menggunakan title unik sebagai key agar animasi exit terpicu dengan benar
+              className="group bg-zinc-900/40 border border-zinc-800/80 rounded-xl overflow-hidden hover:border-zinc-700 transition-all duration-300 flex flex-col"
+            >
+              {/* KLIK AREA HANYA DI LUAR AREA NAVIGASI SLIDER */}
+              <div className="relative w-full h-48 bg-zinc-950 overflow-hidden">
+                <Swiper
+                  modules={[Navigation, Pagination, Autoplay]}
+                  spaceBetween={0}
+                  slidesPerView={1}
+                  pagination={{ clickable: true }}
+                  autoplay={{ delay: 3000, disableOnInteraction: false }}
+                  className="w-full h-full text-white"
+                >
+                  {project.images.map((src, index) => (
+                    <SwiperSlide key={index}>
+                      <div
+                        className="relative w-full h-full cursor-pointer"
+                        onClick={() => setActiveProject(project)}
+                      >
+                        <Image
+                          src={src}
+                          alt={`${project.title} image ${index + 1}`}
+                          fill
+                          className="object-cover group-hover:scale-105 transition duration-500"
+                        />
+                      </div>
+                    </SwiperSlide>
+                  ))}
+                </Swiper>
+                <span className="absolute top-3 left-3 text-[11px] bg-zinc-900/90 text-blue-400 font-mono px-2.5 py-1 border border-zinc-800 rounded-md z-10 pointer-events-none">
+                  {project.field}
+                </span>
+              </div>
+
+              <div
+                onClick={() => setActiveProject(project)}
+                className="p-5 flex-1 flex flex-col justify-between cursor-pointer"
+              >
+                <div>
+                  <h3 className="text-lg font-bold text-white group-hover:text-blue-400 transition mb-2 line-clamp-2">
+                    {project.title}
+                  </h3>
+                  <p className="text-zinc-400 text-sm line-clamp-3 mb-4">
+                    {project.description}
+                  </p>
+                </div>
+
+                {/* Menampilkan 3 Tech Stack Teratas di Luar Card */}
+                <div className="flex flex-wrap gap-1.5 mt-auto pt-2">
+                  {project.techstack.slice(0, 3).map((tech, i) => (
+                    <span
+                      key={i}
+                      className="text-xs bg-zinc-900 text-zinc-400 font-mono px-2 py-0.5 rounded border border-zinc-800/60"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                  {project.techstack.length > 3 && (
+                    <span className="text-xs text-zinc-500 font-mono px-1 py-0.5">
+                      +{project.techstack.length - 3} more
+                    </span>
+                  )}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </AnimatePresence>
+      </motion.div>
 
       {/* Modal Detail Pop-up */}
       <AnimatePresence>
