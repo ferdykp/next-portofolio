@@ -73,7 +73,7 @@ export default function Navbar() {
             onClick={(e) => handleSmoothScroll(e, "contact")}
             className="px-5 py-2 text-xs font-bold uppercase tracking-wider text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] hover:scale-105 transition-all duration-300"
           >
-            Let's Talk
+            Talk With Me
           </a>
         </div>
 
