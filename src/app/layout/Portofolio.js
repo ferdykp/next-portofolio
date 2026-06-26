@@ -17,6 +17,47 @@ export default function Portofolio() {
   // Ditambahkan properti 'category' di setiap proyek untuk sistem filter
   const projects = [
     {
+      title: "Extreme Project - Premium Coil & Cotton Landing Page",
+      category: "web",
+      description:
+        "Developed a high-performance e-commerce landing page tailored for a premium handcrafted coil artisan brand. Architected with high-fidelity custom design systems, adaptive grid product arrays, and rich hover sensory interaction. Optimized with Next.js advanced metadata engine, custom semantic OpenGraph cards, localized SEO structures, dynamic sitemaps, and strict ultrasonic asset loading pipelines.",
+      images: [
+        "/assets/portofolio/extreme/1.png",
+        "/assets/portofolio/extreme/2.png",
+        "/assets/portofolio/extreme/3.png",
+        "/assets/portofolio/extreme/4.png",
+        "/assets/portofolio/extreme/5.png",
+        "/assets/portofolio/extreme/6.png",
+      ],
+      field: "Web Front-End Developer",
+      techstack: [
+        "Next.js",
+        "Tailwind CSS v4",
+        "SEO Optimization",
+        "JavaScript",
+        "Semantic HTML",
+      ],
+    },
+    {
+      title: "Proactive Smart Home Server Infrastructure",
+      category: "devops",
+      description:
+        "Transformed a legacy commercial laptop into a high-availability 24/7 home server hosting production apps. Developed a custom zero-dependency, multi-threaded Python bot integrated with PM2 and Linux Kernel ACPI to stream live telemetry metrics (RAM, SSD, real-time power consumption, CPU temp) to Telegram with smart state-tracking proactive alerts.",
+      images: [
+        "/assets/portofolio/homeserver/bot-tele.jpeg",
+        "/assets/portofolio/homeserver/terminal.png",
+      ],
+      field: "DevOps & Automation",
+      techstack: [
+        "Linux Kernel",
+        "Python",
+        "PM2",
+        "Telegram API",
+        "Bash Scripting",
+        "Ubuntu Server",
+      ],
+    },
+    {
       title: "Smart Public Street Light",
       category: "iot",
       description:
@@ -100,6 +141,7 @@ export default function Portofolio() {
   const filterCategories = [
     { id: "all", label: "All Projects" },
     { id: "web", label: "Web Apps" },
+    { id: "devops", label: "DevOps & Automation" },
     { id: "iot", label: "IoT & Embedded" },
     { id: "ai", label: "AI & Vision" },
     { id: "smart-system", label: "Smart Systems" },
