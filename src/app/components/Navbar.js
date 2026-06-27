@@ -1,26 +1,45 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import Link from "next/link";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const handleScroll = () => {
-      // Mengaktifkan efek setelah scroll sejauh 50px
       setIsScrolled(window.scrollY > 50);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const handleSmoothScroll = (e, targetId) => {
+  const handleNavClick = (e, id) => {
     e.preventDefault();
-    const target = document.getElementById(targetId);
-    if (target) {
-      target.scrollIntoView({ behavior: "smooth" });
-      setIsMenuOpen(false);
+    setIsMenuOpen(false);
+
+    // Cek jika saat ini merupakan halaman blog (bukan beranda '/')
+    const isBlogPage = pathname.startsWith("/blog");
+
+    if (id === "blog") {
+      // Jika klik menu Blog, langsung pindah ke route /blog tanpa scroll id
+      router.push("/blog");
+    } else {
+      if (isBlogPage) {
+        // Jika sedang di halaman blog dan klik menu home/about/portofolio/contact,
+        // redirect ke home membawa hash anchor target
+        router.push(`/#${id}`);
+      } else {
+        // Jika sudah berada di Beranda, lakukan smooth scroll langsung ke elemen target
+        const target = document.getElementById(id);
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth" });
+        }
+      }
     }
   };
 
@@ -29,6 +48,7 @@ export default function Navbar() {
     { label: "About", id: "about" },
     { label: "Portofolio", id: "portofolio" },
     { label: "Kontak", id: "contact" },
+    { label: "My Blog", id: "blog" },
   ];
 
   return (
@@ -41,36 +61,43 @@ export default function Navbar() {
               : "max-w-7xl bg-transparent py-6 border-b border-transparent"
           }`}
       >
-        {/* Brand / Logo dengan efek Gradasi Glowing */}
-        <a
-          href="#home"
+        {/* Brand / Logo */}
+        <Link
+          href="/"
           className="text-2xl font-black tracking-tighter bg-gradient-to-r from-white via-gray-200 to-blue-400 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300"
-          onClick={(e) => handleSmoothScroll(e, "home")}
+          onClick={(e) => handleNavClick(e, "home")}
         >
           FERDY<span className="text-blue-500">.</span>
-        </a>
+        </Link>
 
         {/* Desktop Menu - Floating Pill Style */}
         <div className="hidden md:flex items-center space-x-1 bg-white/5 rounded-full p-1 border border-white/5 backdrop-blur-sm">
-          {navItems.map(({ label, id }) => (
-            <a
-              key={id}
-              href={`#${id}`}
-              onClick={(e) => handleSmoothScroll(e, id)}
-              className="px-5 py-2 text-xs uppercase tracking-widest font-semibold text-gray-400 hover:text-white transition-all duration-300 rounded-full hover:bg-white/10 relative group"
-            >
-              {label}
-              {/* Dot Indicator yang muncul saat hover */}
-              <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-blue-400 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </a>
-          ))}
+          {navItems.map(({ label, id }) => {
+            // Logika penentuan status active menu blog secara visual
+            const isBlogActive = id === "blog" && pathname.startsWith("/blog");
+
+            return (
+              <a
+                key={id}
+                href={id === "blog" ? "/blog" : `/#${id}`}
+                onClick={(e) => handleNavClick(e, id)}
+                className={`px-5 py-2 text-xs uppercase tracking-widest font-semibold transition-all duration-300 rounded-full relative group
+                  ${isBlogActive ? "text-white bg-white/10" : "text-gray-400 hover:text-white hover:bg-white/10"}`}
+              >
+                {label}
+                <span
+                  className={`absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-blue-400 rounded-full transition-opacity duration-300 ${isBlogActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
+                />
+              </a>
+            );
+          })}
         </div>
 
-        {/* CTA Button / Status Indicator Elegan */}
+        {/* CTA Button */}
         <div className="hidden md:flex items-center">
           <a
             href="#contact"
-            onClick={(e) => handleSmoothScroll(e, "contact")}
+            onClick={(e) => handleNavClick(e, "contact")}
             className="px-5 py-2 text-xs font-bold uppercase tracking-wider text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] hover:scale-105 transition-all duration-300"
           >
             Talk With Me
@@ -99,7 +126,7 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay - Full Blur Premium */}
+      {/* Mobile Menu Overlay */}
       <div
         className={`fixed inset-0 bg-black/40 backdrop-blur-2xl z-40 flex flex-col justify-center items-center transition-all duration-700 md:hidden
           ${isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
@@ -108,13 +135,14 @@ export default function Navbar() {
           {navItems.map(({ label, id }, index) => (
             <a
               key={id}
-              href={`#${id}`}
-              onClick={(e) => handleSmoothScroll(e, id)}
+              href={id === "blog" ? "/blog" : `/#${id}`}
+              onClick={(e) => handleNavClick(e, id)}
               style={{
                 transitionDelay: isMenuOpen ? `${index * 50}ms` : "0ms",
                 transform: isMenuOpen ? "translateY(0)" : "translateY(30px)",
               }}
-              className="text-3xl font-light tracking-widest text-gray-400 hover:text-white hover:scale-110 transition-all duration-500 uppercase"
+              className={`text-3xl font-light tracking-widest transition-all duration-500 uppercase hover:scale-110
+                ${id === "blog" && pathname.startsWith("/blog") ? "text-white font-semibold" : "text-gray-400 hover:text-white"}`}
             >
               {label}
             </a>
