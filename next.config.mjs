@@ -3,14 +3,14 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "http",
-        hostname: "localhost",
+        protocol: "https",
+        hostname: "selfnote.fdevsite.cloud",
         port: "8000",
         pathname: "/storage/**",
       },
       {
         protocol: "http",
-        hostname: "127.0.0.1",
+        hostname: "selfnote.fdevsite.cloud",
         port: "8000",
         pathname: "/storage/**",
       },

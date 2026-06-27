@@ -5,9 +5,12 @@ import Footer from "../components/Footer";
 // Fungsi untuk mengambil data artikel yang berstatus 'published' dari API Laravel
 async function getBlogPosts() {
   try {
-    const res = await fetch("http://localhost:8000/api/portfolio-notes", {
-      cache: "no-store", // Dimatikan sementara agar data langsung muncul tanpa menunggu cache 5 menit
-    });
+    const res = await fetch(
+      "https://selfnote.fdevsite.cloud/api/portfolio-notes",
+      {
+        cache: "no-store", // Dimatikan sementara agar data langsung muncul tanpa menunggu cache 5 menit
+      },
+    );
 
     if (!res.ok) return [];
     return res.json();

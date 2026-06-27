@@ -6,9 +6,12 @@ import { notFound } from "next/navigation";
 
 async function getBlogPostDetail(id) {
   try {
-    const res = await fetch(`http://localhost:8000/api/portfolio-notes/${id}`, {
-      cache: "no-store", // Selalu ambil data paling segar dari Laravel
-    });
+    const res = await fetch(
+      `https://selfnote.fdevsite.cloud/api/portfolio-notes/${id}`,
+      {
+        cache: "no-store", // Selalu ambil data paling segar dari Laravel
+      },
+    );
 
     if (!res.ok) return null;
     return res.json();
@@ -67,7 +70,7 @@ export default async function BlogPostDetailPage({ params }) {
         {post.images && (
           <div className="relative aspect-[21/9] w-full rounded-2xl overflow-hidden border border-zinc-800 shadow-2xl mb-12">
             <Image
-              src={`http://localhost:8000/storage/${post.images}`}
+              src={`https://selfnote.fdevsite.cloud/storage/${post.images}`}
               alt={post.title}
               fill
               priority
