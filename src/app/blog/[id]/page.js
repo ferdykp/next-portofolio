@@ -4,6 +4,8 @@ import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
 import { notFound } from "next/navigation";
 
+export const dynamic = "force-dynamic";
+
 async function getBlogPostDetail(id) {
   try {
     const res = await fetch(

@@ -2,6 +2,8 @@ import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 
+export const dynamic = "force-dynamic";
+
 // Fungsi untuk mengambil data artikel yang berstatus 'published' dari API Laravel
 async function getBlogPosts() {
   try {
