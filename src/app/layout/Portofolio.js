@@ -17,6 +17,28 @@ export default function Portofolio() {
   // Ditambahkan properti 'category' di setiap proyek untuk sistem filter
   const projects = [
     {
+      title: "GrowPOS - SaaS Multi-Tenant Point of Sale with AI Advisor",
+      category: "web",
+      description:
+        "Full-stack Multi-Tenant SaaS POS for Retail & F&B businesses. Features real-time checkout, dynamic QRIS Midtrans payments, cash audit shifts, automated profit/COGS reports, tenant wallet payout workflows, and Google Gemini AI integration for real-time business advisory and inventory insights.",
+      images: [
+        "/assets/portofolio/growpos/1.png",
+        "/assets/portofolio/growpos/2.png",
+        "/assets/portofolio/growpos/3.png",
+        "/assets/portofolio/growpos/4.png",
+        "/assets/portofolio/growpos/5.png",
+      ],
+      field: "Full-Stack SaaS Web Engineer",
+      techstack: [
+        "Laravel 11",
+        "Tailwind CSS",
+        "Google Gemini AI",
+        "Midtrans Core API",
+        "MySQL",
+        "Alpine.js",
+      ],
+    },
+    {
       title: "Extreme Project - Premium Coil & Cotton Landing Page",
       category: "web",
       description:
