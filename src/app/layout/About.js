@@ -21,6 +21,7 @@ export default function About() {
         "Project Based Learning Talent Scout Academy Kominfo, Pemda Gresik & PT Telkom Indonesia",
         "InnoWork IoT Advantech",
         "Penelitian Lokal: Intelligent System for Detecting Laboratory Presence",
+        "Final Project: IMAGE PROCESSING USING DEEP LEARNING FOR THE PROCESS OF SEARCHING FOR DRAFTING VICTIMS IN THE RIVER USING DRONE",
       ],
     },
     {
