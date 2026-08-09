@@ -18,6 +18,9 @@ export default function About() {
         "Awardee Scholarship Bank Indonesia & Staff of GenBI PENS",
         "Internship at AirNav Juanda & Project Based Learning at PT Telkom Indonesia",
         "Chief of EEPIS Student Organization Kediri",
+        "Project Based Learning Talent Scout Academy Kominfo, Pemda Gresik & PT Telkom Indonesia",
+        "InnoWork IoT Advantech",
+        "Penelitian Lokal: Intelligent System for Detecting Laboratory Presence",
       ],
     },
     {
