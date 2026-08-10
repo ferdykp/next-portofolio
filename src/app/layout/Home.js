@@ -105,7 +105,7 @@ export default function HomeSection() {
       <div className="order-1 md:order-2 flex justify-center w-full md:w-auto relative z-10">
         <div className="relative group">
           <div className="absolute -inset-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-500"></div>
-          <div className="relative w-52 h-52 md:w-72 md:h-72 rounded-2xl overflow-hidden border border-zinc-800 shadow-2xl bg-zinc-900">
+          <div className="relative w-52 h-52 md:w-106 md:h-106 rounded-2xl overflow-hidden border border-zinc-800 shadow-2xl bg-zinc-900">
             <Image
               src="/assets/profile.jpeg"
               alt="Ferdy Kurnia Panggabean"
