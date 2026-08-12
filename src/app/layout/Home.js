@@ -8,7 +8,7 @@ import { FaGithub, FaLinkedinIn, FaInstagram } from "react-icons/fa";
 
 export default function HomeSection() {
   const typedRef = useRef(null);
-  const [time, setTime] = useState(null);
+  // const [time, setTime] = useState(null);
 
   useEffect(() => {
     const typed = new Typed(typedRef.current, {
@@ -25,20 +25,20 @@ export default function HomeSection() {
     return () => typed.destroy();
   }, []);
 
-  useEffect(() => {
-    const update = () =>
-      setTime(
-        new Date().toLocaleTimeString("en-GB", {
-          hour: "2-digit",
-          minute: "2-digit",
-          second: "2-digit",
-          timeZone: "Asia/Jakarta",
-        }),
-      );
-    update();
-    const interval = setInterval(update, 1000);
-    return () => clearInterval(interval);
-  }, []);
+  // useEffect(() => {
+  //   const update = () =>
+  //     setTime(
+  //       new Date().toLocaleTimeString("en-GB", {
+  //         hour: "2-digit",
+  //         minute: "2-digit",
+  //         second: "2-digit",
+  //         timeZone: "Asia/Jakarta",
+  //       }),
+  //     );
+  //   update();
+  //   const interval = setInterval(update, 1000);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   const stats = [
     { label: "Cities deployed", value: "9" },
@@ -146,7 +146,7 @@ export default function HomeSection() {
         </div>
 
         <div className="flex flex-col items-center gap-4">
-          <div className="bracket-frame relative w-56 h-56 md:w-72 md:h-72 rounded-xl overflow-hidden border border-[var(--border)] bg-[var(--surface)]">
+          <div className="bracket-frame relative w-56 h-56 md:w-96 md:h-96 rounded-xl overflow-hidden border border-[var(--border)] bg-[var(--surface)]">
             <Image
               src="/assets/profile.jpeg"
               alt="Ferdy Kurnia Panggabean"
@@ -158,7 +158,7 @@ export default function HomeSection() {
 
           {/* Signature element: telemetry-style status panel */}
           <div className="w-full max-w-xs bg-[var(--surface)] border border-[var(--border)] rounded-xl p-4 font-mono text-[11px]">
-            <div className="flex items-center justify-between mb-3 pb-3 border-b border-[var(--border)]">
+            {/* <div className="flex items-center justify-between mb-3 pb-3 border-b border-[var(--border)]">
               <span className="text-[var(--text-muted)] uppercase tracking-widest">
                 System status
               </span>
@@ -166,16 +166,16 @@ export default function HomeSection() {
                 <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-2)] animate-pulse" />
                 online
               </span>
-            </div>
+            </div> */}
             <div className="space-y-2 text-[var(--text-muted)]">
               <div className="flex justify-between">
                 <span>LOCATION</span>
-                <span className="text-[var(--text)]">Jakarta, ID</span>
+                <span className="text-[var(--text)]">Jakarta, Indonesia</span>
               </div>
-              <div className="flex justify-between">
+              {/* <div className="flex justify-between">
                 <span>LOCAL TIME</span>
                 <span className="text-[var(--text)]">{time || "--:--:--"}</span>
-              </div>
+              </div> */}
               {/* <div className="flex justify-between">
                 <span>STACK</span>
                 <span className="text-[var(--text)]">LARAVEL / TAILWIND</span>
