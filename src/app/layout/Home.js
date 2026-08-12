@@ -173,13 +173,13 @@ export default function HomeSection() {
                 <span className="text-[var(--text)]">Jakarta, ID</span>
               </div>
               <div className="flex justify-between">
-                <span>LOCAL_TIME</span>
+                <span>LOCAL TIME</span>
                 <span className="text-[var(--text)]">{time || "--:--:--"}</span>
               </div>
-              <div className="flex justify-between">
+              {/* <div className="flex justify-between">
                 <span>STACK</span>
                 <span className="text-[var(--text)]">LARAVEL / TAILWIND</span>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
