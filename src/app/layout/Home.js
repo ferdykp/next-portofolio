@@ -41,9 +41,10 @@ export default function HomeSection() {
   // }, []);
 
   const stats = [
-    { label: "Cities deployed", value: "9" },
-    { label: "Production systems", value: "2" },
-    { label: "Years engineering", value: "1.5+" },
+    // { label: "Cities deployed", value: "9" },
+    // { label: "Production systems", value: "2" },
+    { label: "Years Study College", value: "4" },
+    { label: "Years Work Experience", value: "1.5+" },
   ];
 
   return (
@@ -131,7 +132,7 @@ export default function HomeSection() {
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-6 max-w-md pt-6 border-t border-[var(--border)]">
+          <div className="grid grid-cols-2 gap-6 max-w-md pt-6 border-t border-[var(--border)]">
             {stats.map((s) => (
               <div key={s.label}>
                 <div className="font-display text-2xl font-bold text-[var(--text)]">
@@ -157,7 +158,7 @@ export default function HomeSection() {
           </div>
 
           {/* Signature element: telemetry-style status panel */}
-          <div className="w-full max-w-xs bg-[var(--surface)] border border-[var(--border)] rounded-xl p-4 font-mono text-[11px]">
+          <div className="w-full max-w-96 bg-[var(--surface)] border border-[var(--border)] rounded-xl p-4 font-mono text-[11px]">
             {/* <div className="flex items-center justify-between mb-3 pb-3 border-b border-[var(--border)]">
               <span className="text-[var(--text-muted)] uppercase tracking-widest">
                 System status
@@ -168,7 +169,7 @@ export default function HomeSection() {
               </span>
             </div> */}
             <div className="space-y-2 text-[var(--text-muted)]">
-              <div className="flex justify-between">
+              <div className="flex  justify-between">
                 <span>LOCATION</span>
                 <span className="text-[var(--text)]">Jakarta, Indonesia</span>
               </div>
