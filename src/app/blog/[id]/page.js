@@ -11,10 +11,9 @@ async function getBlogPostDetail(id) {
     const res = await fetch(
       `https://selfnote.fdevsite.cloud/api/portfolio-notes/${id}`,
       {
-        cache: "no-store", // Selalu ambil data paling segar dari Laravel
+        cache: "no-store",
       },
     );
-
     if (!res.ok) return null;
     return res.json();
   } catch (error) {
@@ -44,33 +43,32 @@ export default async function BlogPostDetailPage({ params }) {
   }
 
   return (
-    <div className="bg-zinc-950 min-h-screen text-white selection:bg-blue-600 selection:text-white antialiased">
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] selection:bg-[var(--accent)] selection:text-[var(--bg)] antialiased">
       <Navbar />
 
-      <main className="px-6 pt-28 pb-20 max-w-4xl mx-auto relative z-10">
+      <main className="px-6 pt-28 pb-20 max-w-4xl mx-auto">
         <Link
           href="/blog"
-          className="inline-flex items-center gap-2 text-sm text-zinc-400 hover:text-white font-medium mb-10 transition-colors"
+          className="inline-flex items-center gap-2 text-sm font-mono text-[var(--text-muted)] hover:text-[var(--accent)] mb-10 transition-colors"
         >
-          ← Back to Blog
+          ← Back to blog
         </Link>
 
         <header className="mb-10">
-          <div className="text-sm font-mono text-zinc-500 mb-4">
+          <div className="text-xs font-mono text-[var(--text-muted)] mb-4">
             {new Date(post.created_at).toLocaleDateString("id-ID", {
               day: "numeric",
               month: "long",
               year: "numeric",
             })}
           </div>
-          <h1 className="text-3xl md:text-5xl font-black tracking-tight text-white mb-6 leading-tight">
+          <h1 className="font-display text-3xl md:text-5xl font-bold tracking-tight text-[var(--text)] mb-6 leading-tight">
             {post.title}
           </h1>
         </header>
 
-        {/* Main Cover Image — Menggunakan post.images */}
         {post.images && (
-          <div className="relative aspect-[21/9] w-full rounded-2xl overflow-hidden border border-zinc-800 shadow-2xl mb-12">
+          <div className="relative aspect-[21/9] w-full rounded-xl overflow-hidden border border-[var(--border)] mb-12">
             <Image
               src={`https://selfnote.fdevsite.cloud/storage/${post.images}`}
               alt={post.title}
@@ -82,9 +80,10 @@ export default async function BlogPostDetailPage({ params }) {
         )}
 
         <article
-          className="prose prose-invert prose-zinc max-w-none 
-            prose-headings:font-bold prose-headings:tracking-tight prose-a:text-blue-400 prose-strong:text-white
-            prose-p:leading-relaxed prose-p:text-zinc-300 prose-li:text-zinc-300"
+          className="prose prose-invert max-w-none
+            prose-headings:font-display prose-headings:font-bold prose-headings:tracking-tight
+            prose-a:text-[var(--accent)] prose-strong:text-[var(--text)]
+            prose-p:leading-relaxed prose-p:text-[var(--text-muted)] prose-li:text-[var(--text-muted)]"
           dangerouslySetInnerHTML={{ __html: post.content }}
         />
       </main>

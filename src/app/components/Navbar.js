@@ -3,151 +3,160 @@
 import { useState, useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
+import { FiSun, FiMoon, FiMenu, FiX } from "react-icons/fi";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [isLight, setIsLight] = useState(false);
   const pathname = usePathname();
   const router = useRouter();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 50);
-    };
+    const handleScroll = () => setIsScrolled(window.scrollY > 40);
     window.addEventListener("scroll", handleScroll);
+    setIsLight(document.documentElement.classList.contains("light"));
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const toggleTheme = () => {
+    const next = !isLight;
+    setIsLight(next);
+    document.documentElement.classList.toggle("light", next);
+    try {
+      localStorage.setItem("theme", next ? "light" : "dark");
+    } catch (e) {}
+  };
 
   const handleNavClick = (e, id) => {
     e.preventDefault();
     setIsMenuOpen(false);
-
-    // Cek jika saat ini merupakan halaman blog (bukan beranda '/')
     const isBlogPage = pathname.startsWith("/blog");
 
     if (id === "blog") {
-      // Jika klik menu Blog, langsung pindah ke route /blog tanpa scroll id
       router.push("/blog");
+      return;
+    }
+    if (isBlogPage) {
+      router.push(`/#${id}`);
     } else {
-      if (isBlogPage) {
-        // Jika sedang di halaman blog dan klik menu home/about/portofolio/contact,
-        // redirect ke home membawa hash anchor target
-        router.push(`/#${id}`);
-      } else {
-        // Jika sudah berada di Beranda, lakukan smooth scroll langsung ke elemen target
-        const target = document.getElementById(id);
-        if (target) {
-          target.scrollIntoView({ behavior: "smooth" });
-        }
-      }
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
   const navItems = [
     { label: "Home", id: "home" },
     { label: "About", id: "about" },
-    { label: "Portofolio", id: "portofolio" },
-    { label: "Kontak", id: "contact" },
-    { label: "My Blog", id: "blog" },
+    { label: "Work", id: "portofolio" },
+    { label: "Contact", id: "contact" },
+    { label: "Blog", id: "blog" },
   ];
 
   return (
-    <div className="fixed top-0 left-0 right-0 z-50 flex justify-center p-0 sm:p-4 transition-all duration-500 ease-out">
+    <div className="fixed top-0 left-0 right-0 z-50 flex justify-center px-0 sm:px-4 pt-0 sm:pt-4">
       <nav
-        className={`w-full transition-all duration-500 ease-in-out font-sans flex justify-between items-center px-8
-          ${
-            isScrolled
-              ? "max-w-4xl bg-black/60 backdrop-blur-xl py-3 rounded-full border border-white/10 shadow-[0_0_30px_rgba(59,130,246,0.15)] md:px-10"
-              : "max-w-7xl bg-transparent py-6 border-b border-transparent"
-          }`}
+        className={`w-full flex justify-between items-center px-6 transition-all duration-500 ease-out font-body ${
+          isScrolled
+            ? "max-w-4xl bg-[var(--bg-elevated)]/90 backdrop-blur-xl py-3 rounded-2xl border border-[var(--border)] shadow-lg md:px-8"
+            : "max-w-7xl bg-transparent py-6 border-b border-transparent"
+        }`}
       >
-        {/* Brand / Logo */}
         <Link
           href="/"
-          className="text-2xl font-black tracking-tighter bg-gradient-to-r from-white via-gray-200 to-blue-400 bg-clip-text text-transparent hover:scale-105 transition-transform duration-300"
           onClick={(e) => handleNavClick(e, "home")}
+          className="font-display text-xl font-bold tracking-tight text-[var(--text)]"
         >
-          FERDY<span className="text-blue-500">.</span>
+          FKP<span className="text-[var(--accent)]">.</span>
         </Link>
 
-        {/* Desktop Menu - Floating Pill Style */}
-        <div className="hidden md:flex items-center space-x-1 bg-white/5 rounded-full p-1 border border-white/5 backdrop-blur-sm">
+        <div className="hidden md:flex items-center gap-1 border border-[var(--border)] rounded-full px-1 py-1">
           {navItems.map(({ label, id }) => {
-            // Logika penentuan status active menu blog secara visual
             const isBlogActive = id === "blog" && pathname.startsWith("/blog");
-
             return (
               <a
                 key={id}
                 href={id === "blog" ? "/blog" : `/#${id}`}
                 onClick={(e) => handleNavClick(e, id)}
-                className={`px-5 py-2 text-xs uppercase tracking-widest font-semibold transition-all duration-300 rounded-full relative group
-                  ${isBlogActive ? "text-white bg-white/10" : "text-gray-400 hover:text-white hover:bg-white/10"}`}
+                className={`px-4 py-1.5 text-xs font-mono uppercase tracking-widest rounded-full transition-colors duration-200 ${
+                  isBlogActive
+                    ? "text-[var(--bg)] bg-[var(--accent)]"
+                    : "text-[var(--text-muted)] hover:text-[var(--text)]"
+                }`}
               >
                 {label}
-                <span
-                  className={`absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 bg-blue-400 rounded-full transition-opacity duration-300 ${isBlogActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"}`}
-                />
               </a>
             );
           })}
         </div>
 
-        {/* CTA Button */}
-        <div className="hidden md:flex items-center">
+        <div className="hidden md:flex items-center gap-3">
+          <button
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            className="w-9 h-9 flex items-center cursor-pointer justify-center rounded-full border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--accent)] hover:border-[var(--accent)] transition-colors"
+          >
+            {isLight ? (
+              <FiMoon className="w-4 h-4" />
+            ) : (
+              <FiSun className="w-4 h-4" />
+            )}
+          </button>
           <a
             href="#contact"
             onClick={(e) => handleNavClick(e, "contact")}
-            className="px-5 py-2 text-xs font-bold uppercase tracking-wider text-white bg-gradient-to-r from-blue-600 to-indigo-600 rounded-full hover:shadow-[0_0_20px_rgba(59,130,246,0.5)] hover:scale-105 transition-all duration-300"
+            className="px-4 py-2 text-xs font-mono font-semibold uppercase tracking-widest text-[var(--bg)] bg-[var(--accent)] rounded-full hover:opacity-90 transition-opacity"
           >
-            Talk With Me
+            Let&apos;s talk
           </a>
         </div>
 
-        {/* Mobile Burger Menu Button */}
-        <div className="md:hidden flex items-center">
+        <div className="md:hidden flex items-center gap-2">
           <button
-            className="text-white focus:outline-none p-2 z-50 mix-blend-difference"
-            onClick={() => setIsMenuOpen((prev) => !prev)}
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            className="w-9 h-9 flex items-center justify-center rounded-full border border-[var(--border)] text-[var(--text-muted)]"
+          >
+            {isLight ? (
+              <FiMoon className="w-4 h-4" />
+            ) : (
+              <FiSun className="w-4 h-4" />
+            )}
+          </button>
+          <button
+            className="w-9 h-9 flex items-center justify-center text-[var(--text)]"
+            onClick={() => setIsMenuOpen((p) => !p)}
             aria-label="Toggle menu"
           >
-            <div className="w-6 h-4 flex flex-col justify-between relative">
-              <span
-                className={`w-full h-[1.5px] bg-white rounded transition-all duration-300 ${isMenuOpen ? "rotate-45 translate-y-[7px]" : ""}`}
-              />
-              <span
-                className={`w-3/4 h-[1.5px] bg-white rounded transition-all duration-300 self-end ${isMenuOpen ? "opacity-0 w-0" : ""}`}
-              />
-              <span
-                className={`w-full h-[1.5px] bg-white rounded transition-all duration-300 ${isMenuOpen ? "-rotate-45 -translate-y-[7px]" : ""}`}
-              />
-            </div>
+            {isMenuOpen ? (
+              <FiX className="w-5 h-5" />
+            ) : (
+              <FiMenu className="w-5 h-5" />
+            )}
           </button>
         </div>
       </nav>
 
-      {/* Mobile Menu Overlay */}
       <div
-        className={`fixed inset-0 bg-black/40 backdrop-blur-2xl z-40 flex flex-col justify-center items-center transition-all duration-700 md:hidden
-          ${isMenuOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"}`}
+        className={`fixed inset-0 bg-[var(--bg)]/97 backdrop-blur-xl z-40 flex flex-col justify-center items-center gap-8 transition-opacity duration-500 md:hidden ${
+          isMenuOpen
+            ? "opacity-100 pointer-events-auto"
+            : "opacity-0 pointer-events-none"
+        }`}
       >
-        <div className="flex flex-col space-y-8 text-center">
-          {navItems.map(({ label, id }, index) => (
-            <a
-              key={id}
-              href={id === "blog" ? "/blog" : `/#${id}`}
-              onClick={(e) => handleNavClick(e, id)}
-              style={{
-                transitionDelay: isMenuOpen ? `${index * 50}ms` : "0ms",
-                transform: isMenuOpen ? "translateY(0)" : "translateY(30px)",
-              }}
-              className={`text-3xl font-light tracking-widest transition-all duration-500 uppercase hover:scale-110
-                ${id === "blog" && pathname.startsWith("/blog") ? "text-white font-semibold" : "text-gray-400 hover:text-white"}`}
-            >
-              {label}
-            </a>
-          ))}
-        </div>
+        {navItems.map(({ label, id }, index) => (
+          <a
+            key={id}
+            href={id === "blog" ? "/blog" : `/#${id}`}
+            onClick={(e) => handleNavClick(e, id)}
+            style={{
+              transitionDelay: isMenuOpen ? `${index * 50}ms` : "0ms",
+              transform: isMenuOpen ? "translateY(0)" : "translateY(20px)",
+            }}
+            className="font-display text-3xl font-semibold tracking-tight text-[var(--text)] transition-all duration-500"
+          >
+            {label}
+          </a>
+        ))}
       </div>
     </div>
   );

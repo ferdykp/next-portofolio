@@ -1,118 +1,186 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import Typed from "typed.js";
-import { FaGithub, FaInstagram, FaLinkedinIn } from "react-icons/fa";
+import { motion } from "framer-motion";
+import { FaGithub, FaLinkedinIn, FaInstagram } from "react-icons/fa";
 
 export default function HomeSection() {
   const typedRef = useRef(null);
+  const [time, setTime] = useState(null);
 
   useEffect(() => {
     const typed = new Typed(typedRef.current, {
-      // Memperbaiki grammar dari "an Software" menjadi "a Software"
       strings: [
-        "a Software Engineer.",
-        "a Full-Stack Developer.",
-        "an IoT Architect.",
+        "Full-Stack Software Engineer.",
+        "Laravel & DevOps Specialist.",
+        "Systems Builder.",
       ],
-      typeSpeed: 70,
-      backSpeed: 40,
-      backDelay: 2500,
+      typeSpeed: 55,
+      backSpeed: 30,
+      backDelay: 2200,
       loop: true,
     });
-
     return () => typed.destroy();
   }, []);
+
+  useEffect(() => {
+    const update = () =>
+      setTime(
+        new Date().toLocaleTimeString("en-GB", {
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+          timeZone: "Asia/Jakarta",
+        }),
+      );
+    update();
+    const interval = setInterval(update, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const stats = [
+    { label: "Cities deployed", value: "9" },
+    { label: "Production systems", value: "2" },
+    { label: "Years engineering", value: "1.5+" },
+  ];
 
   return (
     <section
       id="home"
-      className="relative flex flex-col md:flex-row items-center justify-between gap-12 py-20 md:py-32 border-b border-zinc-800 overflow-hidden"
+      className="relative pt-16 pb-24 md:pt-24 md:pb-32 border-b border-[var(--border)] overflow-hidden"
     >
-      {/* Background Soft Glow Premium */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-blue-600/10 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="bp-grid absolute inset-0 -z-10" />
 
-      <div className="text-center md:text-left max-w-xl order-2 md:order-1 relative z-10">
-        {/* Mengubah badge menjadi status profesional industri saat ini */}
-        <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-zinc-900 border border-zinc-800 text-xs font-mono text-blue-400 mb-6">
-          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          Currently working as a Software Engineer
-        </span>
-
-        <h1 className="text-4xl md:text-6xl font-black tracking-tight text-white mb-4 leading-tight">
-          Hi, I&apos;m <br />
-          <span className="bg-gradient-to-r from-white to-zinc-400 bg-clip-text text-transparent">
-            Ferdy Kurnia Panggabean
-          </span>
-        </h1>
-
-        <p className="text-zinc-400 text-xl md:text-2xl font-medium mb-6 min-h-[40px]">
-          I am{" "}
-          <span
-            ref={typedRef}
-            className="text-blue-500 font-semibold underline decoration-zinc-800"
-          />
-        </p>
-
-        {/* Menyesuaikan deskripsi dengan bobot Engineer yang menangani real-world application */}
-        <p className="text-zinc-400 text-sm md:text-base leading-relaxed mb-8 max-w-md text-balance">
-          Specialized in building scalable full-stack web applications,
-          optimizing backend architectures, and bridging ecosystem gaps with
-          robust hardware/IoT integrations.
-        </p>
-
-        <div className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
-          <a
-            href="#contact"
-            className="w-full sm:w-auto text-center bg-blue-600 hover:bg-blue-500 text-white font-semibold px-6 py-3.5 rounded-lg transition-all duration-200 text-sm shadow-lg shadow-blue-600/20"
+      <div className="grid grid-cols-1 lg:grid-cols-[1.15fr_0.85fr] gap-14 items-center">
+        <div>
+          <motion.span
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[var(--border)] text-xs font-mono text-[var(--accent-2)] mb-6"
           >
-            Let&apos;s Connect
-          </a>
-          <div className="flex items-center gap-3">
-            {[
-              {
-                href: "https://github.com/ferdykp",
-                icon: FaGithub,
-                label: "GitHub",
-              },
-              {
-                href: "https://www.linkedin.com/in/ferdy-kurnia-panggabean-4146631b8/",
-                icon: FaLinkedinIn,
-                label: "LinkedIn",
-              },
-              {
-                href: "https://www.instagram.com/ferdy.panggabean/",
-                icon: FaInstagram,
-                label: "Instagram",
-              },
-            ].map(({ href, icon: Icon, label }) => (
-              <a
-                key={label}
-                href={href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={label}
-                className="p-3 text-zinc-400 hover:text-white border border-zinc-800 hover:border-zinc-700 bg-zinc-900/50 rounded-lg transition-all"
-              >
-                <Icon className="w-5 h-5" />
-              </a>
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-2)] animate-pulse" />
+            Currently building at Nuctech Company Limited
+          </motion.span>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.05 }}
+            className="font-display text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight text-[var(--text)] mb-4 leading-[1.05]"
+          >
+            Ferdy Kurnia
+            <br />
+            Panggabean
+          </motion.h1>
+
+          <p className="text-[var(--text-muted)] text-lg md:text-xl font-medium mb-6 min-h-[32px] font-mono">
+            <span ref={typedRef} className="text-[var(--accent)]" />
+          </p>
+
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.1 }}
+            className="text-[var(--text-muted)] text-base leading-relaxed mb-9 max-w-lg"
+          >
+            I design and ship production-grade full-stack systems — from
+            multi-branch warehouse platforms to multi-tenant SaaS — leading
+            projects end-to-end through Laravel, Tailwind, and DevOps
+            infrastructure.
+          </motion.p>
+
+          <div className="flex flex-wrap items-center gap-4 mb-12">
+            <a
+              href="#contact"
+              className="bg-[var(--accent)] text-[var(--bg)] font-mono font-semibold uppercase tracking-widest text-xs px-6 py-3.5 rounded-lg hover:opacity-90 transition-opacity"
+            >
+              Get in touch
+            </a>
+            <div className="flex items-center gap-2">
+              {[
+                {
+                  href: "https://github.com/ferdykp",
+                  icon: FaGithub,
+                  label: "GitHub",
+                },
+                {
+                  href: "https://www.linkedin.com/in/ferdy-kurnia-panggabean-4146631b8/",
+                  icon: FaLinkedinIn,
+                  label: "LinkedIn",
+                },
+                {
+                  href: "https://www.instagram.com/ferdy.panggabean/",
+                  icon: FaInstagram,
+                  label: "Instagram",
+                },
+              ].map(({ href, icon: Icon, label }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  className="w-11 h-11 flex items-center justify-center text-[var(--text-muted)] hover:text-[var(--accent)] border border-[var(--border)] hover:border-[var(--accent)] rounded-lg transition-colors"
+                >
+                  <Icon className="w-4 h-4" />
+                </a>
+              ))}
+            </div>
+          </div>
+
+          <div className="grid grid-cols-3 gap-6 max-w-md pt-6 border-t border-[var(--border)]">
+            {stats.map((s) => (
+              <div key={s.label}>
+                <div className="font-display text-2xl font-bold text-[var(--text)]">
+                  {s.value}
+                </div>
+                <div className="text-[11px] font-mono text-[var(--text-muted)] uppercase tracking-wide mt-1">
+                  {s.label}
+                </div>
+              </div>
             ))}
           </div>
         </div>
-      </div>
 
-      <div className="order-1 md:order-2 flex justify-center w-full md:w-auto relative z-10">
-        <div className="relative group">
-          <div className="absolute -inset-1.5 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-500"></div>
-          <div className="relative w-52 h-52 md:w-106 md:h-106 rounded-2xl overflow-hidden border border-zinc-800 shadow-2xl bg-zinc-900">
+        <div className="flex flex-col items-center gap-4">
+          <div className="bracket-frame relative w-56 h-56 md:w-72 md:h-72 rounded-xl overflow-hidden border border-[var(--border)] bg-[var(--surface)]">
             <Image
               src="/assets/profile.jpeg"
               alt="Ferdy Kurnia Panggabean"
               fill
               priority
-              className="object-cover grayscale hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
+              className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
             />
+          </div>
+
+          {/* Signature element: telemetry-style status panel */}
+          <div className="w-full max-w-xs bg-[var(--surface)] border border-[var(--border)] rounded-xl p-4 font-mono text-[11px]">
+            <div className="flex items-center justify-between mb-3 pb-3 border-b border-[var(--border)]">
+              <span className="text-[var(--text-muted)] uppercase tracking-widest">
+                System status
+              </span>
+              <span className="flex items-center gap-1.5 text-[var(--accent-2)]">
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-2)] animate-pulse" />
+                online
+              </span>
+            </div>
+            <div className="space-y-2 text-[var(--text-muted)]">
+              <div className="flex justify-between">
+                <span>LOCATION</span>
+                <span className="text-[var(--text)]">Jakarta, ID</span>
+              </div>
+              <div className="flex justify-between">
+                <span>LOCAL_TIME</span>
+                <span className="text-[var(--text)]">{time || "--:--:--"}</span>
+              </div>
+              <div className="flex justify-between">
+                <span>STACK</span>
+                <span className="text-[var(--text)]">LARAVEL / TAILWIND</span>
+              </div>
+            </div>
           </div>
         </div>
       </div>

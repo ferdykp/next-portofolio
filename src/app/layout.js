@@ -1,17 +1,24 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Space_Grotesk, Inter, IBM_Plex_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
+  weight: ["500", "600", "700"],
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
+  weight: ["400", "500", "600"],
 });
 
-// Domain portofolio sesuai CV Anda
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  subsets: ["latin"],
+  weight: ["400", "500", "600"],
+});
+
 const siteUrl = "https://fdevsite.cloud";
 
 export const metadata = {
@@ -21,13 +28,13 @@ export const metadata = {
     template: "%s | Ferdy Kurnia Panggabean",
   },
   description:
-    "Portofolio profesional Ferdy Kurnia Panggabean, Full Stack Software Engineer & DevOps yang berpengalaman dalam Laravel, Tailwind CSS, Vue.js, Node.js, dan infrastruktur Cloud/DevOps.",
+    "Portofolio profesional Ferdy Kurnia Panggabean, Full Stack Software Engineer & DevOps yang berpengalaman membangun sistem enterprise (WMS, ERP), SaaS multi-tenant, dan integrasi IoT.",
   keywords: [
     "Ferdy Kurnia Panggabean",
     "Full Stack Software Engineer",
     "DevOps Engineer",
     "Laravel Developer",
-    "Web Developer Jakarta",
+    "Web Developer Surabaya",
     "Tailwind CSS",
     "Vue.js",
     "Node.js",
@@ -39,14 +46,14 @@ export const metadata = {
   openGraph: {
     title: "Ferdy Kurnia Panggabean | Full Stack Software Engineer & DevOps",
     description:
-      "Portofolio profesional Ferdy Kurnia Panggabean, menampilkan pengalamannya membangun sistem enterprise, ERP, IoT integration, dan DevOps deployment.",
+      "Portofolio profesional Ferdy Kurnia Panggabean, menampilkan pengalamannya membangun sistem enterprise, ERP, SaaS multi-tenant, dan integrasi IoT.",
     url: siteUrl,
     siteName: "Ferdy Kurnia Panggabean Portfolio",
     locale: "en_US",
     type: "website",
     images: [
       {
-        url: "/og-image.png", // Pastikan Anda menyimpannya di folder /public/og-image.png
+        url: "/og-image.png",
         width: 1200,
         height: 630,
         alt: "Ferdy Kurnia Panggabean Portfolio Preview",
@@ -67,7 +74,6 @@ export const metadata = {
 };
 
 export default function RootLayout({ children }) {
-  // Schema Structured Data (Person) untuk Google Search Knowledge Graph
   const jsonLd = {
     "@context": "https://schema.org",
     "@type": "Person",
@@ -85,7 +91,7 @@ export default function RootLayout({ children }) {
     },
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Jakarta",
+      addressLocality: "Surabaya",
       addressCountry: "Indonesia",
     },
     sameAs: [
@@ -111,17 +117,24 @@ export default function RootLayout({ children }) {
     ],
   };
 
+  // Prevents theme flash: applies saved theme before paint.
+  const themeInitScript = `
+    (function() {
+      try {
+        var saved = localStorage.getItem("theme");
+        var theme = saved || "dark";
+        if (theme === "light") document.documentElement.classList.add("light");
+      } catch (e) {}
+    })();
+  `;
+
   return (
-    <html lang="en">
-      <head>
-        {/* <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        /> */}
-      </head>
+    <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${spaceGrotesk.variable} ${inter.variable} ${plexMono.variable} antialiased`}
+        suppressHydrationWarning
       >
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
