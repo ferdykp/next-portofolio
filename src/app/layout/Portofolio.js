@@ -270,7 +270,7 @@ export default function Portofolio() {
         }
       `}</style>
 
-      <SectionLabel index={2} title="Selected Work" />
+      <SectionLabel index={3} title="Selected Work" />
 
       <Reveal className="max-w-2xl mb-10">
         <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-[var(--text)] mb-4">

@@ -1,5 +1,6 @@
 import Navbar from "./components/Navbar";
 import About from "./layout/About";
+import Experience from "./layout/Experience";
 import Portofolio from "./layout/Portofolio";
 import Contact from "./layout/Contact";
 import Footer from "./components/Footer";
@@ -15,6 +16,7 @@ export default function Home() {
       <main className="px-6 pt-20 max-w-7xl mx-auto">
         <HomeSection />
         <About />
+        <Experience />
         <Portofolio />
         <Contact />
       </main>

@@ -4,7 +4,7 @@ import Reveal from "../components/Reveal";
 export default function Contact() {
   return (
     <section id="contact" className="py-24 md:py-28">
-      <SectionLabel index={3} title="Contact" />
+      <SectionLabel index={4} title="Contact" />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-14">
         <Reveal>

@@ -62,7 +62,7 @@ export default function HomeSection() {
             className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-[var(--border)] text-xs font-mono text-[var(--accent-2)] mb-6"
           >
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-2)] animate-pulse" />
-            Currently building at Nuctech Company Limited
+            Current position as a Software Engineer{" "}
           </motion.span>
 
           <motion.h1

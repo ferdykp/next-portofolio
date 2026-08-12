@@ -47,6 +47,7 @@ export default function Navbar() {
   const navItems = [
     { label: "Home", id: "home" },
     { label: "About", id: "about" },
+    { label: "Experience", id: "experience" },
     { label: "Work", id: "portofolio" },
     { label: "Contact", id: "contact" },
     { label: "Blog", id: "blog" },
@@ -93,7 +94,7 @@ export default function Navbar() {
           <button
             onClick={toggleTheme}
             aria-label="Toggle theme"
-            className="w-9 h-9 flex items-center cursor-pointer justify-center rounded-full border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--accent)] hover:border-[var(--accent)] transition-colors"
+            className="w-9 h-9 flex items-center justify-center rounded-full border border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--accent)] hover:border-[var(--accent)] transition-colors"
           >
             {isLight ? (
               <FiMoon className="w-4 h-4" />
