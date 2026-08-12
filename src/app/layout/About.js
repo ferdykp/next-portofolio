@@ -22,6 +22,7 @@ export default function About() {
         "InnoWork IoT Advantech",
         "Penelitian Lokal: Intelligent System for Detecting Laboratory Presence",
         "Final Project: IMAGE PROCESSING USING DEEP LEARNING FOR THE PROCESS OF SEARCHING FOR DRAFTING VICTIMS IN THE RIVER USING DRONE",
+        "TOEFL Score : 450",
       ],
     },
     {
