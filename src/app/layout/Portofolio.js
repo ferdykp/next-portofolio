@@ -14,8 +14,26 @@ export default function Portofolio() {
   const [selectedCategory, setSelectedCategory] = useState("all");
   const modalRef = useRef();
 
-  // Ditambahkan properti 'category' di setiap proyek untuk sistem filter
   const projects = [
+    {
+      title: "Enterprise Operational Expense & Reimbursement Claim System",
+      category: "web",
+      description:
+        "Full-stack Expense Claim Platform featuring a multi-tier digital signatures approval workflow (Staff to Manager), real-time AJAX server-side search with debounce, automatic PDF slicing/stitching engine via Ghostscript & FPDI, and exportable financial summaries in PDF & Excel.",
+      images: [
+        "/assets/portofolio/reimbursement/1.png",
+        "/assets/portofolio/reimbursement/2.png",
+      ],
+      field: "Full-Stack Web Engineer",
+      techstack: [
+        "Laravel 11",
+        "Tailwind CSS",
+        "AJAX & JS",
+        "FPDI & Ghostscript",
+        "MySQL",
+        "Blade",
+      ],
+    },
     {
       title: "GrowPOS - SaaS Multi-Tenant Point of Sale with AI Advisor",
       category: "web",
@@ -120,46 +138,78 @@ export default function Portofolio() {
       techstack: ["Vue.js", "Node.js", "Advantech Hardware", "GPS Integration"],
     },
     {
-      title: "College Final Project - Image Processing Deep Learning",
+      title:
+        "Hybrid HOG-SVM Method for Drifting Victims Image Detection in Rivers",
       category: "ai",
       description:
-        "Computer Vision and Image Processing application using Deep Learning algorithms for the automated process of searching and detecting drowning/drifting victims in river streams.",
+        "Computer vision research using Unmanned Aerial Vehicles (UAV/Drones) and machine learning algorithms to detect drowning and drifting victims in river streams. Features a hybrid approach combining Histogram of Oriented Gradients (HOG) for feature extraction, Support Vector Machine (Linear SVC) achieving 93.88% classification accuracy (Precision 91.5%, Recall 97.06%), and Non-Maximum Suppression (NMS) to eliminate redundant bounding boxes across 9,957 image datasets.",
       images: [
+        "/assets/portofolio/ta/1.png",
+        "/assets/portofolio/ta/2.png",
+        "/assets/portofolio/ta/3.png",
+        "/assets/portofolio/ta/4.png",
+        "/assets/portofolio/ta/5.png",
+        "/assets/portofolio/ta/6.png",
         "/assets/portofolio/ta/ta1.jpeg",
         "/assets/portofolio/ta/ta2.jpg",
         "/assets/portofolio/ta/ta3.jpeg",
       ],
-      field: "AI & Computer Vision Engineer",
-      techstack: ["Python", "Deep Learning", "OpenCV", "Image Processing"],
+      field: "AI & Computer Vision Researcher",
+      techstack: [
+        "Python",
+        "HOG Descriptor",
+        "Linear SVM (SVC)",
+        "Non-Maximum Suppression (NMS)",
+        "OpenCV",
+        "Scikit-Learn",
+      ],
     },
     {
-      title: "Platform Website Team SAR for Basarnas",
+      title:
+        "Drone-Based River Victim Search & Evacuation Platform for BASARNAS",
       category: "web",
       description:
-        "A collaborative rescue monitoring web platform built to showcase our group final project, including all related command center products, coordinates, and response features.",
+        "A collaborative rescue monitoring web platform integrated with drone aerial imagery and YOLOv5 deep learning object detection to assist BASARNAS search and rescue operations. Features real-time detection of drowning/drifting victims with 89.85% accuracy (Precision 91.62%, Recall 97.89%), EXIF GPS metadata extraction (latitude/longitude) for automated victim geolocation mapping, interactive Leaflet/Maps markers, and a Flask back-end architecture.",
       images: [
         "/assets/portofolio/sarteam/sarteam1.png",
         "/assets/portofolio/sarteam/sarteam2.png",
+        "/assets/portofolio/sarteam/1.png",
+        "/assets/portofolio/sarteam/2.png",
+        "/assets/portofolio/sarteam/3.png",
       ],
-      field: "Web Front-End Developer",
-      techstack: ["Next.js", "Tailwind CSS", "JavaScript", "Maps API"],
+      field: "Full-Stack Web & AI Integrator",
+      techstack: [
+        "Python",
+        "Flask Framework",
+        "YOLOv5 Deep Learning",
+        "Leaflet.js / Maps API",
+        "EXIF Metadata Parsing",
+        "OpenCV",
+      ],
     },
     {
-      title: "Intelligent System for Detecting Laboratory Presence",
+      title:
+        "IoT-Based Intelligent System for Laboratory Human Presence Detection",
       category: "smart-system",
       description:
-        "A smart building automation monitoring system designed to detect human presence inside the electronics laboratory, enhancing facility safety profiles and dynamic energy efficiency.",
+        "Developed an IoT-based web-enabled laboratory security system using ESP32-CAM and PIR motion sensors to monitor and capture human presence in real-time. Features automated infrared heat-wave detection up to 7 meters (average response delay ~2.13s), dynamic image capture transmission to a centralized database in ~0.22 seconds, and a web monitoring dashboard for live activity logging and timestamp tracking.",
       images: [
         "/assets/portofolio/penlok/penlok1.png",
         "/assets/portofolio/penlok/penlok2.jpeg",
         "/assets/portofolio/penlok/penlok3.jpeg",
       ],
-      field: "Smart System Engineer",
-      techstack: ["Embedded Systems", "Sensors", "Node.js", "Dashboard"],
+      field: "IoT & Embedded System Engineer",
+      techstack: [
+        "ESP32-CAM",
+        "PIR Sensor (HC-SR501)",
+        "FT232RL (TTL)",
+        "EasyEDA (PCB Design)",
+        "IoT Web Dashboard",
+        "Database System",
+      ],
     },
   ];
 
-  // Daftar tombol kategori filter
   const filterCategories = [
     { id: "all", label: "All Projects" },
     { id: "web", label: "Web Apps" },
@@ -169,7 +219,6 @@ export default function Portofolio() {
     { id: "smart-system", label: "Smart Systems" },
   ];
 
-  // Melakukan filter project berdasarkan category state yang aktif
   const filteredProjects =
     selectedCategory === "all"
       ? projects
@@ -188,6 +237,32 @@ export default function Portofolio() {
 
   return (
     <section id="portofolio" className="py-20 border-b border-zinc-800">
+      {/* Custom CSS overrides untuk panah navigasi Swiper */}
+      <style jsx global>{`
+        .portfolio-swiper .swiper-button-next,
+        .portfolio-swiper .swiper-button-prev {
+          color: #ffffff;
+          background: rgba(24, 24, 27, 0.7);
+          backdrop-filter: blur(4px);
+          width: 32px;
+          height: 32px;
+          border-radius: 9999px;
+          border: 1px solid rgba(63, 63, 70, 0.6);
+          transition: all 0.2s ease;
+        }
+        .portfolio-swiper .swiper-button-next:hover,
+        .portfolio-swiper .swiper-button-prev:hover {
+          background: rgba(39, 39, 42, 0.9);
+          border-color: rgba(113, 113, 122, 0.8);
+          color: #60a5fa;
+        }
+        .portfolio-swiper .swiper-button-next::after,
+        .portfolio-swiper .swiper-button-prev::after {
+          font-size: 13px;
+          font-weight: bold;
+        }
+      `}</style>
+
       <div className="text-center max-w-2xl mx-auto mb-10">
         <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-white mb-4">
           Selected Portfolio
@@ -198,7 +273,6 @@ export default function Portofolio() {
         </p>
       </div>
 
-      {/* TABS FILTER BUTTONS */}
       <div className="flex flex-wrap justify-center items-center gap-2 mb-12 max-w-3xl mx-auto px-4">
         {filterCategories.map((category) => (
           <button
@@ -215,43 +289,42 @@ export default function Portofolio() {
         ))}
       </div>
 
-      {/* Grid Proyek dengan animasi Framer Motion */}
       <motion.div
         layout
         className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
       >
         <AnimatePresence mode="popLayout">
-          {filteredProjects.map((project, idx) => (
+          {filteredProjects.map((project) => (
             <motion.div
               layout
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 0.9 }}
               transition={{ duration: 0.25 }}
-              key={project.title} // Menggunakan title unik sebagai key agar animasi exit terpicu dengan benar
+              key={project.title}
               className="group bg-zinc-900/40 border border-zinc-800/80 rounded-xl overflow-hidden hover:border-zinc-700 transition-all duration-300 flex flex-col"
             >
-              {/* KLIK AREA HANYA DI LUAR AREA NAVIGASI SLIDER */}
               <div className="relative w-full h-48 bg-zinc-950 overflow-hidden">
                 <Swiper
                   modules={[Navigation, Pagination, Autoplay]}
+                  navigation={true}
                   spaceBetween={0}
                   slidesPerView={1}
                   pagination={{ clickable: true }}
-                  autoplay={{ delay: 3000, disableOnInteraction: false }}
-                  className="w-full h-full text-white"
+                  autoplay={{ delay: 3500, disableOnInteraction: false }}
+                  className="w-full h-full text-white portfolio-swiper"
                 >
                   {project.images.map((src, index) => (
                     <SwiperSlide key={index}>
                       <div
-                        className="relative w-full h-full cursor-pointer"
+                        className="relative w-full h-full cursor-pointer p-2"
                         onClick={() => setActiveProject(project)}
                       >
                         <Image
                           src={src}
                           alt={`${project.title} image ${index + 1}`}
                           fill
-                          className="object-cover group-hover:scale-105 transition duration-500"
+                          className="object-contain group-hover:scale-105 transition duration-500"
                         />
                       </div>
                     </SwiperSlide>
@@ -275,7 +348,6 @@ export default function Portofolio() {
                   </p>
                 </div>
 
-                {/* Menampilkan 3 Tech Stack Teratas di Luar Card */}
                 <div className="flex flex-wrap gap-1.5 mt-auto pt-2">
                   {project.techstack.slice(0, 3).map((tech, i) => (
                     <span
@@ -297,7 +369,6 @@ export default function Portofolio() {
         </AnimatePresence>
       </motion.div>
 
-      {/* Modal Detail Pop-up */}
       <AnimatePresence>
         {activeProject && (
           <motion.div
@@ -308,14 +379,14 @@ export default function Portofolio() {
           >
             <motion.div
               ref={modalRef}
-              className="bg-zinc-900 border border-zinc-800 max-w-2xl w-full rounded-xl overflow-hidden relative shadow-2xl max-h-[90vh] overflow-y-auto"
+              className="bg-zinc-900 border border-zinc-800 max-w-4xl w-full rounded-xl overflow-hidden relative shadow-2xl max-h-[90vh] overflow-y-auto"
               initial={{ scale: 0.95, y: 10 }}
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.95, y: 10 }}
             >
               <button
                 onClick={() => setActiveProject(null)}
-                className="absolute top-4 right-4 bg-zinc-800 hover:bg-zinc-700 text-white w-8 h-8 rounded-full flex items-center justify-center z-10 transition text-lg"
+                className="absolute top-4 right-4 bg-zinc-800 hover:bg-zinc-700 text-white w-8 h-8 rounded-full flex items-center justify-center z-10 transition text-lg border border-zinc-700"
               >
                 &times;
               </button>
@@ -328,24 +399,24 @@ export default function Portofolio() {
                   {activeProject.title}
                 </h3>
 
-                {/* Image Slider di dalam Modal */}
-                <div className="w-full h-64 sm:h-80 relative bg-zinc-950 rounded-lg overflow-hidden mb-6 border border-zinc-800">
+                <div className="w-full h-64 sm:h-96 relative bg-zinc-950 rounded-lg overflow-hidden mb-6 border border-zinc-800">
                   <Swiper
                     modules={[Navigation, Pagination, Autoplay]}
+                    navigation={true}
                     spaceBetween={0}
                     slidesPerView={1}
                     pagination={{ clickable: true }}
-                    autoplay={{ delay: 3500, disableOnInteraction: false }}
-                    className="w-full h-full text-white"
+                    autoplay={{ delay: 4000, disableOnInteraction: false }}
+                    className="w-full h-full text-white portfolio-swiper"
                   >
                     {activeProject.images.map((src, index) => (
                       <SwiperSlide key={index}>
-                        <div className="relative w-full h-full">
+                        <div className="relative w-full h-full p-2">
                           <Image
                             src={src}
                             alt={`${activeProject.title} view ${index + 1}`}
                             fill
-                            className="object-cover"
+                            className="object-contain"
                           />
                         </div>
                       </SwiperSlide>
