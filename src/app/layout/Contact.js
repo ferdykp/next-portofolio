@@ -39,7 +39,7 @@ export default function Contact() {
 
         <Reveal delay={0.1}>
           <form
-            action="https://formspree.io/f/yourformid"
+            action="https://formspree.io/f/xgawpezg"
             method="POST"
             className="flex flex-col gap-5"
           >
