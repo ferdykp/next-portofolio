@@ -1,7 +1,44 @@
+"use client";
+
+import { useState } from "react";
 import SectionLabel from "../components/SectionLabel";
 import Reveal from "../components/Reveal";
 
 export default function Contact() {
+  const [status, setStatus] = useState({
+    loading: false,
+    success: false,
+    error: false,
+  });
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setStatus({ loading: true, success: false, error: false });
+
+    const form = e.target;
+    const data = new FormData(form);
+
+    try {
+      // Ganti YOUR_FORMSPREE_ID dengan ID Formspree milik Anda
+      const response = await fetch("https://formspree.io/f/YOUR_FORMSPREE_ID", {
+        method: "POST",
+        body: data,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+
+      if (response.ok) {
+        setStatus({ loading: false, success: true, error: false });
+        form.reset(); // Reset isi form
+      } else {
+        setStatus({ loading: false, success: false, error: true });
+      }
+    } catch (err) {
+      setStatus({ loading: false, success: false, error: true });
+    }
+  };
+
   return (
     <section id="contact" className="py-24 md:py-28">
       <SectionLabel index={4} title="Contact" />
@@ -38,11 +75,7 @@ export default function Contact() {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <form
-            action="https://formspree.io/f/xgawpezg"
-            method="POST"
-            className="flex flex-col gap-5"
-          >
+          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="flex flex-col gap-2">
                 <label className="text-xs font-mono text-[var(--text-muted)] uppercase tracking-wide">
@@ -83,11 +116,25 @@ export default function Contact() {
               />
             </div>
 
+            {/* Notification Pop-up / Banner */}
+            {status.success && (
+              <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-lg text-sm font-mono">
+                ✓ Message sent successfully! I&apos;ll get back to you soon.
+              </div>
+            )}
+
+            {status.error && (
+              <div className="p-4 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-lg text-sm font-mono">
+                ✕ Something went wrong. Please try again later.
+              </div>
+            )}
+
             <button
               type="submit"
-              className="w-full bg-[var(--accent)] text-[var(--bg)] rounded-lg py-3.5 text-sm font-mono font-semibold uppercase tracking-widest hover:opacity-90 transition-opacity mt-2"
+              disabled={status.loading}
+              className="w-full bg-[var(--accent)] text-[var(--bg)] rounded-lg py-3.5 text-sm font-mono font-semibold uppercase tracking-widest hover:opacity-90 transition-opacity mt-2 disabled:opacity-50"
             >
-              Send message
+              {status.loading ? "Sending..." : "Send message"}
             </button>
           </form>
         </Reveal>
