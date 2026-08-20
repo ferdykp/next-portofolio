@@ -20,7 +20,7 @@ export default function Contact() {
 
     try {
       // Ganti YOUR_FORMSPREE_ID dengan ID Formspree milik Anda
-      const response = await fetch("https://formspree.io/f/YOUR_FORMSPREE_ID", {
+      const response = await fetch("https://formspree.io/f/xgawpezg", {
         method: "POST",
         body: data,
         headers: {
