@@ -60,15 +60,57 @@ export default function HomeSection() {
             transition={{ delay: 0.28, duration: 0.9, ease }}
             className="lg:col-span-4 xl:col-span-3 lg:pb-2"
           >
-            <div className="relative aspect-[4/5] overflow-hidden bg-[var(--surface)] soft-shadow">
-              <Image
-                src="/assets/profile_ai.jpg"
-                alt="Ferdy Kurnia Panggabean"
-                fill
-                priority
-                sizes="(max-width: 1024px) 420px, 24vw"
-                className="object-cover grayscale-[0.12] transition-transform duration-[1100ms] ease-[cubic-bezier(.22,1,.36,1)] hover:scale-[1.025]"
-              />
+            <div className="group relative">
+              {/* decorative frame */}
+              <div className="absolute -inset-2 md:-inset-3 rounded-[28px] border border-[var(--border)]" />
+
+              {/* accent detail */}
+              <div className="absolute -top-2 -right-2 z-20 h-4 w-4 rounded-full bg-[var(--accent)] md:h-5 md:w-5" />
+
+              {/* image wrapper */}
+              <div
+                className="
+      relative
+      aspect-[4/5]
+      overflow-hidden
+      rounded-[22px]
+      border border-[var(--border)]
+      bg-[var(--surface)]
+      p-1.5
+      md:p-2
+      soft-shadow
+    "
+              >
+                <div className="relative h-full w-full overflow-hidden rounded-[17px]">
+                  <Image
+                    src="/assets/profile_ai.jpg"
+                    alt="Ferdy Kurnia Panggabean"
+                    fill
+                    priority
+                    sizes="(max-width: 1024px) 420px, 24vw"
+                    className="
+          object-cover
+          grayscale-[0.08]
+          transition-transform
+          duration-[1200ms]
+          ease-[cubic-bezier(.22,1,.36,1)]
+          group-hover:scale-[1.035]
+        "
+                  />
+
+                  {/* subtle overlay */}
+                  <div
+                    className="
+          pointer-events-none
+          absolute inset-0
+          bg-gradient-to-t
+          from-black/10
+          via-transparent
+          to-transparent
+        "
+                  />
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>

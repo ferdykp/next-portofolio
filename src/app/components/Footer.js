@@ -1,3 +1,4 @@
+import Link from "next/link";
 export default function Footer() {
   return (
     <footer className="border-t border-[var(--border)]">
@@ -8,12 +9,12 @@ export default function Footer() {
         <p className="sm:text-center text-[9px] font-mono uppercase tracking-[.12em] text-[var(--text-muted)]">
           © {new Date().getFullYear()} Ferdy Kurnia Panggabean
         </p>
-        <a
+        <Link
           href="/#home"
           className="sm:justify-self-end editorial-link text-[10px] font-mono uppercase tracking-[.12em] text-[var(--text-muted)] hover:text-[var(--text)]"
         >
           Back to top
-        </a>
+        </Link>
       </div>
     </footer>
   );
