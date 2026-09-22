@@ -1,14 +1,16 @@
 "use client";
 
-import SectionLabel from "../components/SectionLabel";
+import { AnimatePresence, motion } from "framer-motion";
+import { useState } from "react";
 import Reveal from "../components/Reveal";
+import SectionLabel from "../components/SectionLabel";
 
 const experiences = [
   {
     company: "Nuctech Company Limited",
-    location: "Surabaya, Indonesia",
-    role: "Software Engineer (Full-Stack Developer & DevOps Engineer)",
+    role: "Software Engineer · Full-Stack & DevOps",
     period: "May 2025 — Present",
+    location: "Surabaya, Indonesia",
     current: true,
     bullets: [
       "Led full-stack development (Laravel, Tailwind CSS, JavaScript) for two production systems while serving as DevOps Engineer, coordinating a team of 3 developers from PRD through deployment and documentation.",
@@ -21,22 +23,13 @@ const experiences = [
       "Maintained FS6000 equipment and performed operator/Industrial PC backups using Symantec Ghost.",
       "Developed a Python application to automate data conversion into Excel reports, and resolved inter-server and Modbus protocol issues via Modscan.",
     ],
-    tech: [
-      "Laravel",
-      "Tailwind CSS",
-      "Ubuntu Server",
-      "Nginx",
-      "Docker",
-      "Cloudflare Zero Trust",
-      "Python",
-      "Modbus TCP/IP",
-    ],
+    tech: ["Laravel", "Tailwind CSS", "Ubuntu Server", "Nginx", "Docker", "Cloudflare Zero Trust", "Python", "Modbus TCP/IP"],
   },
   {
-    company: "PT Reka Inovasi Cerdas (Innodrive.ai)",
-    location: "Mojokerto, Indonesia",
+    company: "PT Reka Inovasi Cerdas",
     role: "Software Engineer",
     period: "Nov 2024 — Apr 2025",
+    location: "Mojokerto, Indonesia",
     bullets: [
       "Built a desktop electric-vehicle dashboard application in Qt Creator using QML and JavaScript, delivering a real-time driving interface for an in-house EV prototype.",
       "Implemented the MAVLink communication protocol on Ardurover firmware for a remote-controlled vehicle, handling the full data pipeline from a Matek F405 Wing microcontroller through to the dashboard.",
@@ -45,21 +38,13 @@ const experiences = [
       "Designed and built a facial-recognition attendance system by integrating a facial-recognition library and model on a Lichee Pi 4A mini PC with a Runcam camera.",
       "Built the companion attendance dashboard — a web platform for ingesting attendance data and managing employee records — using Quasar (TypeScript/Vue.js) on the frontend with a Node.js and Express.js backend.",
     ],
-    tech: [
-      "Qt Creator / QML",
-      "MAVLink",
-      "Vue.js / Quasar",
-      "Node.js",
-      "Express.js",
-      "Facial Recognition",
-      "Yocto / Poky",
-    ],
+    tech: ["Qt Creator / QML", "MAVLink", "Vue.js / Quasar", "Node.js", "Express.js", "Facial Recognition", "Yocto / Poky"],
   },
   {
     company: "AirNav Juanda Surabaya",
-    location: "Surabaya, Indonesia",
-    role: "Intern",
+    role: "Engineering Intern",
     period: "Feb 2023 — Jul 2023",
+    location: "Surabaya, Indonesia",
     bullets: [
       "Performed daily meter readings for airport communication and monitoring equipment.",
       "Assisted with fiber optic troubleshooting and Instrument Landing System (ILS) calibration alongside a global flight inspection service provider.",
@@ -67,11 +52,21 @@ const experiences = [
     tech: ["Fiber Optics", "ILS Calibration"],
   },
   {
-    company:
-      "Talent Scout Academy — Kominfo, Pemda Gresik & PT Telkom Indonesia",
+    company: "InnoWork IoT Advantech",
+    role: "IoT Program Participant",
+    period: "May 2023 — Sep 2023",
     location: "Surabaya, Indonesia",
-    role: "Participant, Project Based Learning",
+    bullets: [
+      "Built IoT devices using NodeMCU and various sensors, programmed in C++.",
+      "Programmed automated alerts via Telegram and displayed data on an Advantech SCADA dashboard using Modbus TCP/IP.",
+    ],
+    tech: ["NodeMCU", "C++", "Modbus TCP/IP", "SCADA"],
+  },
+  {
+    company: "Talent Scout Academy",
+    role: "Project Based Learning Participant",
     period: "Jul 2022 — Dec 2022",
+    location: "Surabaya, Indonesia",
     bullets: [
       "Assembled IoT devices using Arduino Nano microcontrollers, sensors, and LoRa communication modules.",
       "Wrote C++ programs for IoT device-to-website communication via the HTTP POST protocol.",
@@ -79,109 +74,132 @@ const experiences = [
     ],
     tech: ["Arduino Nano", "LoRa", "C++", "PHP", "MySQL"],
   },
-  {
-    company: "InnoWork IoT Advantech",
-    location: "Surabaya, Indonesia",
-    role: "Participant",
-    period: "May 2023 — Sep 2023",
-    bullets: [
-      "Built IoT devices using NodeMCU and various sensors, programmed in C++.",
-      "Programmed automated alerts via Telegram and displayed data on an Advantech SCADA dashboard using Modbus TCP/IP.",
-    ],
-    tech: ["NodeMCU", "C++", "Modbus TCP/IP", "SCADA"],
-  },
 ];
 
 export default function Experience() {
-  return (
-    <section
-      id="experience"
-      className="py-24 md:py-28 border-b border-[var(--border)]"
-    >
-      <SectionLabel index={2} title="Experience" />
+  const [openIndex, setOpenIndex] = useState(-1);
 
-      <Reveal className="max-w-2xl mb-14">
-        <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-[var(--text)] mb-5">
-          Where the work happened.
+  return (
+    <section id="experience" className="py-24 md:py-36 border-b border-[var(--border)]">
+      <SectionLabel title="Experience" />
+
+      <Reveal className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-14 md:mb-20">
+        <h2 className="font-display text-[clamp(2.8rem,6vw,6.6rem)] font-medium tracking-[-.06em] leading-[.9] lg:col-span-8">
+          Work across software,
+          <span className="block text-[var(--text-muted)]">systems and infrastructure.</span>
         </h2>
-        <p className="text-[var(--text-muted)] text-base leading-relaxed">
-          From airport instrumentation to enterprise ERP — a log of roles that
-          shaped how I build production systems today.
+        <p className="lg:col-span-4 lg:self-end text-base md:text-lg leading-relaxed text-[var(--text-muted)]">
+          Selected roles that shaped how I build and ship production systems.
         </p>
       </Reveal>
 
-      <div className="relative">
-        {/* Timeline spine */}
-        <div className="absolute left-[7px] md:left-[9px] top-2 bottom-2 w-px bg-[var(--border)]" />
+      <div className="border-t border-[var(--border)]">
+        {experiences.map((exp, index) => {
+          const open = openIndex === index;
 
-        <div className="flex flex-col gap-10">
-          {experiences.map((exp, i) => (
-            <Reveal
-              key={exp.company}
-              delay={i * 0.05}
-              className="relative pl-8 md:pl-10"
-            >
-              {/* Timeline node */}
-              <span
-                className={`absolute left-0 top-1.5 w-[15px] h-[15px] md:w-[19px] md:h-[19px] rounded-full border-2 bg-[var(--bg)] ${
-                  exp.current
-                    ? "border-[var(--accent)]"
-                    : "border-[var(--border)]"
-                }`}
-              >
-                {exp.current && (
-                  <span className="absolute inset-[3px] rounded-full bg-[var(--accent)] animate-pulse" />
-                )}
-              </span>
+          return (
+            <Reveal key={exp.company} delay={index * 0.035} direction={index % 2 ? "down" : "up"}>
+              <article className="border-b border-[var(--border)]">
+                <button
+                  type="button"
+                  onClick={() => setOpenIndex(open ? -1 : index)}
+                  aria-expanded={open}
+                  className="group w-full text-left py-6 md:py-8"
+                >
+                  <div className="grid grid-cols-[1fr_auto] md:grid-cols-12 gap-3 md:gap-6 items-start">
+                    <div className="md:col-span-4 flex items-start gap-3">
+                      {exp.current && (
+                        <span className="mt-2.5 w-2 h-2 rounded-full bg-[var(--accent)] shrink-0" />
+                      )}
+                      <div>
+                        <h3 className="font-display text-xl md:text-2xl tracking-[-.04em] leading-tight transition-colors duration-300 group-hover:text-[var(--accent)]">
+                          {exp.company}
+                        </h3>
+                        <p className="md:hidden mt-1 text-sm text-[var(--text-muted)]">{exp.role}</p>
+                      </div>
+                    </div>
 
-              <div className="bg-[var(--surface)] border border-[var(--border)] rounded-xl p-6 md:p-7 hover:border-[var(--accent)]/40 transition-colors">
-                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-4">
-                  <div>
-                    <h3 className="font-display text-lg font-bold text-[var(--text)] leading-snug">
+                    <p className="hidden md:block md:col-span-4 text-sm md:text-base text-[var(--text-muted)]">
                       {exp.role}
-                    </h3>
-                    <p className="text-[var(--accent-2)] text-sm font-medium mt-1">
-                      {exp.company}
                     </p>
+
+                    <div className="hidden md:block md:col-span-2">
+                      <p className="text-[10px] font-mono uppercase tracking-[.1em]">{exp.period}</p>
+                    </div>
+
+                    <div className="flex md:col-span-2 md:justify-end items-start gap-4">
+                      <div className="hidden md:block text-right">
+                        <p className="text-[10px] font-mono uppercase tracking-[.1em] text-[var(--text-muted)]">
+                          {exp.location}
+                        </p>
+                      </div>
+                      <span className="min-w-[64px] text-right text-[10px] font-mono uppercase tracking-[.1em] text-[var(--text-muted)] transition-colors duration-300 group-hover:text-[var(--text)]">
+                        {open ? "Close" : "Details"}
+                      </span>
+                    </div>
                   </div>
-                  <div className="shrink-0 flex flex-col sm:items-end gap-1">
-                    <span className="font-mono text-xs px-2.5 py-1 rounded-md border border-[var(--border)] text-[var(--text)] whitespace-nowrap">
-                      {exp.period}
-                    </span>
-                    <span className="font-mono text-[11px] text-[var(--text-muted)]">
+
+                  <div className="md:hidden mt-4 flex flex-wrap gap-x-5 gap-y-1">
+                    <span className="text-[9px] font-mono uppercase tracking-[.1em]">{exp.period}</span>
+                    <span className="text-[9px] font-mono uppercase tracking-[.1em] text-[var(--text-muted)]">
                       {exp.location}
                     </span>
                   </div>
-                </div>
+                </button>
 
-                <ul className="space-y-2.5 mb-5">
-                  {exp.bullets.map((b, idx) => (
-                    <li
-                      key={idx}
-                      className="text-sm text-[var(--text-muted)] leading-relaxed flex items-start gap-3"
+                <AnimatePresence initial={false}>
+                  {open && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
+                      className="overflow-hidden"
                     >
-                      <span className="text-[var(--accent)] font-mono text-xs mt-1 shrink-0">
-                        →
-                      </span>
-                      <span>{b}</span>
-                    </li>
-                  ))}
-                </ul>
+                      <motion.div
+                        initial={{ y: 14 }}
+                        animate={{ y: 0 }}
+                        exit={{ y: -8 }}
+                        transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
+                        className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 pb-8 md:pb-12"
+                      >
+                        <div className="md:col-start-5 md:col-span-6">
+                          <ul className="border-t border-[var(--border)]">
+                            {exp.bullets.map((bullet) => (
+                              <li
+                                key={bullet}
+                                className="grid grid-cols-[8px_1fr] gap-3 py-3.5 border-b border-[var(--border)] text-sm md:text-[15px] leading-relaxed text-[var(--text-muted)]"
+                              >
+                                <span className="mt-[0.55rem] w-1.5 h-1.5 rounded-full bg-[var(--accent)]" />
+                                <span>{bullet}</span>
+                              </li>
+                            ))}
+                          </ul>
+                        </div>
 
-                <div className="flex flex-wrap gap-1.5 pt-4 border-t border-[var(--border)]">
-                  {exp.tech.map((t) => (
-                    <span
-                      key={t}
-                      className="text-[11px] font-mono px-2 py-0.5 rounded border border-[var(--border)] text-[var(--text-muted)]"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-              </div>
+                        <div className="md:col-span-2 md:col-start-11">
+                          <p className="text-[9px] font-mono uppercase tracking-[.12em] text-[var(--text-muted)]">
+                            Stack / tools
+                          </p>
+                          <div className="mt-4 flex md:flex-col flex-wrap gap-x-4 gap-y-2">
+                            {exp.tech.map((tech) => (
+                              <span
+                                key={tech}
+                                className="text-[10px] font-mono uppercase tracking-[.08em]"
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                        </div>
+                      </motion.div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </article>
             </Reveal>
-          ))}
-        </div>
+          );
+        })}
       </div>
     </section>
   );

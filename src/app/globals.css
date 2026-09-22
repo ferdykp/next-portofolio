@@ -1,29 +1,27 @@
 @import "tailwindcss";
 
 :root {
-  --bg: #0a0b0d;
-  --bg-elevated: #121417;
-  --surface: #16181c;
-  --border: #23262b;
-  --text: #edeef0;
-  --text-muted: #8b9099;
-  --accent: #e8a23d;
-  --accent-soft: rgba(232, 162, 61, 0.12);
-  --accent-2: #4fb3a9;
-  --accent-2-soft: rgba(79, 179, 169, 0.12);
+  --bg: #f2f1ec;
+  --bg-elevated: #faf9f5;
+  --surface: #e7e5de;
+  --surface-strong: #d7d4cc;
+  --border: #cbc8be;
+  --text: #10100f;
+  --text-muted: #6d6b64;
+  --accent: #f13a24;
+  --accent-soft: rgba(241, 58, 36, 0.11);
 }
 
-html.light {
-  --bg: #f7f5f1;
-  --bg-elevated: #ffffff;
-  --surface: #ffffff;
-  --border: #e4e0d8;
-  --text: #16181c;
-  --text-muted: #64686f;
-  --accent: #c97c1f;
-  --accent-soft: rgba(201, 124, 31, 0.1);
-  --accent-2: #2e8a80;
-  --accent-2-soft: rgba(46, 138, 128, 0.1);
+html:not(.light) {
+  --bg: #0b0b0a;
+  --bg-elevated: #121211;
+  --surface: #191917;
+  --surface-strong: #24231f;
+  --border: #30302c;
+  --text: #f1efe8;
+  --text-muted: #97948b;
+  --accent: #ff4b33;
+  --accent-soft: rgba(255, 75, 51, 0.12);
 }
 
 @theme inline {
@@ -34,7 +32,6 @@ html.light {
   --color-text: var(--text);
   --color-text-muted: var(--text-muted);
   --color-accent: var(--accent);
-  --color-accent-2: var(--accent-2);
   --font-display: var(--font-space-grotesk);
   --font-body: var(--font-inter);
   --font-mono: var(--font-plex-mono);
@@ -42,101 +39,131 @@ html.light {
 
 * {
   border-color: var(--border);
+  box-sizing: border-box;
 }
 
 html {
   scroll-behavior: smooth;
+  background: var(--bg);
 }
 
 body {
+  margin: 0;
   background: var(--bg);
   color: var(--text);
   font-family: var(--font-body), sans-serif;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
   transition:
-    background 0.35s ease,
-    color 0.35s ease;
+    background 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+section[id] {
+  scroll-margin-top: 88px;
 }
 
 ::selection {
   background: var(--accent);
-  color: #0a0b0d;
+  color: #fff;
 }
 
 :focus-visible {
   outline: 2px solid var(--accent);
-  outline-offset: 3px;
-  border-radius: 2px;
+  outline-offset: 4px;
 }
 
-/* ===== Blueprint grid background ===== */
-.bp-grid {
-  background-image:
-    linear-gradient(var(--border) 1px, transparent 1px),
-    linear-gradient(90deg, var(--border) 1px, transparent 1px);
-  background-size: 44px 44px;
-  -webkit-mask-image: radial-gradient(
-    ellipse 70% 60% at 50% 0%,
-    black 40%,
-    transparent 100%
-  );
-  mask-image: radial-gradient(
-    ellipse 70% 60% at 50% 0%,
-    black 40%,
-    transparent 100%
-  );
-}
-
-/* ===== Corner-bracket frame (technical drawing annotation) ===== */
-.bracket-frame {
-  position: relative;
-}
-.bracket-frame::before,
-.bracket-frame::after {
-  content: "";
-  position: absolute;
-  width: 14px;
-  height: 14px;
-  border: 1.5px solid var(--accent);
-  opacity: 0.7;
-  transition: opacity 0.25s ease;
-}
-.bracket-frame::before {
-  top: -1px;
-  left: -1px;
-  border-right: none;
-  border-bottom: none;
-}
-.bracket-frame::after {
-  bottom: -1px;
-  right: -1px;
-  border-left: none;
-  border-top: none;
-}
-.bracket-frame:hover::before,
-.bracket-frame:hover::after {
-  opacity: 1;
-  width: 20px;
-  height: 20px;
-}
-
-/* ===== Revision-tag section label ===== */
 .rev-label {
   font-family: var(--font-mono), monospace;
-  font-size: 0.7rem;
-  letter-spacing: 0.2em;
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: var(--text-muted);
 }
 
-/* ===== Scrollbar hide util ===== */
+.text-balance {
+  text-wrap: balance;
+}
+
+.editorial-link {
+  position: relative;
+  display: inline-flex;
+  width: fit-content;
+}
+
+.editorial-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.2rem;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.editorial-link:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+.project-media {
+  background:
+    linear-gradient(135deg, color-mix(in srgb, var(--surface) 78%, transparent), transparent 72%),
+    var(--bg-elevated);
+}
+
+.soft-shadow {
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.08);
+}
+
+html:not(.light) .soft-shadow {
+  box-shadow: 0 28px 90px rgba(0, 0, 0, 0.34);
+}
+
 .scrollbar-none::-webkit-scrollbar {
   display: none;
 }
+
 .scrollbar-none {
   scrollbar-width: none;
 }
 
-/* ===== Reduced motion ===== */
+.prose-custom h2,
+.prose-custom h3,
+.prose-custom h4 {
+  font-family: var(--font-space-grotesk), sans-serif;
+  color: var(--text);
+  letter-spacing: -0.035em;
+  line-height: 1.05;
+  margin-top: 2.6em;
+  margin-bottom: 0.8em;
+}
+
+.prose-custom h2 { font-size: clamp(1.8rem, 4vw, 2.7rem); }
+.prose-custom h3 { font-size: clamp(1.45rem, 3vw, 2rem); }
+.prose-custom p,
+.prose-custom li {
+  color: var(--text-muted);
+  line-height: 1.85;
+}
+.prose-custom p { margin: 1.25em 0; }
+.prose-custom ul,
+.prose-custom ol { padding-left: 1.35rem; }
+.prose-custom a { color: var(--accent); text-decoration: underline; text-underline-offset: 3px; }
+.prose-custom strong { color: var(--text); font-weight: 600; }
+.prose-custom blockquote {
+  border-left: 2px solid var(--accent);
+  padding-left: 1.25rem;
+  color: var(--text-muted);
+  font-style: italic;
+}
+.prose-custom code { color: var(--accent); }
+.prose-custom img { max-width: 100%; height: auto; }
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

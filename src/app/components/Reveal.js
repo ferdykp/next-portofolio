@@ -2,24 +2,24 @@
 
 import { motion } from "framer-motion";
 
-/**
- * Wraps children with a scroll-triggered fade + slide-up reveal.
- * Fires once when the element enters the viewport, respects
- * prefers-reduced-motion via framer-motion's built-in handling.
- */
+const ease = [0.22, 1, 0.36, 1];
+
 export default function Reveal({
   children,
   delay = 0,
-  y = 24,
-  duration = 0.6,
+  direction = "up",
+  distance = 28,
+  duration = 0.82,
   className = "",
 }) {
+  const initialY = direction === "down" ? -distance : distance;
+
   return (
     <motion.div
-      initial={{ opacity: 0, y }}
+      initial={{ opacity: 0, y: initialY }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration, delay, ease: [0.22, 1, 0.36, 1] }}
+      viewport={{ once: true, amount: 0.16, margin: "0px 0px -70px 0px" }}
+      transition={{ duration, delay, ease }}
       className={className}
     >
       {children}

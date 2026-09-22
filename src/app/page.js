@@ -9,18 +9,16 @@ import ClientWrapper from "./components/ClientWrapper";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] selection:bg-[var(--accent)] selection:text-[var(--bg)] antialiased">
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] selection:bg-[var(--accent)] antialiased overflow-x-hidden">
       <ClientWrapper />
       <Navbar />
-
-      <main className="px-6 pt-20 max-w-7xl mx-auto">
+      <main className="px-5 sm:px-8 lg:px-12 2xl:px-16 max-w-[1720px] mx-auto">
         <HomeSection />
         <About />
         <Experience />
         <Portofolio />
         <Contact />
       </main>
-
       <Footer />
     </div>
   );

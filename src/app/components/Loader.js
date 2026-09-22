@@ -1,17 +1,34 @@
 "use client";
+
 import { motion } from "framer-motion";
+
+const ease = [0.76, 0, 0.24, 1];
 
 export default function Loader() {
   return (
-    <motion.div
-      initial={{ opacity: 1 }}
-      animate={{ opacity: 0 }}
-      transition={{ duration: 0.8, delay: 0.4 }}
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-[var(--bg)] pointer-events-none"
-    >
-      <span className="font-mono text-xs text-[var(--accent)] uppercase tracking-[0.3em] animate-pulse">
-        booting_system...
-      </span>
-    </motion.div>
+    <div className="fixed inset-0 z-[120] pointer-events-none overflow-hidden">
+      <motion.div
+        className="absolute inset-x-0 top-0 h-1/2 bg-[#11110f]"
+        initial={{ y: 0 }}
+        animate={{ y: "-101%" }}
+        transition={{ delay: 0.62, duration: 0.72, ease }}
+      />
+      <motion.div
+        className="absolute inset-x-0 bottom-0 h-1/2 bg-[#11110f]"
+        initial={{ y: 0 }}
+        animate={{ y: "101%" }}
+        transition={{ delay: 0.62, duration: 0.72, ease }}
+      />
+      <motion.div
+        className="absolute inset-0 grid place-items-center"
+        initial={{ opacity: 1, y: 0 }}
+        animate={{ opacity: 0, y: -12 }}
+        transition={{ delay: 0.38, duration: 0.28 }}
+      >
+        <span className="font-display text-2xl md:text-3xl font-semibold tracking-[-.06em] text-[#f4f2ec]">
+          FKP<span className="text-[#ff4b33]">.</span>
+        </span>
+      </motion.div>
+    </div>
   );
 }

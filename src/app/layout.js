@@ -121,8 +121,8 @@ export default function RootLayout({ children }) {
   const themeInitScript = `
     (function() {
       try {
-        var saved = localStorage.getItem("theme");
-        var theme = saved || "dark";
+        var saved = localStorage.getItem("portfolio-theme-v4");
+        var theme = saved || "light";
         if (theme === "light") document.documentElement.classList.add("light");
       } catch (e) {}
     })();

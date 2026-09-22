@@ -1,10 +1,8 @@
-export default function SectionLabel({ index, title }) {
+export default function SectionLabel({ title }) {
   return (
-    <div className="flex items-center gap-3 mb-4">
-      <span className="rev-label">
-        REV.0{index} — {title}
-      </span>
-      <span className="flex-1 h-px bg-[var(--border)]" />
+    <div className="flex items-center gap-4 mb-10 md:mb-16">
+      <span className="rev-label text-[var(--text)] shrink-0">{title}</span>
+      <span className="h-px flex-1 bg-[var(--border)]" />
     </div>
   );
 }

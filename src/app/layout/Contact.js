@@ -1,140 +1,96 @@
 "use client";
 
 import { useState } from "react";
-import SectionLabel from "../components/SectionLabel";
 import Reveal from "../components/Reveal";
+import SectionLabel from "../components/SectionLabel";
 
 export default function Contact() {
-  const [status, setStatus] = useState({
-    loading: false,
-    success: false,
-    error: false,
-  });
+  const [status, setStatus] = useState({ loading: false, success: false, error: false });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
     setStatus({ loading: true, success: false, error: false });
 
-    const form = e.target;
-    const data = new FormData(form);
+    const form = event.currentTarget;
 
     try {
-      // Ganti YOUR_FORMSPREE_ID dengan ID Formspree milik Anda
       const response = await fetch("https://formspree.io/f/xgawpezg", {
         method: "POST",
-        body: data,
-        headers: {
-          Accept: "application/json",
-        },
+        body: new FormData(form),
+        headers: { Accept: "application/json" },
       });
 
-      if (response.ok) {
-        setStatus({ loading: false, success: true, error: false });
-        form.reset(); // Reset isi form
-      } else {
-        setStatus({ loading: false, success: false, error: true });
-      }
-    } catch (err) {
+      if (!response.ok) throw new Error("Unable to send message");
+      form.reset();
+      setStatus({ loading: false, success: true, error: false });
+    } catch {
       setStatus({ loading: false, success: false, error: true });
     }
   };
 
   return (
-    <section id="contact" className="py-24 md:py-28">
-      <SectionLabel index={4} title="Contact" />
+    <section id="contact" className="py-24 md:py-36">
+      <SectionLabel title="Contact" />
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-14">
-        <Reveal>
-          <h2 className="font-display text-3xl md:text-4xl font-bold tracking-tight text-[var(--text)] mb-5">
-            Let&apos;s build something that ships.
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+        <Reveal className="lg:col-span-7">
+          <h2 className="font-display text-[clamp(3.4rem,8vw,9rem)] font-medium tracking-[-.075em] leading-[.82] text-balance">
+            Have something
+            <span className="block text-[var(--accent)]">to build?</span>
           </h2>
-          <p className="text-[var(--text-muted)] leading-relaxed mb-8 max-w-md">
-            Have a project, freelance opportunity, or a system that needs a
-            second pair of engineering eyes? Send a message and I&apos;ll get
-            back within a day or two.
-          </p>
-          <div className="space-y-3 font-mono text-sm text-[var(--text-muted)]">
-            <div className="flex justify-between max-w-xs border-b border-[var(--border)] pb-3">
-              <span>EMAIL</span>
-              <a
-                href="mailto:kpferdy@gmail.com"
-                className="text-[var(--text)] hover:text-[var(--accent)]"
-              >
-                kpferdy@gmail.com
-              </a>
-            </div>
-            <div className="flex justify-between max-w-xs border-b border-[var(--border)] pb-3">
-              <span>LOCATION</span>
-              <span className="text-[var(--text)]">Jakarta, Indonesia</span>
-            </div>
-            <div className="flex justify-between max-w-xs pb-3">
-              <span>STATUS</span>
-              <span className="text-[var(--accent-2)]">Open to freelance</span>
-            </div>
-          </div>
+
+          <a
+            href="mailto:kpferdy@gmail.com"
+            className="editorial-link mt-10 md:mt-14 text-lg md:text-2xl tracking-[-.025em]"
+          >
+            kpferdy@gmail.com
+          </a>
         </Reveal>
 
-        <Reveal delay={0.1}>
-          <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="flex flex-col gap-2">
-                <label className="text-xs font-mono text-[var(--text-muted)] uppercase tracking-wide">
-                  Your name
-                </label>
-                <input
-                  type="text"
-                  name="name"
-                  placeholder="John Doe"
-                  required
-                  className="w-full bg-[var(--surface)] border border-[var(--border)] text-[var(--text)] rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-[var(--accent)] transition-colors"
-                />
-              </div>
-              <div className="flex flex-col gap-2">
-                <label className="text-xs font-mono text-[var(--text-muted)] uppercase tracking-wide">
-                  Email address
-                </label>
-                <input
-                  type="email"
-                  name="email"
-                  placeholder="name@company.com"
-                  required
-                  className="w-full bg-[var(--surface)] border border-[var(--border)] text-[var(--text)] rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-[var(--accent)] transition-colors"
-                />
-              </div>
-            </div>
+        <Reveal direction="down" delay={0.08} className="lg:col-span-5 lg:pt-2">
+          <form onSubmit={handleSubmit} className="border-t border-[var(--border)]">
+            <label className="block py-5 border-b border-[var(--border)]">
+              <span className="rev-label block mb-2">Name</span>
+              <input
+                type="text"
+                name="name"
+                required
+                placeholder="Your name"
+                className="w-full bg-transparent text-lg text-[var(--text)] placeholder:text-[var(--text-muted)]/55 focus:outline-none"
+              />
+            </label>
 
-            <div className="flex flex-col gap-2">
-              <label className="text-xs font-mono text-[var(--text-muted)] uppercase tracking-wide">
-                Message
-              </label>
+            <label className="block py-5 border-b border-[var(--border)]">
+              <span className="rev-label block mb-2">Email</span>
+              <input
+                type="email"
+                name="email"
+                required
+                placeholder="name@company.com"
+                className="w-full bg-transparent text-lg text-[var(--text)] placeholder:text-[var(--text-muted)]/55 focus:outline-none"
+              />
+            </label>
+
+            <label className="block py-5 border-b border-[var(--border)]">
+              <span className="rev-label block mb-2">Message</span>
               <textarea
                 name="message"
-                placeholder="Tell me briefly about your project goals..."
-                rows="5"
+                rows="4"
                 required
-                className="w-full bg-[var(--surface)] border border-[var(--border)] text-[var(--text)] rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-[var(--accent)] transition-colors resize-none"
+                placeholder="Tell me about the project"
+                className="w-full bg-transparent text-lg leading-relaxed text-[var(--text)] placeholder:text-[var(--text-muted)]/55 focus:outline-none resize-none"
               />
-            </div>
+            </label>
 
-            {/* Notification Pop-up / Banner */}
-            {status.success && (
-              <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-lg text-sm font-mono">
-                ✓ Message sent successfully! I&apos;ll get back to you soon.
-              </div>
-            )}
-
-            {status.error && (
-              <div className="p-4 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-lg text-sm font-mono">
-                ✕ Something went wrong. Please try again later.
-              </div>
-            )}
+            {status.success && <p className="mt-4 text-sm text-[var(--text-muted)]">Message sent. Thank you.</p>}
+            {status.error && <p className="mt-4 text-sm text-[var(--accent)]">Could not send the message. Please try again.</p>}
 
             <button
               type="submit"
               disabled={status.loading}
-              className="w-full bg-[var(--accent)] text-[var(--bg)] rounded-lg py-3.5 text-sm font-mono font-semibold uppercase tracking-widest hover:opacity-90 transition-opacity mt-2 disabled:opacity-50"
+              className="mt-7 rounded-full bg-[var(--text)] text-[var(--bg)] px-6 py-3 text-[10px] font-mono uppercase tracking-[.12em] hover:bg-[var(--accent)] hover:text-white transition-colors duration-300 disabled:opacity-50"
             >
-              {status.loading ? "Sending..." : "Send message"}
+              {status.loading ? "Sending" : "Send message"}
             </button>
           </form>
         </Reveal>
