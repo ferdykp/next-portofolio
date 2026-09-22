@@ -31,7 +31,9 @@ export default function Navbar() {
 
     if (!pathname.startsWith("/blog")) {
       const ids = ["home", "about", "experience", "portofolio", "contact"];
-      const sections = ids.map((id) => document.getElementById(id)).filter(Boolean);
+      const sections = ids
+        .map((id) => document.getElementById(id))
+        .filter(Boolean);
       const observer = new IntersectionObserver(
         (entries) => {
           const visible = entries
@@ -61,7 +63,7 @@ export default function Navbar() {
   const toggleTheme = () => {
     const next = !isLight;
     setIsLight(next);
-    document.documentElement.classList.toggle("light", next);
+    document.documentElement.classList.toggle("dark", next);
     try {
       localStorage.setItem("portfolio-theme-v4", next ? "light" : "dark");
     } catch {}
@@ -104,14 +106,19 @@ export default function Navbar() {
 
           <div className="hidden md:flex items-center justify-center gap-7 lg:gap-10">
             {navItems.map(({ label, id }) => {
-              const active = id === "blog" ? pathname.startsWith("/blog") : activeSection === id && !pathname.startsWith("/blog");
+              const active =
+                id === "blog"
+                  ? pathname.startsWith("/blog")
+                  : activeSection === id && !pathname.startsWith("/blog");
               return (
                 <a
                   key={id}
                   href={id === "blog" ? "/blog" : `/#${id}`}
                   onClick={(event) => handleNavClick(event, id)}
                   className={`relative py-2 text-[11px] font-medium transition-colors duration-300 ${
-                    active ? "text-[var(--text)]" : "text-[var(--text-muted)] hover:text-[var(--text)]"
+                    active
+                      ? "text-[var(--text)]"
+                      : "text-[var(--text-muted)] hover:text-[var(--text)]"
                   }`}
                 >
                   {label}
@@ -176,7 +183,11 @@ export default function Navbar() {
                   className="font-display text-[clamp(2.7rem,14vw,5.5rem)] tracking-[-.06em] leading-[1.02] py-1"
                   initial={{ opacity: 0, y: 28 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.06 + index * 0.04, duration: 0.5, ease }}
+                  transition={{
+                    delay: 0.06 + index * 0.04,
+                    duration: 0.5,
+                    ease,
+                  }}
                 >
                   {label}
                 </motion.a>
