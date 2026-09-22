@@ -18,6 +18,34 @@ export default function Portofolio() {
 
   const projects = [
     {
+      title: "Veterinary Personal Branding & Headless Publishing Platform",
+
+      category: "web",
+
+      description:
+        "Full-stack personal branding and publishing platform built for a veterinary professional. Features a custom Laravel CMS for managing journal articles, clinical cases, professional profiles, media, resources, taxonomy, navigation, and contact inquiries, with a REST API powering a separate editorial-style Next.js public website.",
+
+      images: [
+        "/assets/portofolio/veterinary/1.png",
+        "/assets/portofolio/veterinary/2.png",
+        "/assets/portofolio/veterinary/3.png",
+        "/assets/portofolio/veterinary/4.png",
+        "/assets/portofolio/veterinary/5.png",
+        "/assets/portofolio/veterinary/6.png",
+      ],
+
+      field: "Full-Stack Web Developer",
+
+      techstack: [
+        "Laravel",
+        "Next.js",
+        "Tailwind CSS",
+        "Alpine.js",
+        "MySQL",
+        "REST API",
+      ],
+    },
+    {
       title: "Enterprise Operational Expense & Reimbursement Claim System",
       category: "web",
       description:

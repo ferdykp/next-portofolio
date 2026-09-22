@@ -149,11 +149,11 @@ export default function HomeSection() {
         <div className="flex flex-col items-center gap-4">
           <div className="bracket-frame relative w-56 h-56 md:w-96 md:h-96 rounded-xl overflow-hidden border border-[var(--border)] bg-[var(--surface)]">
             <Image
-              src="/assets/profile.jpeg"
+              src="/assets/profile_ai.jpg"
               alt="Ferdy Kurnia Panggabean"
               fill
               priority
-              className="object-cover grayscale hover:grayscale-0 transition-all duration-700"
+              className="object-contain grayscale hover:grayscale-0 transition-all duration-700"
             />
           </div>
 
