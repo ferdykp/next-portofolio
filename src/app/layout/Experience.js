@@ -8,9 +8,9 @@ import SectionLabel from "../components/SectionLabel";
 const experiences = [
   {
     company: "Nuctech Company Limited",
-    role: "Software Engineer · Full-Stack & DevOps",
+    role: "Software Engineer · Full-Stack",
     period: "May 2025 — Present",
-    location: "Surabaya, Indonesia",
+    location: "Jakarta, Indonesia",
     current: true,
     bullets: [
       "Led full-stack development (Laravel, Tailwind CSS, JavaScript) for two production systems while serving as DevOps Engineer, coordinating a team of 3 developers from PRD through deployment and documentation.",
@@ -23,7 +23,16 @@ const experiences = [
       "Maintained FS6000 equipment and performed operator/Industrial PC backups using Symantec Ghost.",
       "Developed a Python application to automate data conversion into Excel reports, and resolved inter-server and Modbus protocol issues via Modscan.",
     ],
-    tech: ["Laravel", "Tailwind CSS", "Ubuntu Server", "Nginx", "Docker", "Cloudflare Zero Trust", "Python", "Modbus TCP/IP"],
+    tech: [
+      "Laravel",
+      "Tailwind CSS",
+      "Ubuntu Server",
+      "Nginx",
+      "Docker",
+      "Cloudflare Zero Trust",
+      "Python",
+      "Modbus TCP/IP",
+    ],
   },
   {
     company: "PT Reka Inovasi Cerdas",
@@ -38,7 +47,15 @@ const experiences = [
       "Designed and built a facial-recognition attendance system by integrating a facial-recognition library and model on a Lichee Pi 4A mini PC with a Runcam camera.",
       "Built the companion attendance dashboard — a web platform for ingesting attendance data and managing employee records — using Quasar (TypeScript/Vue.js) on the frontend with a Node.js and Express.js backend.",
     ],
-    tech: ["Qt Creator / QML", "MAVLink", "Vue.js / Quasar", "Node.js", "Express.js", "Facial Recognition", "Yocto / Poky"],
+    tech: [
+      "Qt Creator / QML",
+      "MAVLink",
+      "Vue.js / Quasar",
+      "Node.js",
+      "Express.js",
+      "Facial Recognition",
+      "Yocto / Poky",
+    ],
   },
   {
     company: "AirNav Juanda Surabaya",
@@ -80,13 +97,18 @@ export default function Experience() {
   const [openIndex, setOpenIndex] = useState(-1);
 
   return (
-    <section id="experience" className="py-24 md:py-36 border-b border-[var(--border)]">
+    <section
+      id="experience"
+      className="py-24 md:py-36 border-b border-[var(--border)]"
+    >
       <SectionLabel title="Experience" />
 
       <Reveal className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-14 md:mb-20">
         <h2 className="font-display text-[clamp(2.8rem,6vw,6.6rem)] font-medium tracking-[-.06em] leading-[.9] lg:col-span-8">
           Work across software,
-          <span className="block text-[var(--text-muted)]">systems and infrastructure.</span>
+          <span className="block text-[var(--text-muted)]">
+            systems and infrastructure.
+          </span>
         </h2>
         <p className="lg:col-span-4 lg:self-end text-base md:text-lg leading-relaxed text-[var(--text-muted)]">
           Selected roles that shaped how I build and ship production systems.
@@ -98,7 +120,11 @@ export default function Experience() {
           const open = openIndex === index;
 
           return (
-            <Reveal key={exp.company} delay={index * 0.035} direction={index % 2 ? "down" : "up"}>
+            <Reveal
+              key={exp.company}
+              delay={index * 0.035}
+              direction={index % 2 ? "down" : "up"}
+            >
               <article className="border-b border-[var(--border)]">
                 <button
                   type="button"
@@ -115,7 +141,9 @@ export default function Experience() {
                         <h3 className="font-display text-xl md:text-2xl tracking-[-.04em] leading-tight transition-colors duration-300 group-hover:text-[var(--accent)]">
                           {exp.company}
                         </h3>
-                        <p className="md:hidden mt-1 text-sm text-[var(--text-muted)]">{exp.role}</p>
+                        <p className="md:hidden mt-1 text-sm text-[var(--text-muted)]">
+                          {exp.role}
+                        </p>
                       </div>
                     </div>
 
@@ -124,7 +152,9 @@ export default function Experience() {
                     </p>
 
                     <div className="hidden md:block md:col-span-2">
-                      <p className="text-[10px] font-mono uppercase tracking-[.1em]">{exp.period}</p>
+                      <p className="text-[10px] font-mono uppercase tracking-[.1em]">
+                        {exp.period}
+                      </p>
                     </div>
 
                     <div className="flex md:col-span-2 md:justify-end items-start gap-4">
@@ -140,7 +170,9 @@ export default function Experience() {
                   </div>
 
                   <div className="md:hidden mt-4 flex flex-wrap gap-x-5 gap-y-1">
-                    <span className="text-[9px] font-mono uppercase tracking-[.1em]">{exp.period}</span>
+                    <span className="text-[9px] font-mono uppercase tracking-[.1em]">
+                      {exp.period}
+                    </span>
                     <span className="text-[9px] font-mono uppercase tracking-[.1em] text-[var(--text-muted)]">
                       {exp.location}
                     </span>
@@ -160,7 +192,10 @@ export default function Experience() {
                         initial={{ y: 14 }}
                         animate={{ y: 0 }}
                         exit={{ y: -8 }}
-                        transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
+                        transition={{
+                          duration: 0.52,
+                          ease: [0.22, 1, 0.36, 1],
+                        }}
                         className="grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-12 pb-8 md:pb-12"
                       >
                         <div className="md:col-start-5 md:col-span-6">
