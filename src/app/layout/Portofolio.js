@@ -24,7 +24,14 @@ const projects = [
       "/assets/portofolio/veterinary/6.png",
     ],
     field: "Full-Stack Web Developer",
-    techstack: ["Laravel", "Next.js", "Tailwind CSS", "Alpine.js", "MySQL", "REST API"],
+    techstack: [
+      "Laravel",
+      "Next.js",
+      "Tailwind CSS",
+      "Alpine.js",
+      "MySQL",
+      "REST API",
+    ],
   },
   {
     title: "Enterprise Operational Expense & Reimbursement Claim System",
@@ -37,7 +44,14 @@ const projects = [
       "/assets/portofolio/reimbursement/2.png",
     ],
     field: "Full-Stack Web Engineer",
-    techstack: ["Laravel 11", "Tailwind CSS", "AJAX", "FPDI", "Ghostscript", "MySQL"],
+    techstack: [
+      "Laravel 11",
+      "Tailwind CSS",
+      "AJAX",
+      "FPDI",
+      "Ghostscript",
+      "MySQL",
+    ],
   },
   {
     title: "GrowPOS — SaaS Multi-Tenant Point of Sale with AI Advisor",
@@ -53,25 +67,38 @@ const projects = [
       "/assets/portofolio/growpos/5.png",
     ],
     field: "Full-Stack SaaS Web Engineer",
-    techstack: ["Laravel 11", "Tailwind CSS", "Gemini AI", "Midtrans", "MySQL", "Alpine.js"],
-  },
-  {
-    title: "Extreme Project — Premium Coil & Cotton Landing Page",
-    shortTitle: "Extreme Project",
-    category: "web",
-    description:
-      "A high-performance Next.js landing experience with a custom visual system, responsive product grids, SEO, and refined interaction.",
-    images: [
-      "/assets/portofolio/extreme/1.png",
-      "/assets/portofolio/extreme/2.png",
-      "/assets/portofolio/extreme/3.png",
-      "/assets/portofolio/extreme/4.png",
-      "/assets/portofolio/extreme/5.png",
-      "/assets/portofolio/extreme/6.png",
+    techstack: [
+      "Laravel 11",
+      "Tailwind CSS",
+      "Gemini AI",
+      "Midtrans",
+      "MySQL",
+      "Alpine.js",
     ],
-    field: "Front-End Developer",
-    techstack: ["Next.js", "Tailwind CSS", "JavaScript", "SEO", "Semantic HTML"],
   },
+  // {
+  //   title: "Extreme Project — Premium Coil & Cotton Landing Page",
+  //   shortTitle: "Extreme Project",
+  //   category: "web",
+  //   description:
+  //     "A high-performance Next.js landing experience with a custom visual system, responsive product grids, SEO, and refined interaction.",
+  //   images: [
+  //     "/assets/portofolio/extreme/1.png",
+  //     "/assets/portofolio/extreme/2.png",
+  //     "/assets/portofolio/extreme/3.png",
+  //     "/assets/portofolio/extreme/4.png",
+  //     "/assets/portofolio/extreme/5.png",
+  //     "/assets/portofolio/extreme/6.png",
+  //   ],
+  //   field: "Front-End Developer",
+  //   techstack: [
+  //     "Next.js",
+  //     "Tailwind CSS",
+  //     "JavaScript",
+  //     "SEO",
+  //     "Semantic HTML",
+  //   ],
+  // },
   {
     title: "Proactive Smart Home Server Infrastructure",
     shortTitle: "Home Server Infrastructure",
@@ -83,7 +110,14 @@ const projects = [
       "/assets/portofolio/homeserver/terminal.png",
     ],
     field: "DevOps & Automation",
-    techstack: ["Ubuntu Server", "Python", "PM2", "Telegram API", "Bash", "Linux"],
+    techstack: [
+      "Ubuntu Server",
+      "Python",
+      "PM2",
+      "Telegram API",
+      "Bash",
+      "Linux",
+    ],
   },
   {
     title: "Smart Public Street Light",
@@ -129,7 +163,8 @@ const projects = [
     techstack: ["Vue.js", "Node.js", "Advantech", "GPS", "Modbus"],
   },
   {
-    title: "Hybrid HOG-SVM Method for Drifting Victim Image Detection in Rivers",
+    title:
+      "Hybrid HOG-SVM Method for Drifting Victim Image Detection in Rivers",
     shortTitle: "River Victim Detection Research",
     category: "ai",
     description:
@@ -165,7 +200,8 @@ const projects = [
     techstack: ["Python", "Flask", "YOLOv5", "Leaflet", "EXIF", "OpenCV"],
   },
   {
-    title: "IoT-Based Intelligent System for Laboratory Human Presence Detection",
+    title:
+      "IoT-Based Intelligent System for Laboratory Human Presence Detection",
     shortTitle: "Lab Presence Detection",
     category: "iot",
     description:
@@ -194,11 +230,17 @@ export default function Portofolio() {
   const [showAll, setShowAll] = useState(false);
 
   const filteredProjects = useMemo(
-    () => projects.filter((project) => selectedCategory === "all" || project.category === selectedCategory),
+    () =>
+      projects.filter(
+        (project) =>
+          selectedCategory === "all" || project.category === selectedCategory,
+      ),
     [selectedCategory],
   );
 
-  const visibleProjects = showAll ? filteredProjects : filteredProjects.slice(0, 5);
+  const visibleProjects = showAll
+    ? filteredProjects
+    : filteredProjects.slice(0, 5);
 
   useEffect(() => {
     if (!activeProject) return undefined;
@@ -222,19 +264,29 @@ export default function Portofolio() {
   };
 
   return (
-    <section id="portofolio" className="py-24 md:py-36 border-b border-[var(--border)]">
+    <section
+      id="portofolio"
+      className="py-24 md:py-36 border-b border-[var(--border)]"
+    >
       <SectionLabel title="Selected work" />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-12 md:mb-16">
         <Reveal className="lg:col-span-8">
           <h2 className="font-display text-[clamp(3rem,6.3vw,7rem)] font-medium tracking-[-.065em] leading-[.88]">
             Products and systems,
-            <span className="block text-[var(--text-muted)]">built for real use.</span>
+            <span className="block text-[var(--text-muted)]">
+              built for real use.
+            </span>
           </h2>
         </Reveal>
-        <Reveal direction="down" delay={0.07} className="lg:col-span-4 lg:self-end">
+        <Reveal
+          direction="down"
+          delay={0.07}
+          className="lg:col-span-4 lg:self-end"
+        >
           <p className="text-base md:text-lg leading-relaxed text-[var(--text-muted)] max-w-md">
-            A focused selection of web, infrastructure, IoT and computer-vision work.
+            A focused selection of web, infrastructure, IoT and computer-vision
+            work.
           </p>
         </Reveal>
       </div>
@@ -288,7 +340,9 @@ export default function Portofolio() {
               </button>
 
               <div className="lg:col-span-5 lg:pl-2">
-                <p className="rev-label text-[var(--accent)]">{project.field}</p>
+                <p className="rev-label text-[var(--accent)]">
+                  {project.field}
+                </p>
                 <h3 className="font-display text-3xl md:text-4xl xl:text-5xl tracking-[-.055em] leading-[.98] mt-3 text-balance">
                   {project.shortTitle}
                 </h3>
@@ -298,7 +352,10 @@ export default function Portofolio() {
 
                 <div className="mt-6 flex flex-wrap gap-x-4 gap-y-2">
                   {project.techstack.slice(0, 3).map((tech) => (
-                    <span key={tech} className="text-[10px] font-mono uppercase tracking-[.08em] text-[var(--text-muted)]">
+                    <span
+                      key={tech}
+                      className="text-[10px] font-mono uppercase tracking-[.08em] text-[var(--text-muted)]"
+                    >
                       {tech}
                     </span>
                   ))}
@@ -364,7 +421,9 @@ export default function Portofolio() {
               <div className="max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-12 2xl:px-16 py-10 md:py-16">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-9 lg:gap-14 mb-10 md:mb-16">
                   <div className="lg:col-span-8">
-                    <p className="rev-label text-[var(--accent)]">{activeProject.field}</p>
+                    <p className="rev-label text-[var(--accent)]">
+                      {activeProject.field}
+                    </p>
                     <h3 className="font-display text-[clamp(2.8rem,6vw,7rem)] font-medium tracking-[-.065em] leading-[.9] mt-4 text-balance">
                       {activeProject.shortTitle}
                     </h3>
@@ -375,7 +434,10 @@ export default function Portofolio() {
                     </p>
                     <div className="mt-6 flex flex-wrap gap-x-4 gap-y-2">
                       {activeProject.techstack.map((tech) => (
-                        <span key={tech} className="text-[10px] font-mono uppercase tracking-[.08em] text-[var(--text-muted)]">
+                        <span
+                          key={tech}
+                          className="text-[10px] font-mono uppercase tracking-[.08em] text-[var(--text-muted)]"
+                        >
                           {tech}
                         </span>
                       ))}
@@ -390,9 +452,15 @@ export default function Portofolio() {
                       initial={{ opacity: 0, y: index % 2 ? -22 : 22 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, amount: 0.15 }}
-                      transition={{ duration: 0.7, delay: Math.min(index * 0.035, 0.18), ease }}
+                      transition={{
+                        duration: 0.7,
+                        delay: Math.min(index * 0.035, 0.18),
+                        ease,
+                      }}
                       className={`project-media relative overflow-hidden border border-[var(--border)] ${
-                        index === 0 ? "md:col-span-2 aspect-[16/9]" : "aspect-[16/10]"
+                        index === 0
+                          ? "md:col-span-2 aspect-[16/9]"
+                          : "aspect-[16/10]"
                       }`}
                     >
                       <Image
