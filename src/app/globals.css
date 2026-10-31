@@ -1,5 +1,61 @@
 @import "tailwindcss";
 
+/* Animate inherited theme tokens without overriding component transitions. */
+@property --bg {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #f2f1ec;
+}
+
+@property --bg-elevated {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #faf9f5;
+}
+
+@property --surface {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #e7e5de;
+}
+
+@property --surface-strong {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #d7d4cc;
+}
+
+@property --border {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #cbc8be;
+}
+
+@property --text {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #10100f;
+}
+
+@property --text-muted {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #6d6b64;
+}
+
+@property --accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: #f13a24;
+}
+
+@property --accent-soft {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: rgba(241, 58, 36, 0.11);
+}
+
+
 :root {
   --bg: #f2f1ec;
   --bg-elevated: #faf9f5;
@@ -13,6 +69,7 @@
 }
 
 html:not(.light) {
+  color-scheme: dark;
   --bg: #0b0b0a;
   --bg-elevated: #121211;
   --surface: #191917;
@@ -43,6 +100,10 @@ html:not(.light) {
 }
 
 html {
+  color-scheme: light;
+  transition-property: --bg, --bg-elevated, --surface, --surface-strong, --border, --text, --text-muted, --accent, --accent-soft;
+  transition-duration: 0.45s;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
   scroll-behavior: smooth;
   background: var(--bg);
 }

@@ -61,9 +61,9 @@ export default function Navbar() {
   }, [isMenuOpen]);
 
   const toggleTheme = () => {
-    const next = !isLight;
+    const next = !document.documentElement.classList.contains("light");
     setIsLight(next);
-    document.documentElement.classList.toggle("dark", next);
+    document.documentElement.classList.toggle("light", next);
     try {
       localStorage.setItem("portfolio-theme-v4", next ? "light" : "dark");
     } catch {}
