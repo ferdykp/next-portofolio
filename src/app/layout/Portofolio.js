@@ -33,6 +33,8 @@ const projects = [
       "Evolution API",
       "Docker",
     ],
+  },
+  {
     title: "Veterinary Personal Branding & Headless Publishing Platform",
     shortTitle: "Veterinary Publishing Platform",
     category: "web",
