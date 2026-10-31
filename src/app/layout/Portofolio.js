@@ -10,6 +10,29 @@ const ease = [0.22, 1, 0.36, 1];
 
 const projects = [
   {
+    title: "Ledger — Personal Finance Tracker with AI & WhatsApp Integration",
+    shortTitle: "Ledger — Personal Finance",
+    category: "web",
+    description:
+      "A personal finance platform for tracking income, expenses, transfers, and wallet balances, featuring PWA access, financial dashboards, and AI-assisted transaction recording through WhatsApp.",
+    images: [
+      "/assets/portofolio/ledger/1.png",
+      "/assets/portofolio/ledger/2.png",
+      "/assets/portofolio/ledger/3.png",
+      "/assets/portofolio/ledger/4.png",
+      "/assets/portofolio/ledger/5.png",
+    ],
+    field: "Full-Stack Software Engineer",
+    techstack: [
+      "Vue.js",
+      "Laravel",
+      "Tailwind CSS",
+      "MySQL",
+      "PWA",
+      "Groq AI",
+      "Evolution API",
+      "Docker",
+    ],
     title: "Veterinary Personal Branding & Headless Publishing Platform",
     shortTitle: "Veterinary Publishing Platform",
     category: "web",
