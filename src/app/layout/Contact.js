@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Reveal from "../components/Reveal";
 import SectionLabel from "../components/SectionLabel";
+import TiltSurface from "../components/TiltSurface";
 
 export default function Contact() {
   const [status, setStatus] = useState({ loading: false, success: false, error: false });
@@ -48,7 +49,8 @@ export default function Contact() {
         </Reveal>
 
         <Reveal direction="down" delay={0.08} className="lg:col-span-5 lg:pt-2">
-          <form onSubmit={handleSubmit} className="border-t border-[var(--border)]">
+          <TiltSurface className="depth-panel rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)]" maxTilt={2} lift={2}>
+          <form onSubmit={handleSubmit} className="p-5 sm:p-7">
             <label className="block py-5 border-b border-[var(--border)]">
               <span className="rev-label block mb-2">Name</span>
               <input
@@ -88,11 +90,12 @@ export default function Contact() {
             <button
               type="submit"
               disabled={status.loading}
-              className="mt-7 rounded-full bg-[var(--text)] text-[var(--bg)] px-6 py-3 text-[10px] font-mono uppercase tracking-[.12em] hover:bg-[var(--accent)] hover:text-white transition-colors duration-300 disabled:opacity-50"
+              className="depth-control mt-7 rounded-full bg-[var(--text)] text-[var(--bg)] px-6 py-3 text-[10px] font-mono uppercase tracking-[.12em] hover:bg-[var(--accent)] hover:text-white transition-colors duration-300 disabled:opacity-50"
             >
               {status.loading ? "Sending" : "Send message"}
             </button>
           </form>
+          </TiltSurface>
         </Reveal>
       </div>
     </section>

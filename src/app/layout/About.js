@@ -2,6 +2,7 @@
 
 import Reveal from "../components/Reveal";
 import SectionLabel from "../components/SectionLabel";
+import TiltSurface from "../components/TiltSurface";
 
 const capabilities = [
   {
@@ -38,23 +39,25 @@ export default function About() {
         </Reveal>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-0 mt-16 md:mt-24 border-t border-[var(--border)]">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-16 md:mt-24">
         {capabilities.map((item, index) => (
           <Reveal
             key={item.title}
             delay={index * 0.06}
             direction={index % 2 === 0 ? "up" : "down"}
-            className={`py-7 md:py-9 ${index > 0 ? "md:border-l md:pl-8 lg:pl-10" : ""} border-b md:border-b-0 border-[var(--border)]`}
+            className="h-full"
           >
-            <h3 className="font-display text-xl md:text-2xl tracking-[-.04em]">{item.title}</h3>
-            <p className="mt-2 text-sm text-[var(--text-muted)]">{item.text}</p>
+            <TiltSurface className="depth-panel rounded-2xl border border-[var(--border)] p-6 md:p-8 min-h-36" maxTilt={5} lift={5}>
+              <h3 className="font-display text-xl md:text-2xl tracking-[-.04em]">{item.title}</h3>
+              <p className="mt-2 text-sm md:text-base text-[var(--text-muted)]">{item.text}</p>
+            </TiltSurface>
           </Reveal>
         ))}
       </div>
 
       <Reveal className="mt-10 md:mt-14 pt-5 border-t border-[var(--border)] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <span className="rev-label">Background</span>
-        <p className="text-sm text-[var(--text-muted)]">
+        <p className="text-sm md:text-base text-[var(--text-muted)]">
           Telecommunication Engineering · Politeknik Elektronika Negeri Surabaya · 2024
         </p>
       </Reveal>

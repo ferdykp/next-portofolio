@@ -117,13 +117,12 @@ export default function RootLayout({ children }) {
     ],
   };
 
-  // Prevents theme flash: applies saved theme before paint.
+  // Default to dark while still honoring a theme the visitor chose before.
   const themeInitScript = `
     (function() {
       try {
-        var saved = localStorage.getItem("portfolio-theme-v4");
-        var theme = saved || "light";
-        if (theme === "light") document.documentElement.classList.add("light");
+        var saved = localStorage.getItem("portfolio-theme-v5");
+        document.documentElement.classList.toggle("light", saved === "light");
       } catch (e) {}
     })();
   `;

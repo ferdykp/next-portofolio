@@ -1,18 +1,21 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import TiltSurface from "../components/TiltSurface";
 
 const ease = [0.22, 1, 0.36, 1];
 
 function HeroLine({ children, delay = 0 }) {
+  const shouldReduceMotion = useReducedMotion();
   return (
     <span className="block overflow-hidden">
       <motion.span
         className="block"
-        initial={{ y: "110%" }}
-        animate={{ y: 0 }}
-        transition={{ delay, duration: 0.9, ease }}
+        initial={shouldReduceMotion ? false : { y: "115%", rotateX: 14, opacity: 0, filter: "blur(10px)" }}
+        animate={{ y: 0, rotateX: 0, opacity: 1, filter: "blur(0px)" }}
+        transition={shouldReduceMotion ? { duration: 0.01 } : { delay, duration: 1.12, ease }}
+        style={{ transformPerspective: 900 }}
       >
         {children}
       </motion.span>
@@ -21,16 +24,17 @@ function HeroLine({ children, delay = 0 }) {
 }
 
 export default function HomeSection() {
+  const shouldReduceMotion = useReducedMotion();
   return (
     <section
       id="home"
-      className="min-h-[100svh] pt-[96px] md:pt-[118px] pb-8 md:pb-12 flex flex-col justify-between border-b border-[var(--border)]"
+      className="relative min-h-[100svh] pt-[96px] md:pt-[118px] pb-8 md:pb-12 flex flex-col justify-between border-b border-[var(--border)]"
     >
       <div>
         <motion.div
-          initial={{ opacity: 0, y: -12 }}
+          initial={shouldReduceMotion ? false : { opacity: 0, y: -12 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease }}
+          transition={shouldReduceMotion ? { duration: 0.01 } : { duration: 0.7, ease }}
           className="grid grid-cols-2 md:grid-cols-12 gap-4 pb-6 md:pb-8 border-b border-[var(--border)]"
         >
           <p className="col-span-1 md:col-span-5 rev-label text-[var(--text)]">
@@ -44,7 +48,7 @@ export default function HomeSection() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 pt-10 md:pt-14 items-end">
+        <div className="relative grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 pt-10 md:pt-14 items-end">
           <div className="lg:col-span-8 xl:col-span-9 relative z-10">
             <h1 className="font-display uppercase font-semibold text-[clamp(4.3rem,12vw,12.8rem)] tracking-[-.085em] leading-[.76]">
               <HeroLine delay={0.16}>Software</HeroLine>
@@ -55,12 +59,13 @@ export default function HomeSection() {
           </div>
 
           <motion.div
-            initial={{ opacity: 0, y: 32, scale: 0.985 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            transition={{ delay: 0.28, duration: 0.9, ease }}
+            initial={shouldReduceMotion ? false : { opacity: 0, y: 42, scale: 0.94, rotateY: -8, filter: "blur(12px)" }}
+            animate={{ opacity: 1, y: 0, scale: 1, rotateY: 0, filter: "blur(0px)" }}
+            transition={shouldReduceMotion ? { duration: 0.01 } : { delay: 0.4, duration: 1.25, ease }}
+            style={{ transformPerspective: 1100 }}
             className="lg:col-span-4 xl:col-span-3 lg:pb-2"
           >
-            <div className="group relative">
+            <TiltSurface className="hero-portrait group relative" maxTilt={8} lift={3}>
               {/* decorative frame */}
               <div className="absolute -inset-2 md:-inset-3 rounded-[28px] border border-[var(--border)]" />
 
@@ -88,7 +93,7 @@ export default function HomeSection() {
                     fill
                     priority
                     sizes="(max-width: 1024px) 420px, 24vw"
-                    className="
+                    className="depth-image
           object-cover
           grayscale-[0.08]
           transition-transform
@@ -111,15 +116,26 @@ export default function HomeSection() {
                   />
                 </div>
               </div>
-            </div>
+            </TiltSurface>
           </motion.div>
         </div>
       </div>
 
+      <div className="hero-orbit hidden 2xl:grid" aria-hidden="true">
+        <div className="hero-orbit-ring hero-orbit-ring-a" />
+        <div className="hero-orbit-ring hero-orbit-ring-b" />
+        <div className="hero-orbit-core">
+          <strong>FKP</strong>
+          <span>SOFTWARE SYSTEMS</span>
+        </div>
+        <span className="hero-orbit-label hero-orbit-label-a">BUILD / 01</span>
+        <span className="hero-orbit-label hero-orbit-label-b">DEPLOY / 24</span>
+      </div>
+
       <motion.div
-        initial={{ opacity: 0, y: 24 }}
+        initial={shouldReduceMotion ? false : { opacity: 0, y: 24 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ delay: 0.42, duration: 0.85, ease }}
+        transition={shouldReduceMotion ? { duration: 0.01 } : { delay: 0.42, duration: 0.85, ease }}
         className="grid grid-cols-1 md:grid-cols-12 gap-7 md:gap-8 pt-8 md:pt-10 mt-10 md:mt-16 border-t border-[var(--border)] items-end"
       >
         <p className="md:col-span-7 lg:col-span-6 text-xl md:text-2xl lg:text-[2rem] leading-[1.22] tracking-[-.03em] max-w-3xl text-balance">

@@ -3,6 +3,8 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import AmbientWallpaper from "../../components/AmbientWallpaper";
+import Reveal from "../../components/Reveal";
 
 export const dynamic = "force-dynamic";
 
@@ -37,10 +39,12 @@ export default async function BlogPostDetailPage({ params }) {
   if (!post || post.status !== "published") notFound();
 
   return (
-    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] antialiased">
+    <div className="scene-root min-h-screen bg-[var(--bg)] text-[var(--text)] antialiased">
+      <AmbientWallpaper />
       <Navbar />
 
       <main className="max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-12 2xl:px-16 pt-[112px] md:pt-[142px] pb-24 md:pb-36">
+        <Reveal>
         <div className="flex items-center justify-between gap-5 pb-5 border-b border-[var(--border)] mb-12 md:mb-16">
           <Link
             href="/blog"
@@ -63,18 +67,21 @@ export default async function BlogPostDetailPage({ params }) {
             {post.title}
           </h1>
         </header>
+        </Reveal>
 
         {post.images && (
-          <div className="relative aspect-[16/8] md:aspect-[21/9] w-full overflow-hidden bg-[var(--surface)] mb-12 md:mb-20">
-            <Image
-              src={`https://selfnote.fdevsite.cloud/storage/${post.images}`}
-              alt={post.title}
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover"
-            />
-          </div>
+          <Reveal>
+            <div className="relative aspect-[16/8] md:aspect-[21/9] w-full overflow-hidden bg-[var(--surface)] mb-12 md:mb-20">
+              <Image
+                src={`https://selfnote.fdevsite.cloud/storage/${post.images}`}
+                alt={post.title}
+                fill
+                priority
+                sizes="100vw"
+                className="object-cover"
+              />
+            </div>
+          </Reveal>
         )}
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16">
@@ -84,10 +91,12 @@ export default async function BlogPostDetailPage({ params }) {
             </div>
           </aside>
 
-          <article
-            className="prose-custom lg:col-span-7 lg:col-start-5 max-w-none text-base md:text-lg"
-            dangerouslySetInnerHTML={{ __html: post.content }}
-          />
+          <Reveal className="lg:col-span-7 lg:col-start-5">
+            <article
+              className="prose-custom max-w-none text-base md:text-lg"
+              dangerouslySetInnerHTML={{ __html: post.content }}
+            />
+          </Reveal>
         </div>
       </main>
 

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import Reveal from "../components/Reveal";
 import SectionLabel from "../components/SectionLabel";
+import TiltSurface from "../components/TiltSurface";
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -249,6 +250,34 @@ const filters = [
   { id: "ai", label: "AI / Vision" },
 ];
 
+function ProjectPreview({ project, onClick }) {
+  const [loaded, setLoaded] = useState(false);
+  const [failed, setFailed] = useState(false);
+
+  return (
+    <button type="button" onClick={onClick} className="lg:col-span-7 block w-full text-left">
+      <TiltSurface className="project-media depth-stage relative aspect-[16/10] overflow-hidden border border-[var(--border)] rounded-xl md:rounded-2xl" maxTilt={4.5} lift={3}>
+        <div className="absolute inset-[4%] md:inset-[3.5%] overflow-hidden rounded-lg md:rounded-xl bg-[var(--bg-elevated)] soft-shadow">
+          {!loaded && <div className="skeleton absolute inset-0 rounded-lg md:rounded-xl" aria-hidden="true" />}
+          {failed ? (
+            <div className="absolute inset-0 grid place-items-center text-xs text-[var(--text-muted)]">Preview unavailable</div>
+          ) : (
+            <Image
+              src={project.images[0]}
+              alt={`${project.shortTitle} preview`}
+              fill
+              sizes="(max-width: 1024px) 100vw, 58vw"
+              onLoad={() => setLoaded(true)}
+              onError={() => { setFailed(true); setLoaded(true); }}
+              className={`depth-image object-contain ${loaded ? "opacity-100" : "opacity-0"}`}
+            />
+          )}
+        </div>
+      </TiltSurface>
+    </button>
+  );
+}
+
 export default function Portofolio() {
   const [activeProject, setActiveProject] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("all");
@@ -322,7 +351,7 @@ export default function Portofolio() {
             key={filter.id}
             type="button"
             onClick={() => selectFilter(filter.id)}
-            className={`shrink-0 rounded-full px-4 py-2 border text-[10px] font-mono uppercase tracking-[.1em] transition-all duration-300 ${
+            className={`depth-control shrink-0 rounded-full px-4 py-2 border text-[10px] font-mono uppercase tracking-[.1em] transition-all duration-300 ${
               selectedCategory === filter.id
                 ? "bg-[var(--text)] text-[var(--bg)] border-[var(--text)]"
                 : "border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--text)] hover:border-[var(--text-muted)]"
@@ -344,25 +373,9 @@ export default function Portofolio() {
               viewport={{ once: true, amount: 0.12 }}
               exit={{ opacity: 0, y: 18 }}
               transition={{ duration: 0.72, ease }}
-              className="group grid grid-cols-1 lg:grid-cols-12 gap-7 lg:gap-12 py-8 md:py-12 lg:py-14 border-b border-[var(--border)] items-center"
+              className="depth-row group grid grid-cols-1 lg:grid-cols-12 gap-7 lg:gap-12 py-8 md:py-12 lg:py-14 border-b border-[var(--border)] items-center"
             >
-              <button
-                type="button"
-                onClick={() => setActiveProject(project)}
-                className="lg:col-span-7 block w-full text-left"
-              >
-                <div className="project-media relative aspect-[16/10] overflow-hidden border border-[var(--border)]">
-                  <div className="absolute inset-[4%] md:inset-[3.5%] bg-[var(--bg-elevated)] overflow-hidden soft-shadow">
-                    <Image
-                      src={project.images[0]}
-                      alt={`${project.shortTitle} preview`}
-                      fill
-                      sizes="(max-width: 1024px) 100vw, 58vw"
-                      className="object-contain transition-transform duration-[1000ms] ease-[cubic-bezier(.22,1,.36,1)] group-hover:scale-[1.022]"
-                    />
-                  </div>
-                </div>
-              </button>
+              <ProjectPreview project={project} onClick={() => setActiveProject(project)} />
 
               <div className="lg:col-span-5 lg:pl-2">
                 <p className="rev-label text-[var(--accent)]">
@@ -404,7 +417,7 @@ export default function Portofolio() {
           <button
             type="button"
             onClick={() => setShowAll((value) => !value)}
-            className="rounded-full border border-[var(--border)] px-6 py-3 text-[10px] font-mono uppercase tracking-[.12em] hover:bg-[var(--text)] hover:text-[var(--bg)] hover:border-[var(--text)] transition-all duration-300"
+            className="depth-control rounded-full border border-[var(--border)] px-6 py-3 text-[10px] font-mono uppercase tracking-[.12em] hover:bg-[var(--text)] hover:text-[var(--bg)] hover:border-[var(--text)] transition-all duration-300"
           >
             {showAll ? "Show less" : `Show all projects`}
           </button>

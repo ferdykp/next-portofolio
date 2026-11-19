@@ -1,6 +1,6 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion, useScroll } from "framer-motion";
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
@@ -9,6 +9,7 @@ const navItems = [
   { label: "Work", id: "portofolio" },
   { label: "About", id: "about" },
   { label: "Experience", id: "experience" },
+  { label: "Activity", id: "github-activity" },
   { label: "Contact", id: "contact" },
   { label: "Notes", id: "blog" },
 ];
@@ -18,10 +19,13 @@ const ease = [0.22, 1, 0.36, 1];
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isLight, setIsLight] = useState(true);
+  const [isLight, setIsLight] = useState(false);
+  const [themeWipe, setThemeWipe] = useState(null);
   const [activeSection, setActiveSection] = useState("home");
+  const shouldReduceMotion = useReducedMotion();
   const pathname = usePathname();
   const router = useRouter();
+  const { scrollYProgress } = useScroll();
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 12);
@@ -30,7 +34,7 @@ export default function Navbar() {
     setIsLight(document.documentElement.classList.contains("light"));
 
     if (!pathname.startsWith("/blog")) {
-      const ids = ["home", "about", "experience", "portofolio", "contact"];
+      const ids = ["home", "about", "experience", "portofolio", "github-activity", "contact"];
       const sections = ids
         .map((id) => document.getElementById(id))
         .filter(Boolean);
@@ -60,12 +64,21 @@ export default function Navbar() {
     };
   }, [isMenuOpen]);
 
-  const toggleTheme = () => {
+  const toggleTheme = (event) => {
     const next = !document.documentElement.classList.contains("light");
+    if (!shouldReduceMotion) {
+      const bounds = event?.currentTarget?.getBoundingClientRect();
+      setThemeWipe({
+        id: Date.now(),
+        x: bounds ? bounds.left + bounds.width / 2 : window.innerWidth / 2,
+        y: bounds ? bounds.top + bounds.height / 2 : 40,
+        theme: next ? "light" : "dark",
+      });
+    }
     setIsLight(next);
     document.documentElement.classList.toggle("light", next);
     try {
-      localStorage.setItem("portfolio-theme-v4", next ? "light" : "dark");
+      localStorage.setItem("portfolio-theme-v5", next ? "light" : "dark");
     } catch {}
   };
 
@@ -88,46 +101,59 @@ export default function Navbar() {
 
   return (
     <>
-      <header
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-          isScrolled
-            ? "bg-[var(--bg)]/88 backdrop-blur-xl border-b border-[var(--border)]"
-            : "bg-transparent border-b border-transparent"
-        }`}
-      >
-        <nav className="max-w-[1720px] mx-auto h-[72px] md:h-[82px] px-5 sm:px-8 lg:px-12 2xl:px-16 grid grid-cols-[1fr_auto] md:grid-cols-[180px_1fr_180px] items-center gap-6">
+      <AnimatePresence>
+        {themeWipe && (
+          <motion.div
+            key={themeWipe.id}
+            className={`theme-wipe theme-wipe-${themeWipe.theme}`}
+            initial={{ clipPath: `circle(0px at ${themeWipe.x}px ${themeWipe.y}px)`, opacity: 0.9 }}
+            animate={{ clipPath: `circle(160vmax at ${themeWipe.x}px ${themeWipe.y}px)`, opacity: 0 }}
+            transition={{ duration: 0.9, ease }}
+            onAnimationComplete={() => setThemeWipe((current) => current?.id === themeWipe.id ? null : current)}
+            aria-hidden="true"
+          />
+        )}
+      </AnimatePresence>
+      <motion.div
+        className="scroll-progress"
+        style={{ scaleX: scrollYProgress }}
+        aria-hidden="true"
+      />
+      <header className={`site-header ${isScrolled ? "site-header-scrolled" : ""}`}>
+        <nav className={`nav-dock ${isScrolled ? "nav-dock-scrolled" : ""}`} aria-label="Main navigation">
           <Link
             href="/"
             onClick={(event) => handleNavClick(event, "home")}
-            className="justify-self-start font-display text-lg font-semibold tracking-[-.055em]"
+            className="nav-brand"
           >
-            FKP<span className="text-[var(--accent)]">.</span>
+            <span className="nav-brand-mark">F<span>.</span></span>
+            <span className="nav-brand-copy"><b>FERDY</b><small>SOFTWARE / SYSTEMS</small></span>
           </Link>
 
-          <div className="hidden md:flex items-center justify-center gap-7 lg:gap-10">
+          <div className="nav-links">
             {navItems.map(({ label, id }) => {
               const active =
                 id === "blog"
                   ? pathname.startsWith("/blog")
                   : activeSection === id && !pathname.startsWith("/blog");
               return (
-                <a
+                <motion.a
                   key={id}
                   href={id === "blog" ? "/blog" : `/#${id}`}
                   onClick={(event) => handleNavClick(event, id)}
-                  className={`relative py-2 text-[11px] font-medium transition-colors duration-300 ${
+                  whileHover={shouldReduceMotion ? undefined : { y: -2, scale: 1.035 }}
+                  whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
+                  transition={{ type: "spring", stiffness: 380, damping: 24 }}
+                  className={`nav-link-3d nav-dock-link ${
                     active
                       ? "text-[var(--text)]"
                       : "text-[var(--text-muted)] hover:text-[var(--text)]"
                   }`}
+                  aria-current={active ? "page" : undefined}
                 >
+                  {active && <motion.span layoutId="active-nav-pill" className="nav-active-pill" transition={{ type: "spring", stiffness: 330, damping: 30 }} />}
                   {label}
-                  <span
-                    className={`absolute left-0 right-0 bottom-0 h-px bg-[var(--accent)] origin-left transition-transform duration-300 ${
-                      active ? "scale-x-100" : "scale-x-0"
-                    }`}
-                  />
-                </a>
+                </motion.a>
               );
             })}
           </div>
@@ -135,19 +161,21 @@ export default function Navbar() {
           <button
             type="button"
             onClick={toggleTheme}
-            className="hidden md:block justify-self-end text-[10px] font-mono uppercase tracking-[.14em] text-[var(--text-muted)] hover:text-[var(--text)] transition-colors"
+            className="nav-theme-button"
             aria-label="Toggle color theme"
           >
-            {isLight ? "Dark mode" : "Light mode"}
+            <span className={`nav-theme-icon ${isLight ? "is-light" : ""}`} aria-hidden="true"><i /></span>
+            <span>{isLight ? "Dark" : "Light"}</span>
           </button>
 
           <button
             type="button"
-            onClick={() => setIsMenuOpen(true)}
-            className="md:hidden justify-self-end text-[10px] font-mono uppercase tracking-[.14em]"
-            aria-label="Open menu"
+            onClick={() => setIsMenuOpen((open) => !open)}
+            className="nav-menu-button"
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={isMenuOpen}
           >
-            Menu
+            <span>{isMenuOpen ? "Close" : "Menu"}</span><i className={isMenuOpen ? "is-open" : ""}><b /><b /></i>
           </button>
         </nav>
       </header>
@@ -155,7 +183,7 @@ export default function Navbar() {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            className="fixed inset-0 z-[90] bg-[var(--bg)] px-5 sm:px-8"
+            className="nav-mobile-panel fixed inset-0 z-[90] bg-[var(--bg)] px-5 sm:px-8"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
