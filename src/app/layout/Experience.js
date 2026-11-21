@@ -9,13 +9,13 @@ const experiences = [
   {
     company: "Nuctech Company Limited",
     role: "Software Engineer · Full-Stack",
-    period: "May 2025 — Present",
+    period: "May 2025 to present",
     location: "Jakarta, Indonesia",
     current: true,
     bullets: [
       "Led full-stack development (Laravel, Tailwind CSS, JavaScript) for two production systems while serving as DevOps Engineer, coordinating a team of 3 developers from PRD through deployment and documentation.",
       "Built a Warehouse & Spare Part Management System supporting multi-branch operations, deployed across 9 cities in Indonesia.",
-      "Developed an ERP system for E-Beam plant operations — customer/product intake, irradiation tracking, quality control, and automated document generation — currently supporting 3 client companies across 7 product types.",
+      "Developed an ERP system for E-Beam plant operations, covering customer and product intake, irradiation tracking, quality control, and automated document generation. It currently supports 3 client companies across 7 product types.",
       "Designed Role-Based Access Control for 5 user roles and built an Excel report export feature for management analysis.",
       "Configured and managed production VPS infrastructure from scratch using Ubuntu Server, Nginx, and Cloudflare Tunnel/Zero Trust.",
       "Authored User Manuals and Installation Guides adopted as the standard for Nuctech product implementation across multiple countries.",
@@ -37,7 +37,7 @@ const experiences = [
   {
     company: "PT Reka Inovasi Cerdas",
     role: "Software Engineer",
-    period: "Nov 2024 — Apr 2025",
+    period: "Nov 2024 to Apr 2025",
     location: "Mojokerto, Indonesia",
     bullets: [
       "Built a desktop electric-vehicle dashboard application in Qt Creator using QML and JavaScript, delivering a real-time driving interface for an in-house EV prototype.",
@@ -45,7 +45,7 @@ const experiences = [
       "Deployed and operated the dashboard application on a Lichee Pi 4A running the Yocto Project's Poky distribution, driving a connected 1280×800 LCD display.",
       "Developed the company website for Innodrive.ai using the Quasar framework (TypeScript/Vue.js) with a Node.js backend, including automated order-confirmation email delivery.",
       "Designed and built a facial-recognition attendance system by integrating a facial-recognition library and model on a Lichee Pi 4A mini PC with a Runcam camera.",
-      "Built the companion attendance dashboard — a web platform for ingesting attendance data and managing employee records — using Quasar (TypeScript/Vue.js) on the frontend with a Node.js and Express.js backend.",
+      "Built a companion attendance dashboard for ingesting attendance data and managing employee records, using Quasar (TypeScript/Vue.js) on the frontend with a Node.js and Express.js backend.",
     ],
     tech: [
       "Qt Creator / QML",
@@ -60,7 +60,7 @@ const experiences = [
   {
     company: "AirNav Juanda Surabaya",
     role: "Engineering Intern",
-    period: "Feb 2023 — Jul 2023",
+    period: "Feb 2023 to Jul 2023",
     location: "Surabaya, Indonesia",
     bullets: [
       "Performed daily meter readings for airport communication and monitoring equipment.",
@@ -71,7 +71,7 @@ const experiences = [
   {
     company: "InnoWork IoT Advantech",
     role: "IoT Program Participant",
-    period: "May 2023 — Sep 2023",
+    period: "May 2023 to Sep 2023",
     location: "Surabaya, Indonesia",
     bullets: [
       "Built IoT devices using NodeMCU and various sensors, programmed in C++.",
@@ -82,7 +82,7 @@ const experiences = [
   {
     company: "Talent Scout Academy",
     role: "Project Based Learning Participant",
-    period: "Jul 2022 — Dec 2022",
+    period: "Jul 2022 to Dec 2022",
     location: "Surabaya, Indonesia",
     bullets: [
       "Assembled IoT devices using Arduino Nano microcontrollers, sensors, and LoRa communication modules.",

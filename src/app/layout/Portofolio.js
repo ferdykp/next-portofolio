@@ -2,17 +2,16 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import Reveal from "../components/Reveal";
 import SectionLabel from "../components/SectionLabel";
-import TiltSurface from "../components/TiltSurface";
 
 const ease = [0.22, 1, 0.36, 1];
 
 const projects = [
   {
-    title: "Ledger — Personal Finance Tracker with AI & WhatsApp Integration",
-    shortTitle: "Ledger — Personal Finance",
+    title: "Ledger: Personal Finance Tracker with AI & WhatsApp Integration",
+    shortTitle: "Ledger: Personal Finance",
     category: "web",
     description:
       "A personal finance platform for tracking income, expenses, transfers, and wallet balances, featuring PWA access, financial dashboards, and AI-assisted transaction recording through WhatsApp.",
@@ -80,7 +79,7 @@ const projects = [
     ],
   },
   {
-    title: "GrowPOS — SaaS Multi-Tenant Point of Sale with AI Advisor",
+    title: "GrowPOS: SaaS Multi-Tenant Point of Sale with AI Advisor",
     shortTitle: "GrowPOS",
     category: "web",
     description:
@@ -102,29 +101,6 @@ const projects = [
       "Alpine.js",
     ],
   },
-  // {
-  //   title: "Extreme Project — Premium Coil & Cotton Landing Page",
-  //   shortTitle: "Extreme Project",
-  //   category: "web",
-  //   description:
-  //     "A high-performance Next.js landing experience with a custom visual system, responsive product grids, SEO, and refined interaction.",
-  //   images: [
-  //     "/assets/portofolio/extreme/1.png",
-  //     "/assets/portofolio/extreme/2.png",
-  //     "/assets/portofolio/extreme/3.png",
-  //     "/assets/portofolio/extreme/4.png",
-  //     "/assets/portofolio/extreme/5.png",
-  //     "/assets/portofolio/extreme/6.png",
-  //   ],
-  //   field: "Front-End Developer",
-  //   techstack: [
-  //     "Next.js",
-  //     "Tailwind CSS",
-  //     "JavaScript",
-  //     "SEO",
-  //     "Semantic HTML",
-  //   ],
-  // },
   {
     title: "Proactive Smart Home Server Infrastructure",
     shortTitle: "Home Server Infrastructure",
@@ -255,12 +231,17 @@ function ProjectPreview({ project, onClick }) {
   const [failed, setFailed] = useState(false);
 
   return (
-    <button type="button" onClick={onClick} className="lg:col-span-7 block w-full text-left">
-      <TiltSurface className="project-media depth-stage relative aspect-[16/10] overflow-hidden border border-[var(--border)] rounded-xl md:rounded-2xl" maxTilt={4.5} lift={3}>
-        <div className="absolute inset-[4%] md:inset-[3.5%] overflow-hidden rounded-lg md:rounded-xl bg-[var(--bg-elevated)] soft-shadow">
-          {!loaded && <div className="skeleton absolute inset-0 rounded-lg md:rounded-xl" aria-hidden="true" />}
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={`Open ${project.shortTitle} project details`}
+      className="project-preview lg:col-span-7 block w-full text-left"
+    >
+      <span className="project-media relative block aspect-[16/10] overflow-hidden border border-[var(--border)] rounded-xl md:rounded-2xl">
+        <span className="absolute inset-[4%] md:inset-[3.5%] block overflow-hidden rounded-lg md:rounded-xl bg-[var(--bg-elevated)] soft-shadow">
+          {!loaded && <span className="skeleton absolute inset-0 rounded-lg md:rounded-xl" aria-hidden="true" />}
           {failed ? (
-            <div className="absolute inset-0 grid place-items-center text-xs text-[var(--text-muted)]">Preview unavailable</div>
+            <span className="absolute inset-0 grid place-items-center text-xs text-[var(--text-muted)]">Preview unavailable</span>
           ) : (
             <Image
               src={project.images[0]}
@@ -269,11 +250,11 @@ function ProjectPreview({ project, onClick }) {
               sizes="(max-width: 1024px) 100vw, 58vw"
               onLoad={() => setLoaded(true)}
               onError={() => { setFailed(true); setLoaded(true); }}
-              className={`depth-image object-contain ${loaded ? "opacity-100" : "opacity-0"}`}
+              className={`object-contain transition-opacity ${loaded ? "opacity-100" : "opacity-0"}`}
             />
           )}
-        </div>
-      </TiltSurface>
+        </span>
+      </span>
     </button>
   );
 }
@@ -282,6 +263,13 @@ export default function Portofolio() {
   const [activeProject, setActiveProject] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [showAll, setShowAll] = useState(false);
+  const modalTriggerRef = useRef(null);
+  const modalCloseRef = useRef(null);
+
+  const openProject = (project, event) => {
+    modalTriggerRef.current = event.currentTarget;
+    setActiveProject(project);
+  };
 
   const filteredProjects = useMemo(
     () =>
@@ -301,14 +289,36 @@ export default function Portofolio() {
 
     const handleKey = (event) => {
       if (event.key === "Escape") setActiveProject(null);
+      if (event.key !== "Tab") return;
+
+      const modal = document.getElementById("project-dialog");
+      const focusable = Array.from(
+        modal?.querySelectorAll('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])') ?? [],
+      );
+      if (!focusable.length) {
+        event.preventDefault();
+        return;
+      }
+
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
 
     document.body.style.overflow = "hidden";
     window.addEventListener("keydown", handleKey);
+    modalCloseRef.current?.focus();
 
     return () => {
       document.body.style.overflow = "";
       window.removeEventListener("keydown", handleKey);
+      modalTriggerRef.current?.focus();
     };
   }, [activeProject]);
 
@@ -351,7 +361,8 @@ export default function Portofolio() {
             key={filter.id}
             type="button"
             onClick={() => selectFilter(filter.id)}
-            className={`depth-control shrink-0 rounded-full px-4 py-2 border text-[10px] font-mono uppercase tracking-[.1em] transition-all duration-300 ${
+            aria-pressed={selectedCategory === filter.id}
+            className={`button-control min-h-11 shrink-0 rounded-full px-4 py-3 border text-[10px] font-mono uppercase tracking-[.1em] transition-all duration-300 active:translate-y-px ${
               selectedCategory === filter.id
                 ? "bg-[var(--text)] text-[var(--bg)] border-[var(--text)]"
                 : "border-[var(--border)] text-[var(--text-muted)] hover:text-[var(--text)] hover:border-[var(--text-muted)]"
@@ -373,9 +384,9 @@ export default function Portofolio() {
               viewport={{ once: true, amount: 0.12 }}
               exit={{ opacity: 0, y: 18 }}
               transition={{ duration: 0.72, ease }}
-              className="depth-row group grid grid-cols-1 lg:grid-cols-12 gap-7 lg:gap-12 py-8 md:py-12 lg:py-14 border-b border-[var(--border)] items-center"
+              className="group grid grid-cols-1 lg:grid-cols-12 gap-7 lg:gap-12 py-8 md:py-12 lg:py-14 border-b border-[var(--border)] items-center"
             >
-              <ProjectPreview project={project} onClick={() => setActiveProject(project)} />
+              <ProjectPreview project={project} onClick={(event) => openProject(project, event)} />
 
               <div className="lg:col-span-5 lg:pl-2">
                 <p className="rev-label text-[var(--accent)]">
@@ -401,10 +412,10 @@ export default function Portofolio() {
 
                 <button
                   type="button"
-                  onClick={() => setActiveProject(project)}
-                  className="editorial-link mt-8 text-[11px] font-medium"
+                  onClick={(event) => openProject(project, event)}
+                  className="editorial-link mt-8 min-h-11 items-center text-[11px] font-medium"
                 >
-                  View project
+                  Open project details
                 </button>
               </div>
             </motion.article>
@@ -417,7 +428,7 @@ export default function Portofolio() {
           <button
             type="button"
             onClick={() => setShowAll((value) => !value)}
-            className="depth-control rounded-full border border-[var(--border)] px-6 py-3 text-[10px] font-mono uppercase tracking-[.12em] hover:bg-[var(--text)] hover:text-[var(--bg)] hover:border-[var(--text)] transition-all duration-300"
+            className="button-control min-h-11 rounded-full border border-[var(--border)] px-6 py-3 text-[10px] font-mono uppercase tracking-[.12em] hover:bg-[var(--text)] hover:text-[var(--bg)] hover:border-[var(--text)] active:translate-y-px transition-all duration-300"
           >
             {showAll ? "Show less" : `Show all projects`}
           </button>
@@ -427,7 +438,7 @@ export default function Portofolio() {
       <AnimatePresence>
         {activeProject && (
           <motion.div
-            className="fixed inset-0 z-[100] bg-black/45 backdrop-blur-sm flex items-end"
+            className="fixed inset-0 z-[100] bg-black/55 flex items-end"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -437,19 +448,24 @@ export default function Portofolio() {
             }}
           >
             <motion.div
+              id="project-dialog"
               className="w-full max-h-[94svh] overflow-y-auto bg-[var(--bg)] border-t border-[var(--border)]"
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="project-dialog-title"
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
               transition={{ duration: 0.72, ease: [0.76, 0, 0.24, 1] }}
             >
-              <div className="sticky top-0 z-20 bg-[var(--bg)]/92 backdrop-blur-xl border-b border-[var(--border)]">
+              <div className="sticky top-0 z-20 bg-[var(--bg)] border-b border-[var(--border)]">
                 <div className="max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-12 2xl:px-16 h-16 md:h-[72px] flex items-center justify-between">
                   <span className="rev-label">Project detail</span>
                   <button
+                    ref={modalCloseRef}
                     type="button"
                     onClick={() => setActiveProject(null)}
-                    className="text-[10px] font-mono uppercase tracking-[.14em] hover:text-[var(--accent)] transition-colors"
+                    className="min-h-11 min-w-11 text-[10px] font-mono uppercase tracking-[.14em] hover:text-[var(--accent)] transition-colors"
                   >
                     Close
                   </button>
@@ -462,7 +478,7 @@ export default function Portofolio() {
                     <p className="rev-label text-[var(--accent)]">
                       {activeProject.field}
                     </p>
-                    <h3 className="font-display text-[clamp(2.8rem,6vw,7rem)] font-medium tracking-[-.065em] leading-[.9] mt-4 text-balance">
+                    <h3 id="project-dialog-title" className="font-display text-[clamp(2.8rem,6vw,7rem)] font-medium tracking-[-.065em] leading-[.9] mt-4 text-balance">
                       {activeProject.shortTitle}
                     </h3>
                   </div>

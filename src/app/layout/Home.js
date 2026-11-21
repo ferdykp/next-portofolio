@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
-import TiltSurface from "../components/TiltSurface";
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -65,14 +64,11 @@ export default function HomeSection() {
             style={{ transformPerspective: 1100 }}
             className="lg:col-span-4 xl:col-span-3 lg:pb-2"
           >
-            <TiltSurface className="hero-portrait group relative" maxTilt={8} lift={3}>
-              {/* decorative frame */}
+            <div className="group relative">
               <div className="absolute -inset-2 md:-inset-3 rounded-[28px] border border-[var(--border)]" />
 
-              {/* accent detail */}
               <div className="absolute -top-2 -right-2 z-20 h-4 w-4 rounded-full bg-[var(--accent)] md:h-5 md:w-5" />
 
-              {/* image wrapper */}
               <div
                 className="
       relative
@@ -88,22 +84,21 @@ export default function HomeSection() {
               >
                 <div className="relative h-full w-full overflow-hidden rounded-[17px]">
                   <Image
-                    src="/assets/profile_ai.jpg"
+                    src="/assets/profile.jpeg"
                     alt="Ferdy Kurnia Panggabean"
                     fill
                     priority
                     sizes="(max-width: 1024px) 420px, 24vw"
-                    className="depth-image
+                    className="scale-[1.45]
           object-cover
           grayscale-[0.08]
           transition-transform
           duration-[1200ms]
           ease-[cubic-bezier(.22,1,.36,1)]
-          group-hover:scale-[1.035]
+          group-hover:scale-[1.52]
         "
                   />
 
-                  {/* subtle overlay */}
                   <div
                     className="
           pointer-events-none
@@ -116,20 +111,9 @@ export default function HomeSection() {
                   />
                 </div>
               </div>
-            </TiltSurface>
+            </div>
           </motion.div>
         </div>
-      </div>
-
-      <div className="hero-orbit hidden 2xl:grid" aria-hidden="true">
-        <div className="hero-orbit-ring hero-orbit-ring-a" />
-        <div className="hero-orbit-ring hero-orbit-ring-b" />
-        <div className="hero-orbit-core">
-          <strong>FKP</strong>
-          <span>SOFTWARE SYSTEMS</span>
-        </div>
-        <span className="hero-orbit-label hero-orbit-label-a">BUILD / 01</span>
-        <span className="hero-orbit-label hero-orbit-label-b">DEPLOY / 24</span>
       </div>
 
       <motion.div
