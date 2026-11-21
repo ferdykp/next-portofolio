@@ -3,6 +3,7 @@ import About from "./layout/About";
 import Experience from "./layout/Experience";
 import Portofolio from "./layout/Portofolio";
 import GitHubActivity from "./layout/GitHubActivity";
+import Notes from "./layout/Notes";
 import Contact from "./layout/Contact";
 import Footer from "./components/Footer";
 import HomeSection from "./layout/Home";
@@ -21,6 +22,7 @@ export default function Home() {
         <Experience />
         <Portofolio />
         <GitHubActivity />
+        <Notes />
         <Contact />
       </main>
       <Footer />

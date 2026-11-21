@@ -10,8 +10,8 @@ const navItems = [
   { label: "About", id: "about" },
   { label: "Experience", id: "experience" },
   { label: "Activity", id: "github-activity" },
+  { label: "Notes", id: "notes" },
   { label: "Contact", id: "contact" },
-  { label: "Notes", id: "blog" },
 ];
 
 const ease = [0.22, 1, 0.36, 1];
@@ -34,7 +34,7 @@ export default function Navbar() {
     setIsLight(document.documentElement.classList.contains("light"));
 
     if (!pathname.startsWith("/blog")) {
-      const ids = ["home", "about", "experience", "portofolio", "github-activity", "contact"];
+      const ids = ["home", "about", "experience", "portofolio", "github-activity", "notes", "contact"];
       const sections = ids
         .map((id) => document.getElementById(id))
         .filter(Boolean);
@@ -86,17 +86,13 @@ export default function Navbar() {
     event.preventDefault();
     setIsMenuOpen(false);
 
-    if (id === "blog") {
-      router.push("/blog");
-      return;
-    }
-
-    if (pathname.startsWith("/blog")) {
+    if (pathname !== "/") {
       router.push(`/#${id}`);
       return;
     }
 
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    window.history.replaceState(null, "", `#${id}`);
   };
 
   return (
@@ -132,14 +128,11 @@ export default function Navbar() {
 
           <div className="nav-links">
             {navItems.map(({ label, id }) => {
-              const active =
-                id === "blog"
-                  ? pathname.startsWith("/blog")
-                  : activeSection === id && !pathname.startsWith("/blog");
+              const active = activeSection === id;
               return (
                 <motion.a
                   key={id}
-                  href={id === "blog" ? "/blog" : `/#${id}`}
+                  href={`/#${id}`}
                   onClick={(event) => handleNavClick(event, id)}
                   whileHover={shouldReduceMotion ? undefined : { y: -2, scale: 1.035 }}
                   whileTap={shouldReduceMotion ? undefined : { scale: 0.97 }}
@@ -206,7 +199,7 @@ export default function Navbar() {
               {navItems.map(({ label, id }, index) => (
                 <motion.a
                   key={id}
-                  href={id === "blog" ? "/blog" : `/#${id}`}
+                  href={`/#${id}`}
                   onClick={(event) => handleNavClick(event, id)}
                   className="font-display text-[clamp(2.7rem,14vw,5.5rem)] tracking-[-.06em] leading-[1.02] py-1"
                   initial={{ opacity: 0, y: 28 }}
