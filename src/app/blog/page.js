@@ -2,6 +2,7 @@ import Link from "next/link";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
 import SectionLabel from "../components/SectionLabel";
+import AmbientWallpaper from "../components/AmbientWallpaper";
 import Reveal from "../components/Reveal";
 
 export const dynamic = "force-dynamic";
@@ -11,10 +12,11 @@ async function getBlogPosts() {
     const res = await fetch("https://selfnote.fdevsite.cloud/api/portfolio-notes", {
       cache: "no-store",
     });
-    if (!res.ok) return { posts: [], error: true };
-    return { posts: await res.json(), error: false };
-  } catch {
-    return { posts: [], error: true };
+    if (!res.ok) return [];
+    return res.json();
+  } catch (error) {
+    console.error("Gagal memuat artikel blog:", error);
+    return [];
   }
 }
 
@@ -24,18 +26,15 @@ export const metadata = {
 };
 
 function plainText(html = "") {
-  return html.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").replace(/—/g, ",").trim();
-}
-
-function cleanCopy(text = "") {
-  return text.replace(/—/g, ",");
+  return html.replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim();
 }
 
 export default async function BlogPage() {
-  const { posts, error } = await getBlogPosts();
+  const posts = await getBlogPosts();
 
   return (
     <div className="scene-root min-h-screen bg-[var(--bg)] text-[var(--text)] antialiased">
+      <AmbientWallpaper />
       <Navbar />
 
       <main className="max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-12 2xl:px-16 pt-[112px] md:pt-[142px] pb-24 md:pb-36">
@@ -53,14 +52,7 @@ export default async function BlogPage() {
           </div>
         </Reveal>
 
-        {error ? (
-          <div role="alert" className="border-y border-[var(--border)] py-16 text-center">
-            <p className="text-sm text-[var(--text-muted)]">Notes could not load right now.</p>
-            <Link href="/blog" className="editorial-link mt-5 min-h-11 items-center text-sm text-[var(--accent)]">
-              Try again
-            </Link>
-          </div>
-        ) : posts.length === 0 ? (
+        {posts.length === 0 ? (
           <div className="border-y border-[var(--border)] py-20 text-center">
             <p className="rev-label">No notes published yet</p>
           </div>
@@ -81,7 +73,7 @@ export default async function BlogPage() {
                       })}
                     </span>
                     <h2 className="md:col-span-6 font-display text-2xl md:text-3xl lg:text-4xl tracking-[-.045em] leading-[1.02] group-hover:text-[var(--accent)] transition-colors duration-300">
-                      {cleanCopy(post.title)}
+                      {post.title}
                     </h2>
                     <p className="md:col-span-4 text-sm leading-relaxed text-[var(--text-muted)] line-clamp-2">
                       {plainText(post.content)}

@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Reveal from "../components/Reveal";
 import SectionLabel from "../components/SectionLabel";
-import SurfacePanel from "../components/SurfacePanel";
+import TiltSurface from "../components/TiltSurface";
 
 export default function Contact() {
   const [status, setStatus] = useState({ loading: false, success: false, error: false });
@@ -49,7 +49,7 @@ export default function Contact() {
         </Reveal>
 
         <Reveal direction="down" delay={0.08} className="lg:col-span-5 lg:pt-2">
-          <SurfacePanel className="surface-panel rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)]">
+          <TiltSurface className="depth-panel rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)]" maxTilt={2} lift={2}>
           <form onSubmit={handleSubmit} className="p-5 sm:p-7">
             <label className="block py-5 border-b border-[var(--border)]">
               <span className="rev-label block mb-2">Name</span>
@@ -58,7 +58,7 @@ export default function Contact() {
                 name="name"
                 required
                 placeholder="Your name"
-                className="w-full bg-transparent text-lg text-[var(--text)] placeholder:text-[var(--text-muted)] focus:outline-none"
+                className="w-full bg-transparent text-lg text-[var(--text)] placeholder:text-[var(--text-muted)]/55 focus:outline-none"
               />
             </label>
 
@@ -69,7 +69,7 @@ export default function Contact() {
                 name="email"
                 required
                 placeholder="name@company.com"
-                className="w-full bg-transparent text-lg text-[var(--text)] placeholder:text-[var(--text-muted)] focus:outline-none"
+                className="w-full bg-transparent text-lg text-[var(--text)] placeholder:text-[var(--text-muted)]/55 focus:outline-none"
               />
             </label>
 
@@ -80,22 +80,22 @@ export default function Contact() {
                 rows="4"
                 required
                 placeholder="Tell me about the project"
-                className="w-full bg-transparent text-lg leading-relaxed text-[var(--text)] placeholder:text-[var(--text-muted)] focus:outline-none resize-none"
+                className="w-full bg-transparent text-lg leading-relaxed text-[var(--text)] placeholder:text-[var(--text-muted)]/55 focus:outline-none resize-none"
               />
             </label>
 
-            {status.success && <p role="status" aria-live="polite" className="mt-4 text-sm text-[var(--text-muted)]">Message sent. Thank you.</p>}
-            {status.error && <p role="alert" className="mt-4 text-sm text-[var(--accent)]">Could not send the message. Please try again.</p>}
+            {status.success && <p className="mt-4 text-sm text-[var(--text-muted)]">Message sent. Thank you.</p>}
+            {status.error && <p className="mt-4 text-sm text-[var(--accent)]">Could not send the message. Please try again.</p>}
 
             <button
               type="submit"
               disabled={status.loading}
-              className="button-control mt-7 min-h-11 rounded-full bg-[var(--text)] text-[var(--bg)] px-6 py-3 text-[10px] font-mono uppercase tracking-[.12em] hover:bg-[var(--accent)] hover:text-white active:translate-y-px transition-colors duration-300 disabled:opacity-50"
+              className="depth-control mt-7 rounded-full bg-[var(--text)] text-[var(--bg)] px-6 py-3 text-[10px] font-mono uppercase tracking-[.12em] hover:bg-[var(--accent)] hover:text-white transition-colors duration-300 disabled:opacity-50"
             >
               {status.loading ? "Sending" : "Send message"}
             </button>
           </form>
-          </SurfacePanel>
+          </TiltSurface>
         </Reveal>
       </div>
     </section>

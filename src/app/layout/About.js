@@ -2,6 +2,7 @@
 
 import Reveal from "../components/Reveal";
 import SectionLabel from "../components/SectionLabel";
+import TiltSurface from "../components/TiltSurface";
 
 const capabilities = [
   {
@@ -38,18 +39,18 @@ export default function About() {
         </Reveal>
       </div>
 
-      <div className="mt-16 border-t border-[var(--border)] md:mt-24">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-16 md:mt-24">
         {capabilities.map((item, index) => (
           <Reveal
             key={item.title}
             delay={index * 0.06}
-            direction="up"
+            direction={index % 2 === 0 ? "up" : "down"}
+            className="h-full"
           >
-            <div className="grid grid-cols-[2.5rem_1fr] gap-x-4 gap-y-2 border-b border-[var(--border)] py-6 md:grid-cols-12 md:gap-6 md:py-8">
-              <span className="rev-label md:col-span-1">0{index + 1}</span>
-              <h3 className="font-display text-xl tracking-[-.04em] md:col-span-4 md:text-2xl">{item.title}</h3>
-              <p className="col-start-2 text-sm text-[var(--text-muted)] md:col-start-7 md:col-span-6 md:text-base">{item.text}</p>
-            </div>
+            <TiltSurface className="depth-panel rounded-2xl border border-[var(--border)] p-6 md:p-8 min-h-36" maxTilt={5} lift={5}>
+              <h3 className="font-display text-xl md:text-2xl tracking-[-.04em]">{item.title}</h3>
+              <p className="mt-2 text-sm md:text-base text-[var(--text-muted)]">{item.text}</p>
+            </TiltSurface>
           </Reveal>
         ))}
       </div>

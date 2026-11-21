@@ -122,7 +122,7 @@ export default function RootLayout({ children }) {
     (function() {
       try {
         var saved = localStorage.getItem("portfolio-theme-v5");
-        document.documentElement.classList.toggle("light", saved !== "dark");
+        document.documentElement.classList.toggle("light", saved === "light");
       } catch (e) {}
     })();
   `;

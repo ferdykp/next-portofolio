@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { ArrowUpRight, Github } from "lucide-react";
 import Reveal from "../components/Reveal";
 import SectionLabel from "../components/SectionLabel";
-import SurfacePanel from "../components/SurfacePanel";
+import TiltSurface from "../components/TiltSurface";
 
 const username = "ferdykp";
 const currentYear = new Date().getFullYear();
@@ -111,7 +111,7 @@ export default function GitHubActivity() {
       <SectionLabel title="GitHub activity" />
 
       <Reveal>
-        <SurfacePanel className="surface-panel rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] overflow-hidden">
+        <TiltSurface className="depth-panel rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] overflow-hidden" maxTilt={1.25} lift={2}>
           <div className="grid grid-cols-1 lg:grid-cols-[minmax(0,1fr)_150px]">
             <div className="min-w-0 p-5 sm:p-7 md:p-8">
               <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 mb-6">
@@ -193,7 +193,7 @@ export default function GitHubActivity() {
                 type="button"
                 onClick={() => setSelectedYear("last")}
                 aria-pressed={selectedYear === "last"}
-                className={`button-control min-h-11 shrink-0 rounded-lg px-4 py-2.5 text-left text-sm transition-colors ${selectedYear === "last" ? "bg-[var(--text)] text-[var(--bg)]" : "text-[var(--text-muted)] hover:bg-[var(--surface)] hover:text-[var(--text)]"}`}
+                className={`depth-control shrink-0 rounded-lg px-4 py-2.5 text-left text-sm transition-colors ${selectedYear === "last" ? "bg-[var(--text)] text-[var(--bg)]" : "text-[var(--text-muted)] hover:bg-[var(--surface)] hover:text-[var(--text)]"}`}
               >Last year</button>
               {years.map((year) => (
                 <button
@@ -201,12 +201,12 @@ export default function GitHubActivity() {
                   type="button"
                   onClick={() => setSelectedYear(year)}
                   aria-pressed={selectedYear === year}
-                  className={`button-control min-h-11 shrink-0 rounded-lg px-4 py-2.5 text-left text-sm transition-colors ${selectedYear === year ? "bg-[var(--text)] text-[var(--bg)]" : "text-[var(--text-muted)] hover:bg-[var(--surface)] hover:text-[var(--text)]"}`}
+                  className={`depth-control shrink-0 rounded-lg px-4 py-2.5 text-left text-sm transition-colors ${selectedYear === year ? "bg-[var(--text)] text-[var(--bg)]" : "text-[var(--text-muted)] hover:bg-[var(--surface)] hover:text-[var(--text)]"}`}
                 >{year}</button>
               ))}
             </nav>
           </div>
-        </SurfacePanel>
+        </TiltSurface>
       </Reveal>
     </section>
   );

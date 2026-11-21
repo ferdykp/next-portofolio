@@ -3,79 +3,44 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import AmbientWallpaper from "../../components/AmbientWallpaper";
 import Reveal from "../../components/Reveal";
 
 export const dynamic = "force-dynamic";
-
-function articleText(html = "") {
-  return html
-    .replace(/<(script|style)\b[^>]*>[\s\S]*?<\/\1>/gi, "")
-    .replace(/<br\s*\/?\s*>/gi, "\n")
-    .replace(/<\/(p|div|h[1-6]|li|blockquote)\s*>/gi, "\n\n")
-    .replace(/<[^>]*>/g, "")
-    .replace(/&nbsp;/gi, " ")
-    .replace(/&amp;/gi, "&")
-    .replace(/&quot;/gi, '"')
-    .replace(/&#39;|&apos;/gi, "'")
-    .replace(/&lt;/gi, "<")
-    .replace(/&gt;/gi, ">")
-    .replace(/—/g, ",")
-    .replace(/\n{3,}/g, "\n\n")
-    .trim();
-}
-
-function cleanCopy(text = "") {
-  return text.replace(/—/g, ",");
-}
 
 async function getBlogPostDetail(id) {
   try {
     const res = await fetch(`https://selfnote.fdevsite.cloud/api/portfolio-notes/${id}`, {
       cache: "no-store",
     });
-    if (!res.ok) return { post: null, error: res.status >= 500 };
-    return { post: await res.json(), error: false };
+    if (!res.ok) return null;
+    return res.json();
   } catch (error) {
     console.error("Gagal memuat detail artikel:", error);
-    return { post: null, error: true };
+    return null;
   }
 }
 
 export async function generateMetadata({ params }) {
   const { id } = await params;
-  const { post, error } = await getBlogPostDetail(id);
-  if (error) return { title: "Notes temporarily unavailable" };
+  const post = await getBlogPostDetail(id);
   if (!post || post.status !== "published") return { title: "Article Not Found" };
 
   return {
-    title: `${cleanCopy(post.title)} | Ferdy Kurnia Panggabean`,
-    description: articleText(post.content).substring(0, 160),
+    title: `${post.title} | Ferdy Kurnia Panggabean`,
+    description: post.content.replace(/<[^>]*>/g, "").substring(0, 160),
   };
 }
 
 export default async function BlogPostDetailPage({ params }) {
   const { id } = await params;
-  const { post, error } = await getBlogPostDetail(id);
-
-  if (error) {
-    return (
-      <div className="scene-root min-h-screen bg-[var(--bg)] text-[var(--text)] antialiased">
-        <Navbar />
-        <main className="max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-12 2xl:px-16 pt-[112px] md:pt-[142px] pb-24 md:pb-36">
-          <section role="alert" className="border-y border-[var(--border)] py-16 text-center">
-            <h1 className="font-display text-3xl tracking-[-.04em]">This note could not load.</h1>
-            <Link href="/blog" className="editorial-link mt-5 text-sm text-[var(--accent)]">Back to notes</Link>
-          </section>
-        </main>
-        <Footer />
-      </div>
-    );
-  }
+  const post = await getBlogPostDetail(id);
 
   if (!post || post.status !== "published") notFound();
 
   return (
     <div className="scene-root min-h-screen bg-[var(--bg)] text-[var(--text)] antialiased">
+      <AmbientWallpaper />
       <Navbar />
 
       <main className="max-w-[1720px] mx-auto px-5 sm:px-8 lg:px-12 2xl:px-16 pt-[112px] md:pt-[142px] pb-24 md:pb-36">
@@ -99,7 +64,7 @@ export default async function BlogPostDetailPage({ params }) {
         <header className="max-w-6xl mb-10 md:mb-14">
           <p className="rev-label text-[var(--accent)] mb-5">Field note</p>
           <h1 className="font-display text-[clamp(3rem,7vw,8rem)] font-medium tracking-[-.07em] leading-[.88] text-balance">
-            {cleanCopy(post.title)}
+            {post.title}
           </h1>
         </header>
         </Reveal>
@@ -109,7 +74,7 @@ export default async function BlogPostDetailPage({ params }) {
             <div className="relative aspect-[16/8] md:aspect-[21/9] w-full overflow-hidden bg-[var(--surface)] mb-12 md:mb-20">
               <Image
                 src={`https://selfnote.fdevsite.cloud/storage/${post.images}`}
-                alt={cleanCopy(post.title)}
+                alt={post.title}
                 fill
                 priority
                 sizes="100vw"
@@ -127,9 +92,10 @@ export default async function BlogPostDetailPage({ params }) {
           </aside>
 
           <Reveal className="lg:col-span-7 lg:col-start-5">
-            <article className="prose-custom max-w-none whitespace-pre-wrap text-base md:text-lg">
-              {articleText(post.content)}
-            </article>
+            <article
+              className="prose-custom max-w-none text-base md:text-lg"
+              dangerouslySetInnerHTML={{ __html: post.content }}
+            />
           </Reveal>
         </div>
       </main>

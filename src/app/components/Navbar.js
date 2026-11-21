@@ -1,7 +1,7 @@
 "use client";
 
 import { AnimatePresence, motion, useReducedMotion, useScroll } from "framer-motion";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 
@@ -19,11 +19,9 @@ const ease = [0.22, 1, 0.36, 1];
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [isLight, setIsLight] = useState(true);
+  const [isLight, setIsLight] = useState(false);
   const [themeWipe, setThemeWipe] = useState(null);
   const [activeSection, setActiveSection] = useState("home");
-  const menuButtonRef = useRef(null);
-  const menuPanelRef = useRef(null);
   const shouldReduceMotion = useReducedMotion();
   const pathname = usePathname();
   const router = useRouter();
@@ -66,44 +64,6 @@ export default function Navbar() {
     };
   }, [isMenuOpen]);
 
-  useEffect(() => {
-    if (!isMenuOpen) return undefined;
-
-    const panel = menuPanelRef.current;
-    const getFocusable = () => Array.from(
-      panel?.querySelectorAll('a[href], button:not([disabled])') ?? [],
-    );
-    getFocusable()[0]?.focus();
-
-    const handleMenuKeyDown = (event) => {
-      if (event.key === "Escape") {
-        setIsMenuOpen(false);
-        menuButtonRef.current?.focus();
-        return;
-      }
-
-      if (event.key !== "Tab") return;
-      const focusable = getFocusable();
-      if (!focusable.length) {
-        event.preventDefault();
-        return;
-      }
-
-      const first = focusable[0];
-      const last = focusable[focusable.length - 1];
-      if (event.shiftKey && document.activeElement === first) {
-        event.preventDefault();
-        last.focus();
-      } else if (!event.shiftKey && document.activeElement === last) {
-        event.preventDefault();
-        first.focus();
-      }
-    };
-
-    window.addEventListener("keydown", handleMenuKeyDown);
-    return () => window.removeEventListener("keydown", handleMenuKeyDown);
-  }, [isMenuOpen]);
-
   const toggleTheme = (event) => {
     const next = !document.documentElement.classList.contains("light");
     if (!shouldReduceMotion) {
@@ -122,14 +82,8 @@ export default function Navbar() {
     } catch {}
   };
 
-  const closeMenu = () => {
-    setIsMenuOpen(false);
-    menuButtonRef.current?.focus();
-  };
-
   const handleNavClick = (event, id) => {
     event.preventDefault();
-    if (isMenuOpen) menuButtonRef.current?.focus();
     setIsMenuOpen(false);
 
     if (id === "blog") {
@@ -195,7 +149,7 @@ export default function Navbar() {
                       ? "text-[var(--text)]"
                       : "text-[var(--text-muted)] hover:text-[var(--text)]"
                   }`}
-                  aria-current={active ? (id === "blog" ? "page" : "location") : undefined}
+                  aria-current={active ? "page" : undefined}
                 >
                   {active && <motion.span layoutId="active-nav-pill" className="nav-active-pill" transition={{ type: "spring", stiffness: 330, damping: 30 }} />}
                   {label}
@@ -208,21 +162,18 @@ export default function Navbar() {
             type="button"
             onClick={toggleTheme}
             className="nav-theme-button"
-            aria-label={`Switch to ${isLight ? "dark" : "light"} theme`}
-            aria-pressed={isLight}
+            aria-label="Toggle color theme"
           >
             <span className={`nav-theme-icon ${isLight ? "is-light" : ""}`} aria-hidden="true"><i /></span>
             <span>{isLight ? "Dark" : "Light"}</span>
           </button>
 
           <button
-            ref={menuButtonRef}
             type="button"
             onClick={() => setIsMenuOpen((open) => !open)}
             className="nav-menu-button"
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
             aria-expanded={isMenuOpen}
-            aria-controls="mobile-navigation"
           >
             <span>{isMenuOpen ? "Close" : "Menu"}</span><i className={isMenuOpen ? "is-open" : ""}><b /><b /></i>
           </button>
@@ -232,12 +183,7 @@ export default function Navbar() {
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
-            ref={menuPanelRef}
-            id="mobile-navigation"
             className="nav-mobile-panel fixed inset-0 z-[90] bg-[var(--bg)] px-5 sm:px-8"
-            role="dialog"
-            aria-modal="true"
-            aria-label="Main menu"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -249,8 +195,8 @@ export default function Navbar() {
               </span>
               <button
                 type="button"
-                onClick={closeMenu}
-                className="min-h-11 min-w-11 text-[10px] font-mono uppercase tracking-[.14em]"
+                onClick={() => setIsMenuOpen(false)}
+                className="text-[10px] font-mono uppercase tracking-[.14em]"
               >
                 Close
               </button>
@@ -281,8 +227,6 @@ export default function Navbar() {
               <button
                 type="button"
                 onClick={toggleTheme}
-                aria-label={`Switch to ${isLight ? "dark" : "light"} theme`}
-                aria-pressed={isLight}
                 className="text-[10px] font-mono uppercase tracking-[.14em] text-[var(--text-muted)]"
               >
                 {isLight ? "Dark mode" : "Light mode"}
