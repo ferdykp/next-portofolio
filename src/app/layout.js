@@ -3,14 +3,14 @@ import "./globals.css";
 import SmoothScrollProvider from "./components/SmoothScrollProvider";
 
 const spaceGrotesk = localFont({
-  src: "../../node_modules/@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2",
+  src: "./fonts/space-grotesk-latin-wght-normal.woff2",
   variable: "--font-space-grotesk",
   weight: "300 700",
   display: "swap",
 });
 
 const inter = localFont({
-  src: "../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2",
+  src: "./fonts/inter-latin-wght-normal.woff2",
   variable: "--font-inter",
   weight: "100 900",
   display: "swap",
@@ -19,15 +19,15 @@ const inter = localFont({
 const plexMono = localFont({
   src: [
     {
-      path: "../../node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2",
+      path: "./fonts/ibm-plex-mono-latin-400-normal.woff2",
       weight: "400",
     },
     {
-      path: "../../node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff2",
+      path: "./fonts/ibm-plex-mono-latin-500-normal.woff2",
       weight: "500",
     },
     {
-      path: "../../node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-600-normal.woff2",
+      path: "./fonts/ibm-plex-mono-latin-600-normal.woff2",
       weight: "600",
     },
   ],
