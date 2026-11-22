@@ -1,9 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import { motion, useReducedMotion } from "framer-motion";
 import { ArrowDownRight, ChevronDown } from "lucide-react";
 import Reveal from "../components/Reveal";
 import SectionLabel from "../components/SectionLabel";
+import WordRevealHeading from "../components/WordRevealHeading";
 
 const visibleCount = 6;
 
@@ -21,12 +23,15 @@ function formatDate(date) {
 }
 
 function NoteCard({ note, index, expanded, onToggle, featured = false }) {
+  const shouldReduceMotion = useReducedMotion();
   const detailId = `note-${note.id}`;
   const summary = note.content.length > 220 ? `${note.content.slice(0, 220).trimEnd()}…` : note.content;
 
   return (
-    <article
-      className={`group relative flex h-full flex-col overflow-hidden rounded-[22px] border border-[var(--border)] bg-[var(--bg-elevated)] transition duration-300 hover:-translate-y-1 hover:border-[color-mix(in_srgb,var(--accent)_42%,var(--border))] hover:shadow-[0_18px_52px_color-mix(in_srgb,var(--accent)_9%,transparent)] ${
+    <motion.article
+      whileHover={shouldReduceMotion ? undefined : { y: -4, scale: 1.005 }}
+      transition={{ type: "spring", stiffness: 260, damping: 24 }}
+      className={`group relative flex h-full flex-col overflow-hidden rounded-[22px] border border-[var(--border)] bg-[var(--bg-elevated)] transition-colors duration-300 hover:border-[color-mix(in_srgb,var(--accent)_42%,var(--border))] ${
         featured ? "p-6 sm:p-8 lg:p-10" : "p-5 sm:p-7"
       }`}
     >
@@ -70,7 +75,7 @@ function NoteCard({ note, index, expanded, onToggle, featured = false }) {
             {note.content || "This note does not have any body text."}
           </div>
       </div>
-    </article>
+    </motion.article>
   );
 }
 
@@ -85,20 +90,20 @@ export default function NotesFeed({ notes, unavailable }) {
     <section id="notes" className="scroll-mt-28 border-b border-[var(--border)] py-24 md:py-36">
       <SectionLabel title="Notes" />
 
-      <Reveal>
-        <div className="mb-12 grid grid-cols-1 gap-6 md:mb-16 lg:grid-cols-12 lg:items-end lg:gap-10">
-          <div className="lg:col-span-8">
-            <p className="mb-4 text-[9px] font-mono uppercase tracking-[.16em] text-[var(--text-muted)]">Ideas, lessons &amp; field notes</p>
-            <h2 className="font-display text-[clamp(3rem,7.3vw,8.4rem)] font-medium leading-[.84] tracking-[-.075em] text-balance">
-              Written along
-              <span className="block text-[var(--accent)]">the way.</span>
-            </h2>
-          </div>
-          <p className="max-w-md text-base leading-relaxed text-[var(--text-muted)] md:text-lg lg:col-span-4 lg:justify-self-end">
+      <div className="mb-12 grid grid-cols-1 gap-6 md:mb-16 lg:grid-cols-12 lg:items-end lg:gap-10">
+        <div className="lg:col-span-8">
+          <p className="mb-4 text-[9px] font-mono uppercase tracking-[.16em] text-[var(--text-muted)]">Ideas, lessons &amp; field notes</p>
+          <WordRevealHeading className="font-display text-[clamp(3rem,7.3vw,8.4rem)] font-medium leading-[.84] tracking-[-.075em] text-balance">
+            Written along
+            <span className="block text-[var(--accent)]">the way.</span>
+          </WordRevealHeading>
+        </div>
+        <Reveal direction="down" className="lg:col-span-4 lg:justify-self-end">
+          <p className="max-w-md text-base leading-relaxed text-[var(--text-muted)] md:text-lg">
             Practical notes on software, systems, and the small decisions behind building things that work.
           </p>
-        </div>
-      </Reveal>
+        </Reveal>
+      </div>
 
       {unavailable ? (
         <div className="rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)] px-6 py-10 text-center">

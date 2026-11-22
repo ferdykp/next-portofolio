@@ -4,6 +4,7 @@ import { AnimatePresence, motion, useReducedMotion, useScroll } from "framer-mot
 import { useEffect, useState } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
+import { useSmoothScroll } from "./SmoothScrollProvider";
 
 const navItems = [
   { label: "Work", id: "portofolio" },
@@ -25,6 +26,7 @@ export default function Navbar() {
   const shouldReduceMotion = useReducedMotion();
   const pathname = usePathname();
   const router = useRouter();
+  const lenis = useSmoothScroll();
   const { scrollYProgress } = useScroll();
 
   useEffect(() => {
@@ -91,7 +93,13 @@ export default function Navbar() {
       return;
     }
 
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+    const target = document.getElementById(id);
+    if (target && lenis) {
+      if (lenis.isStopped) lenis.start();
+      lenis.scrollTo(target, { offset: id === "home" ? 0 : -88 });
+    } else {
+      target?.scrollIntoView({ behavior: "auto" });
+    }
     window.history.replaceState(null, "", `#${id}`);
   };
 

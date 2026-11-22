@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useState } from "react";
 import Reveal from "../components/Reveal";
 import SectionLabel from "../components/SectionLabel";
+import WordRevealHeading from "../components/WordRevealHeading";
 
 const experiences = [
   {
@@ -103,17 +104,19 @@ export default function Experience() {
     >
       <SectionLabel title="Experience" />
 
-      <Reveal className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-14 md:mb-20">
-        <h2 className="font-display text-[clamp(2.8rem,6vw,6.6rem)] font-medium tracking-[-.06em] leading-[.9] lg:col-span-8">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-14 md:mb-20">
+        <WordRevealHeading className="font-display text-[clamp(2.8rem,6vw,6.6rem)] font-medium tracking-[-.06em] leading-[.9] lg:col-span-8">
           Work across software,
           <span className="block text-[var(--text-muted)]">
             systems and infrastructure.
           </span>
-        </h2>
-        <p className="lg:col-span-4 lg:self-end text-base md:text-lg leading-relaxed text-[var(--text-muted)]">
-          Selected roles that shaped how I build and ship production systems.
-        </p>
-      </Reveal>
+        </WordRevealHeading>
+        <Reveal direction="down" delay={0.08} className="lg:col-span-4 lg:self-end">
+          <p className="text-base md:text-lg leading-relaxed text-[var(--text-muted)]">
+            Selected roles that shaped how I build and ship production systems.
+          </p>
+        </Reveal>
+      </div>
 
       <div className="border-t border-[var(--border)]">
         {experiences.map((exp, index) => {

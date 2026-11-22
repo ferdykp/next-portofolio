@@ -4,6 +4,7 @@ import { useState } from "react";
 import Reveal from "../components/Reveal";
 import SectionLabel from "../components/SectionLabel";
 import TiltSurface from "../components/TiltSurface";
+import WordRevealHeading from "../components/WordRevealHeading";
 
 export default function Contact() {
   const [status, setStatus] = useState({ loading: false, success: false, error: false });
@@ -34,11 +35,11 @@ export default function Contact() {
       <SectionLabel title="Contact" />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
-        <Reveal className="lg:col-span-7">
-          <h2 className="font-display text-[clamp(3.4rem,8vw,9rem)] font-medium tracking-[-.075em] leading-[.82] text-balance">
+        <div className="lg:col-span-7">
+          <WordRevealHeading className="font-display text-[clamp(3.4rem,8vw,9rem)] font-medium tracking-[-.075em] leading-[.82] text-balance">
             Have something
             <span className="block text-[var(--accent)]">to build?</span>
-          </h2>
+          </WordRevealHeading>
 
           <a
             href="mailto:kpferdy@gmail.com"
@@ -46,7 +47,7 @@ export default function Contact() {
           >
             kpferdy@gmail.com
           </a>
-        </Reveal>
+        </div>
 
         <Reveal direction="down" delay={0.08} className="lg:col-span-5 lg:pt-2">
           <TiltSurface className="depth-panel rounded-2xl border border-[var(--border)] bg-[var(--bg-elevated)]" maxTilt={2} lift={2}>

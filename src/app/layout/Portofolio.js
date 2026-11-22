@@ -1,11 +1,12 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import Reveal from "../components/Reveal";
 import SectionLabel from "../components/SectionLabel";
 import TiltSurface from "../components/TiltSurface";
+import WordRevealHeading from "../components/WordRevealHeading";
 
 const ease = [0.22, 1, 0.36, 1];
 
@@ -279,6 +280,7 @@ function ProjectPreview({ project, onClick }) {
 }
 
 export default function Portofolio() {
+  const shouldReduceMotion = useReducedMotion();
   const [activeProject, setActiveProject] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("all");
   const [showAll, setShowAll] = useState(false);
@@ -325,14 +327,14 @@ export default function Portofolio() {
       <SectionLabel title="Selected work" />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 mb-12 md:mb-16">
-        <Reveal className="lg:col-span-8">
-          <h2 className="font-display text-[clamp(3rem,6.3vw,7rem)] font-medium tracking-[-.065em] leading-[.88]">
+        <div className="lg:col-span-8">
+          <WordRevealHeading className="font-display text-[clamp(3rem,6.3vw,7rem)] font-medium tracking-[-.065em] leading-[.88]">
             Products and systems,
             <span className="block text-[var(--text-muted)]">
               built for real use.
             </span>
-          </h2>
-        </Reveal>
+          </WordRevealHeading>
+        </div>
         <Reveal
           direction="down"
           delay={0.07}
@@ -372,6 +374,7 @@ export default function Portofolio() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, amount: 0.12 }}
               exit={{ opacity: 0, y: 18 }}
+              whileHover={shouldReduceMotion ? undefined : { y: -3, transition: { duration: 0.22, ease: "easeOut" } }}
               transition={{ duration: 0.72, ease }}
               className="depth-row group grid grid-cols-1 lg:grid-cols-12 gap-7 lg:gap-12 py-8 md:py-12 lg:py-14 border-b border-[var(--border)] items-center"
             >

@@ -3,6 +3,7 @@
 import Reveal from "../components/Reveal";
 import SectionLabel from "../components/SectionLabel";
 import TiltSurface from "../components/TiltSurface";
+import WordRevealHeading from "../components/WordRevealHeading";
 
 const capabilities = [
   {
@@ -25,12 +26,12 @@ export default function About() {
       <SectionLabel title="About" />
 
       <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
-        <Reveal className="lg:col-span-8">
-          <h2 className="font-display text-[clamp(2.8rem,6.4vw,7rem)] font-medium tracking-[-.065em] leading-[.9] text-balance">
+        <div className="lg:col-span-8">
+          <WordRevealHeading className="font-display text-[clamp(2.8rem,6.4vw,7rem)] font-medium tracking-[-.065em] leading-[.9] text-balance">
             Simple on the surface.
             <span className="block text-[var(--text-muted)]">Dependable underneath.</span>
-          </h2>
-        </Reveal>
+          </WordRevealHeading>
+        </div>
 
         <Reveal direction="down" delay={0.08} className="lg:col-span-4 lg:self-end">
           <p className="text-base md:text-lg leading-relaxed text-[var(--text-muted)] max-w-lg">
