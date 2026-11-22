@@ -1,23 +1,38 @@
-import { Space_Grotesk, Inter, IBM_Plex_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import SmoothScrollProvider from "./components/SmoothScrollProvider";
 
-const spaceGrotesk = Space_Grotesk({
+const spaceGrotesk = localFont({
+  src: "../../node_modules/@fontsource-variable/space-grotesk/files/space-grotesk-latin-wght-normal.woff2",
   variable: "--font-space-grotesk",
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: "300 700",
+  display: "swap",
 });
 
-const inter = Inter({
+const inter = localFont({
+  src: "../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2",
   variable: "--font-inter",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  weight: "100 900",
+  display: "swap",
 });
 
-const plexMono = IBM_Plex_Mono({
+const plexMono = localFont({
+  src: [
+    {
+      path: "../../node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2",
+      weight: "400",
+    },
+    {
+      path: "../../node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-500-normal.woff2",
+      weight: "500",
+    },
+    {
+      path: "../../node_modules/@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-600-normal.woff2",
+      weight: "600",
+    },
+  ],
   variable: "--font-plex-mono",
-  subsets: ["latin"],
-  weight: ["400", "500", "600"],
+  display: "swap",
 });
 
 const siteUrl = "https://fdevsite.cloud";
