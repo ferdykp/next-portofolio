@@ -22,6 +22,8 @@ export default function SmoothScrollProvider({ children }) {
     const instance = new Lenis({
       autoRaf: false,
       smoothWheel: true,
+      lerp: 0.15,
+      wheelMultiplier: 1.05,
       anchors: true,
     });
 
