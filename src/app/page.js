@@ -1,5 +1,3 @@
-import Navbar from "./components/Navbar";
-import Footer from "./components/Footer";
 import About from "./layout/About";
 import Contact from "./layout/Contact";
 import Experience from "./layout/Experience";
@@ -9,9 +7,7 @@ import Portofolio from "./layout/Portofolio";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
-      <a className="skip-link" href="#main">Skip to content</a>
-      <Navbar />
+    <div className="site-frame">
       <main id="main">
         <HomeSection />
         <Portofolio />
@@ -20,7 +16,6 @@ export default function Home() {
         <Notes />
         <Contact />
       </main>
-      <Footer />
     </div>
   );
 }

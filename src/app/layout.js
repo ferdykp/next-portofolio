@@ -1,4 +1,7 @@
 import localFont from "next/font/local";
+import MotionDirector from "./components/MotionDirector";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
 import "./globals.css";
 
 const spaceGrotesk = localFont({
@@ -49,7 +52,7 @@ export const metadata = {
     "Full Stack Software Engineer",
     "DevOps Engineer",
     "Laravel Developer",
-    "Web Developer Surabaya",
+    "Web Developer Jakarta",
     "Tailwind CSS",
     "Vue.js",
     "Node.js",
@@ -68,9 +71,7 @@ export const metadata = {
     type: "website",
     images: [
       {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
+        url: "/assets/profile_ai.jpg",
         alt: "Ferdy Kurnia Panggabean Portfolio Preview",
       },
     ],
@@ -106,7 +107,7 @@ export default function RootLayout({ children }) {
     },
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Surabaya",
+      addressLocality: "Jakarta",
       addressCountry: "Indonesia",
     },
     sameAs: [
@@ -154,7 +155,11 @@ export default function RootLayout({ children }) {
             __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
           }}
         />
+        <a className="skip-link" href="#main">Skip to content</a>
+        <Navbar />
+        <MotionDirector />
         {children}
+        <Footer />
       </body>
     </html>
   );

@@ -23,13 +23,13 @@ export default function NotesFeed({ notes, unavailable }) {
   const visibleNotes = showAll ? notes : notes.slice(0, visibleCount);
 
   return (
-    <section className="portfolio-shell section" id="notes" aria-labelledby="notes-title">
-      <div className="section-heading">
-        <p className="section-kicker"><span>04</span> Notes</p>
-        <div>
-          <h2 className="section-title" id="notes-title">Field notes.</h2>
-        </div>
+    <section className="notes-section section-shell motion-section" id="notes" aria-labelledby="notes-title">
+      <div className="section-rail">
+        <p className="section-number">04</p>
+        <p className="rail-label">Notes</p>
       </div>
+      <div className="notes-content">
+        <h2 id="notes-title">Field notes.</h2>
 
       {unavailable ? (
         <p className="notes-state">Notes are temporarily unavailable.</p>
@@ -78,6 +78,7 @@ export default function NotesFeed({ notes, unavailable }) {
           )}
         </>
       )}
+      </div>
     </section>
   );
 }
