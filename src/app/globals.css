@@ -388,9 +388,10 @@ html.theme-transitioning::before {
   letter-spacing: -0.075em;
 }
 
-.relay-mark {
-  width: 2.7rem;
-  height: 1.3rem;
+.brand-mark {
+  width: 1.35rem;
+  height: 1.35rem;
+  overflow: visible;
 }
 
 .desktop-nav {
@@ -421,6 +422,31 @@ html.theme-transitioning::before {
   font-family: var(--font-mono);
   font-size: 0.65rem;
   text-transform: uppercase;
+}
+
+.theme-toggle {
+  gap: 0.45rem;
+}
+
+.theme-icon {
+  width: 1rem;
+  height: 1rem;
+  flex: 0 0 auto;
+  animation: theme-icon-enter 320ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+.theme-icon.is-dark {
+  animation-name: theme-icon-enter-dark;
+}
+
+@keyframes theme-icon-enter {
+  from { opacity: 0; transform: rotate(-50deg) scale(0.55); }
+  to { opacity: 1; transform: rotate(0) scale(1); }
+}
+
+@keyframes theme-icon-enter-dark {
+  from { opacity: 0; transform: rotate(50deg) scale(0.55); }
+  to { opacity: 1; transform: rotate(0) scale(1); }
 }
 
 .mobile-menu-toggle {
@@ -865,10 +891,11 @@ html.theme-transitioning::before {
 
 .experience-row {
   display: grid;
-  min-height: clamp(5.7rem, 8.5vw, 8.7rem);
+  min-height: 0;
   grid-template-columns: 2.5rem minmax(10rem, 0.9fr) minmax(12rem, 1fr) minmax(10rem, 0.6fr);
-  align-items: center;
+  align-items: start;
   gap: 1.2rem;
+  padding-block: clamp(1.6rem, 3.2vw, 3rem);
   border-bottom: 1px solid var(--rule);
 }
 
@@ -894,6 +921,56 @@ html.theme-transitioning::before {
 
 .experience-row p:last-child {
   text-align: right;
+}
+
+.experience-row .experience-role,
+.experience-row .experience-period {
+  padding-top: 0.3rem;
+}
+
+.experience-bullets {
+  display: grid;
+  grid-column: 2 / -1;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem 2.5rem;
+  margin: 0;
+  padding: 1.5rem 0 0;
+  border-top: 1px solid var(--rule);
+  list-style: none;
+}
+
+.experience-bullets li {
+  position: relative;
+  padding-left: 1.1rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+
+.experience-bullets li::before {
+  position: absolute;
+  top: 0.57em;
+  left: 0;
+  width: 0.36rem;
+  height: 0.36rem;
+  background: var(--accent);
+  content: "";
+}
+
+.experience-row p.experience-tools {
+  display: flex;
+  grid-column: 2 / -1;
+  flex-wrap: wrap;
+  gap: 0.55rem 1.15rem;
+  padding-top: 0.2rem;
+  text-align: left;
+  font-size: 0.58rem;
+  letter-spacing: 0.045em;
+  text-transform: uppercase;
+}
+
+.experience-tools span:first-child {
+  color: var(--accent);
 }
 
 .visually-hidden {
@@ -1027,10 +1104,18 @@ html.theme-transitioning::before {
   display: inline-flex;
   min-height: 44px;
   align-items: center;
+  gap: 0.5rem;
   border-bottom: 1px solid #5c5a52;
   color: var(--dark-muted);
   font-size: 0.75rem;
   transition: color 160ms ease, border-color 160ms ease;
+}
+
+.contact-icon {
+  width: 0.9rem;
+  height: 0.9rem;
+  flex: 0 0 auto;
+  color: var(--accent);
 }
 
 .contact-links a:hover {
@@ -1729,19 +1814,21 @@ html.theme-transitioning::before {
   .experience-row {
     min-height: auto;
     grid-template-columns: 1.8rem minmax(0, 1fr);
-    gap: 0.4rem 0.8rem;
-    padding-block: 1rem;
+    gap: 0.55rem 0.8rem;
+    padding-block: 1.35rem;
   }
 
   .experience-index {
     grid-column: 1;
-    grid-row: 1 / 4;
+    grid-row: 1 / 6;
     align-self: start;
     padding-top: 0.15rem;
   }
 
   .experience-row h3,
-  .experience-row p {
+  .experience-row p,
+  .experience-bullets,
+  .experience-row .experience-tools {
     grid-column: 2;
     text-align: left;
   }
@@ -1751,7 +1838,31 @@ html.theme-transitioning::before {
   }
 
   .experience-row p {
-    font-size: 0.6rem;
+    font-size: 0.66rem;
+  }
+
+  .experience-row .experience-period {
+    padding-top: 0;
+  }
+
+  .experience-bullets {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
+    padding-top: 1rem;
+  }
+
+  .experience-bullets li {
+    font-size: 0.8rem;
+  }
+
+  .experience-row p.experience-tools {
+    gap: 0.45rem 0.8rem;
+    font-size: 0.54rem;
+    text-align: left;
+  }
+
+  .mobile-menu .theme-toggle {
+    gap: 0.65rem;
   }
 
   .notes-section {
@@ -1879,6 +1990,10 @@ html.theme-transitioning::before {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .theme-icon {
+    animation: none;
+  }
+
   html {
     scroll-behavior: auto;
   }

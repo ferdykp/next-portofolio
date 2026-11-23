@@ -13,8 +13,15 @@ export default function Experience() {
           <article className="experience-row" key={item.company}>
             <span className="experience-index">0{index + 1}</span>
             <h3>{item.company}</h3>
-            <p>{item.role}</p>
-            <p>{item.period}</p>
+            <p className="experience-role">{item.role}</p>
+            <p className="experience-period">{item.period}</p>
+            <ul className="experience-bullets" aria-label={`Work completed at ${item.company}`}>
+              {item.bullets.map((bullet) => <li key={bullet}>{bullet}</li>)}
+            </ul>
+            <p className="experience-tools">
+              <span>Tools</span>
+              <span>{item.tools.join(" · ")}</span>
+            </p>
           </article>
         ))}
       </div>

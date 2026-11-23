@@ -188,11 +188,68 @@ export const projects = [
 ];
 
 export const experience = [
-  { company: "Nuctech Company Limited", role: "Software Engineer, Full-Stack / DevOps", period: "May 2025 to Present" },
-  { company: "PT Reka Inovasi Cerdas", role: "Software Engineer", period: "Nov 2024 to Apr 2025" },
-  { company: "AirNav Juanda Surabaya", role: "Engineering Intern", period: "Feb 2023 to Jul 2023" },
-  { company: "InnoWork IoT Advantech", role: "IoT Program Participant", period: "May 2023 to Sep 2023" },
-  { company: "Talent Scout Academy", role: "Project Based Learning Participant", period: "Jul 2022 to Dec 2022" },
+  {
+    company: "Nuctech Company Limited",
+    role: "Software Engineer, Full-Stack / DevOps",
+    period: "May 2025 to Present",
+    bullets: [
+      "Led full-stack development for two production systems and coordinated a three-person team from requirements through deployment and documentation.",
+      "Built a warehouse and spare parts system for multi-branch operations, deployed across nine cities in Indonesia.",
+      "Developed an E-Beam plant ERP covering customer and product intake, irradiation tracking, quality control, and document generation; it supports three client companies across seven product types.",
+      "Designed role-based access for five user roles and built Excel exports for management reporting.",
+      "Set up and managed production VPS infrastructure with Ubuntu Server, Nginx, and Cloudflare Tunnel / Zero Trust.",
+      "Wrote user manuals and installation guides adopted for Nuctech product implementations across multiple countries.",
+      "Debugged Cargo Scanner network and configuration issues with engineers in China, from server through application level.",
+      "Maintained FS6000 equipment and backed up operator and industrial PCs with Symantec Ghost.",
+      "Automated Excel report data conversion with Python and resolved inter-server and Modbus issues using Modscan.",
+    ],
+    tools: ["Laravel", "Tailwind CSS", "Ubuntu Server", "Nginx", "Docker", "Cloudflare Zero Trust", "Python", "Modbus TCP/IP"],
+  },
+  {
+    company: "PT Reka Inovasi Cerdas",
+    role: "Software Engineer",
+    period: "Nov 2024 to Apr 2025",
+    bullets: [
+      "Built a real-time electric vehicle dashboard in Qt Creator with QML and JavaScript for an in-house prototype.",
+      "Implemented MAVLink on Ardurover firmware and connected a Matek F405 Wing controller to the vehicle dashboard.",
+      "Deployed the dashboard to a Lichee Pi 4A running Yocto Poky and driving a 1280×800 LCD.",
+      "Built the Innodrive.ai company website with Quasar, TypeScript, Vue.js, and Node.js, including automated order confirmation emails.",
+      "Integrated a face recognition library and model on a Lichee Pi 4A mini PC with a Runcam camera for attendance tracking.",
+      "Built the companion attendance dashboard with Quasar and Vue.js, backed by Node.js and Express for attendance records and employee management.",
+    ],
+    tools: ["Qt Creator / QML", "MAVLink", "Vue.js / Quasar", "Node.js", "Express.js", "Face recognition", "Yocto / Poky"],
+  },
+  {
+    company: "AirNav Juanda Surabaya",
+    role: "Engineering Intern",
+    period: "Feb 2023 to Jul 2023",
+    bullets: [
+      "Recorded daily meter readings for airport communication and monitoring equipment.",
+      "Assisted with fiber optic troubleshooting and Instrument Landing System calibration alongside an international flight inspection provider.",
+    ],
+    tools: ["Fiber optics", "ILS calibration"],
+  },
+  {
+    company: "InnoWork IoT Advantech",
+    role: "IoT Program Participant",
+    period: "May 2023 to Sep 2023",
+    bullets: [
+      "Built sensor-based IoT devices with NodeMCU and programmed them in C++.",
+      "Set up automated Telegram alerts and displayed device data on an Advantech SCADA dashboard over Modbus TCP/IP.",
+    ],
+    tools: ["NodeMCU", "C++", "Modbus TCP/IP", "SCADA"],
+  },
+  {
+    company: "Talent Scout Academy",
+    role: "Project Based Learning Participant",
+    period: "Jul 2022 to Dec 2022",
+    bullets: [
+      "Assembled IoT devices using Arduino Nano, sensors, and LoRa communication modules.",
+      "Programmed C++ communication between IoT devices and a website over HTTP POST.",
+      "Developed an IoT device monitoring website with PHP, HTML, CSS, and MySQL.",
+    ],
+    tools: ["Arduino Nano", "LoRa", "C++", "PHP", "MySQL"],
+  },
 ];
 
 export function getProject(slug) {

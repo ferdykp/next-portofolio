@@ -13,12 +13,36 @@ const links = [
   { label: "Contact", id: "contact" },
 ];
 
-function RelayMark() {
+function BrandMark() {
   return (
-    <svg className="relay-mark" viewBox="0 0 48 22" fill="none" aria-hidden="true">
-      <path d="M1 4h10v10H1zM11 9h8V4h8v10h8" stroke="currentColor" strokeWidth="1.7" />
-      <path d="M35 4h11M35 9h11M35 14h11" stroke="currentColor" strokeWidth="1.7" />
-      <path d="M46 18h2" stroke="var(--accent)" strokeWidth="3" />
+    <svg className="brand-mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+      <path d="M5 3.5h14v4H9v4.25h8v4H9v8.75H5V3.5Z" fill="currentColor" />
+      <path d="M18 18.5h4v4h-4z" fill="var(--accent)" />
+    </svg>
+  );
+}
+
+function ThemeIcon({ isDark }) {
+  return (
+    <svg
+      key={isDark ? "moon" : "sun"}
+      className={`theme-icon${isDark ? " is-dark" : ""}`}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden="true"
+    >
+      {isDark ? (
+        <path d="M20.2 15.3A8.5 8.5 0 0 1 8.7 3.8 8.5 8.5 0 1 0 20.2 15.3Z" />
+      ) : (
+        <>
+          <circle cx="12" cy="12" r="3.5" />
+          <path d="M12 2v2M12 20v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" />
+        </>
+      )}
     </svg>
   );
 }
@@ -113,7 +137,7 @@ export default function Navbar() {
         <div className="portfolio-shell nav-inner">
           <Link className="brand-link" href={sectionHref("home")} aria-label="Ferdy, home">
             <span className="brand-wordmark">FERDY</span>
-            <RelayMark />
+            <BrandMark />
           </Link>
 
           <nav className="desktop-nav" aria-label="Main navigation">
@@ -128,7 +152,8 @@ export default function Navbar() {
               onClick={toggleTheme}
               aria-label={`Switch to ${isDark ? "light" : "dark"} theme`}
             >
-              {isDark ? "Light" : "Dark"}
+              <ThemeIcon isDark={isDark} />
+              <span>{isDark ? "Light" : "Dark"}</span>
             </button>
           </nav>
 
@@ -157,8 +182,14 @@ export default function Navbar() {
               {link.label}
             </a>
           ))}
-          <button className="theme-toggle" type="button" onClick={toggleTheme}>
-            Switch to {isDark ? "light" : "dark"} theme
+          <button
+            className="theme-toggle"
+            type="button"
+            onClick={toggleTheme}
+            aria-label={`Switch to ${isDark ? "light" : "dark"} theme`}
+          >
+            <ThemeIcon isDark={isDark} />
+            <span>Switch to {isDark ? "light" : "dark"} theme</span>
           </button>
         </nav>
       </div>
