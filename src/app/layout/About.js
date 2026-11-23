@@ -1,67 +1,22 @@
-"use client";
-
-import Reveal from "../components/Reveal";
-import SectionLabel from "../components/SectionLabel";
-import TiltSurface from "../components/TiltSurface";
-import WordRevealHeading from "../components/WordRevealHeading";
-
-const capabilities = [
-  {
-    title: "Web products",
-    text: "Laravel, Next.js, Vue.js, APIs",
-  },
-  {
-    title: "Systems",
-    text: "MySQL, integrations, automation",
-  },
-  {
-    title: "Infrastructure",
-    text: "Linux, Nginx, Docker, Cloudflare",
-  },
-];
-
 export default function About() {
   return (
-    <section id="about" className="py-24 md:py-36 border-b border-[var(--border)]">
-      <SectionLabel title="About" />
-
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14">
-        <div className="lg:col-span-8">
-          <WordRevealHeading className="font-display text-[clamp(2.8rem,6.4vw,7rem)] font-medium tracking-[-.065em] leading-[.9] text-balance">
-            Simple on the surface.
-            <span className="block text-[var(--text-muted)]">Dependable underneath.</span>
-          </WordRevealHeading>
+    <section className="portfolio-shell section" id="about" aria-labelledby="about-title">
+      <div className="about-layout">
+        <div>
+          <p className="section-kicker"><span>02</span> About</p>
+          <h2 className="about-title" id="about-title">Useful software. Built to hold up.</h2>
         </div>
 
-        <Reveal direction="down" delay={0.08} className="lg:col-span-4 lg:self-end">
-          <p className="text-base md:text-lg leading-relaxed text-[var(--text-muted)] max-w-lg">
-            I&apos;m a software engineer with a Telecommunication Engineering background, focused on building practical products and production systems.
+        <div>
+          <p className="about-copy">
+            I&apos;m a software engineer with a background in Telecommunication Engineering. I build digital products, connected systems, and the infrastructure behind them.
           </p>
-        </Reveal>
+          <div className="about-background">
+            <span>Telecommunication Engineering</span>
+            <span>Politeknik Elektronika Negeri Surabaya, 2024</span>
+          </div>
+        </div>
       </div>
-
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-16 md:mt-24">
-        {capabilities.map((item, index) => (
-          <Reveal
-            key={item.title}
-            delay={index * 0.06}
-            direction={index % 2 === 0 ? "up" : "down"}
-            className="h-full"
-          >
-            <TiltSurface className="depth-panel rounded-2xl border border-[var(--border)] p-6 md:p-8 min-h-36" maxTilt={5} lift={5}>
-              <h3 className="font-display text-xl md:text-2xl tracking-[-.04em]">{item.title}</h3>
-              <p className="mt-2 text-sm md:text-base text-[var(--text-muted)]">{item.text}</p>
-            </TiltSurface>
-          </Reveal>
-        ))}
-      </div>
-
-      <Reveal className="mt-10 md:mt-14 pt-5 border-t border-[var(--border)] flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
-        <span className="rev-label">Background</span>
-        <p className="text-sm md:text-base text-[var(--text-muted)]">
-          Telecommunication Engineering · Politeknik Elektronika Negeri Surabaya · 2024
-        </p>
-      </Reveal>
     </section>
   );
 }

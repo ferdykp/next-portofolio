@@ -1,6 +1,5 @@
 import localFont from "next/font/local";
 import "./globals.css";
-import SmoothScrollProvider from "./components/SmoothScrollProvider";
 
 const spaceGrotesk = localFont({
   src: "./fonts/space-grotesk-latin-wght-normal.woff2",
@@ -40,11 +39,11 @@ const siteUrl = "https://fdevsite.cloud";
 export const metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Ferdy Kurnia Panggabean | Full Stack Software Engineer & DevOps",
+    default: "Ferdy Kurnia Panggabean | Software Engineer",
     template: "%s | Ferdy Kurnia Panggabean",
   },
   description:
-    "Portofolio profesional Ferdy Kurnia Panggabean, Full Stack Software Engineer & DevOps yang berpengalaman membangun sistem enterprise (WMS, ERP), SaaS multi-tenant, dan integrasi IoT.",
+    "Software engineer building digital products, internal systems, and infrastructure.",
   keywords: [
     "Ferdy Kurnia Panggabean",
     "Full Stack Software Engineer",
@@ -60,9 +59,9 @@ export const metadata = {
   creator: "Ferdy Kurnia Panggabean",
   publisher: "Ferdy Kurnia Panggabean",
   openGraph: {
-    title: "Ferdy Kurnia Panggabean | Full Stack Software Engineer & DevOps",
+    title: "Ferdy Kurnia Panggabean | Software Engineer",
     description:
-      "Portofolio profesional Ferdy Kurnia Panggabean, menampilkan pengalamannya membangun sistem enterprise, ERP, SaaS multi-tenant, dan integrasi IoT.",
+      "Selected products and systems built across software, operations, and infrastructure.",
     url: siteUrl,
     siteName: "Ferdy Kurnia Panggabean Portfolio",
     locale: "en_US",
@@ -133,12 +132,11 @@ export default function RootLayout({ children }) {
     ],
   };
 
-  // Default to dark while still honoring a theme the visitor chose before.
   const themeInitScript = `
     (function() {
       try {
         var saved = localStorage.getItem("portfolio-theme-v5");
-        document.documentElement.classList.toggle("light", saved === "light");
+        document.documentElement.classList.toggle("dark", saved === "dark");
       } catch (e) {}
     })();
   `;
@@ -156,7 +154,7 @@ export default function RootLayout({ children }) {
             __html: JSON.stringify(jsonLd).replace(/</g, "\\u003c"),
           }}
         />
-        <SmoothScrollProvider>{children}</SmoothScrollProvider>
+        {children}
       </body>
     </html>
   );

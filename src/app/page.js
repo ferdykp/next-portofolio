@@ -1,27 +1,22 @@
 import Navbar from "./components/Navbar";
-import About from "./layout/About";
-import Experience from "./layout/Experience";
-import Portofolio from "./layout/Portofolio";
-import GitHubActivity from "./layout/GitHubActivity";
-import Notes from "./layout/Notes";
-import Contact from "./layout/Contact";
 import Footer from "./components/Footer";
+import About from "./layout/About";
+import Contact from "./layout/Contact";
+import Experience from "./layout/Experience";
 import HomeSection from "./layout/Home";
-import ClientWrapper from "./components/ClientWrapper";
-import AmbientWallpaper from "./components/AmbientWallpaper";
+import Notes from "./layout/Notes";
+import Portofolio from "./layout/Portofolio";
 
 export default function Home() {
   return (
-    <div className="scene-root min-h-screen bg-[var(--bg)] text-[var(--text)] selection:bg-[var(--accent)] antialiased overflow-x-hidden">
-      <AmbientWallpaper />
-      <ClientWrapper />
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)]">
+      <a className="skip-link" href="#main">Skip to content</a>
       <Navbar />
-      <main className="px-5 sm:px-8 lg:px-12 2xl:px-16 max-w-[1720px] mx-auto">
+      <main id="main">
         <HomeSection />
+        <Portofolio />
         <About />
         <Experience />
-        <Portofolio />
-        <GitHubActivity />
         <Notes />
         <Contact />
       </main>
