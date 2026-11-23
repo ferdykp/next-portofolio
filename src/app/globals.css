@@ -890,52 +890,135 @@ html.theme-transitioning::before {
 }
 
 .experience-row {
-  display: grid;
-  min-height: 0;
-  grid-template-columns: 2.5rem minmax(10rem, 0.9fr) minmax(12rem, 1fr) minmax(10rem, 0.6fr);
-  align-items: start;
-  gap: 1.2rem;
-  padding-block: clamp(1.6rem, 3.2vw, 3rem);
   border-bottom: 1px solid var(--rule);
 }
 
+.experience-summary {
+  display: grid;
+  min-height: clamp(5.7rem, 8.5vw, 8.7rem);
+  grid-template-columns: 2.5rem minmax(10rem, 0.9fr) minmax(12rem, 1fr) minmax(10rem, 0.6fr);
+  align-items: center;
+  gap: 1.2rem;
+  padding-block: 1.2rem;
+  cursor: pointer;
+  list-style: none;
+  transition: background-color 220ms ease;
+}
+
+.experience-summary::-webkit-details-marker {
+  display: none;
+}
+
+.experience-summary:hover {
+  background: color-mix(in srgb, var(--paper-deep) 34%, transparent);
+}
+
+.experience-summary:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
 .experience-index,
-.experience-row p {
+.experience-summary p,
+.experience-period {
   color: var(--muted);
   font-family: var(--font-mono);
   font-size: 0.64rem;
   line-height: 1.5;
 }
 
-.experience-row h3,
-.experience-row p {
+.experience-summary h3,
+.experience-summary p {
   margin: 0;
 }
 
-.experience-row h3 {
+.experience-summary h3 {
   font-family: var(--font-display);
   font-size: clamp(1.05rem, 1.7vw, 1.6rem);
   font-weight: 540;
   letter-spacing: -0.05em;
+  transition: color 180ms ease;
 }
 
-.experience-row p:last-child {
+.experience-summary:hover h3,
+.experience-row[open] .experience-summary h3 {
+  color: var(--accent);
+}
+
+.experience-role {
+  padding-top: 0.3rem;
+}
+
+.experience-meta,
+.experience-action {
+  display: flex;
+  align-items: center;
+}
+
+.experience-meta {
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.experience-period {
   text-align: right;
 }
 
-.experience-row .experience-role,
-.experience-row .experience-period {
-  padding-top: 0.3rem;
+.experience-action {
+  gap: 0.55rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+  font-size: 0.58rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition: color 180ms ease;
+}
+
+.experience-action svg {
+  width: 1rem;
+  height: 1rem;
+  transition: transform 240ms cubic-bezier(0.2, 0.8, 0.2, 1), color 180ms ease;
+}
+
+.experience-summary:hover .experience-action,
+.experience-row[open] .experience-action {
+  color: var(--accent);
+}
+
+.experience-row[open] .experience-action svg {
+  transform: rotate(45deg);
+}
+
+.experience-close-label,
+.experience-row[open] .experience-open-label {
+  display: none;
+}
+
+.experience-row[open] .experience-close-label {
+  display: inline;
+}
+
+.experience-details {
+  display: grid;
+  grid-template-columns: minmax(0, 2.4fr) minmax(10rem, 0.8fr);
+  align-items: start;
+  gap: clamp(1.5rem, 4vw, 4rem);
+  padding: 1.5rem 0 2.5rem 3.7rem;
+  border-top: 1px solid var(--rule);
+  animation: experience-detail-open 320ms cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+
+@keyframes experience-detail-open {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .experience-bullets {
   display: grid;
-  grid-column: 2 / -1;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0.9rem 2.5rem;
+  gap: 0.9rem 2rem;
   margin: 0;
-  padding: 1.5rem 0 0;
-  border-top: 1px solid var(--rule);
+  padding: 0;
   list-style: none;
 }
 
@@ -957,14 +1040,13 @@ html.theme-transitioning::before {
   content: "";
 }
 
-.experience-row p.experience-tools {
+.experience-details .experience-tools {
   display: flex;
-  grid-column: 2 / -1;
   flex-wrap: wrap;
   gap: 0.55rem 1.15rem;
-  padding-top: 0.2rem;
-  text-align: left;
+  margin: 0;
   font-size: 0.58rem;
+  line-height: 1.8;
   letter-spacing: 0.045em;
   text-transform: uppercase;
 }
@@ -1811,54 +1893,73 @@ html.theme-transitioning::before {
     padding-bottom: 4.5rem;
   }
 
-  .experience-row {
-    min-height: auto;
+  .experience-summary {
+    min-height: 0;
     grid-template-columns: 1.8rem minmax(0, 1fr);
-    gap: 0.55rem 0.8rem;
-    padding-block: 1.35rem;
+    gap: 0.4rem 0.8rem;
+    padding-block: 1rem;
   }
 
   .experience-index {
     grid-column: 1;
-    grid-row: 1 / 6;
+    grid-row: 1 / 4;
     align-self: start;
     padding-top: 0.15rem;
   }
 
-  .experience-row h3,
-  .experience-row p,
-  .experience-bullets,
-  .experience-row .experience-tools {
+  .experience-summary h3,
+  .experience-summary p,
+  .experience-meta {
     grid-column: 2;
     text-align: left;
   }
 
-  .experience-row h3 {
+  .experience-summary h3 {
     font-size: 1.13rem;
   }
 
-  .experience-row p {
+  .experience-summary p {
     font-size: 0.66rem;
   }
 
-  .experience-row .experience-period {
-    padding-top: 0;
+  .experience-meta {
+    justify-content: space-between;
+    gap: 0.5rem;
+  }
+
+  .experience-summary .experience-period {
+    font-size: 0.58rem;
+    text-align: left;
+  }
+
+  .experience-action {
+    gap: 0.4rem;
+    font-size: 0.54rem;
+  }
+
+  .experience-action svg {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+
+  .experience-details {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 1.25rem;
+    padding: 1rem 0 1.5rem 2.6rem;
   }
 
   .experience-bullets {
     grid-template-columns: minmax(0, 1fr);
     gap: 0.75rem;
-    padding-top: 1rem;
   }
 
   .experience-bullets li {
     font-size: 0.8rem;
   }
 
-  .experience-row p.experience-tools {
+  .experience-details .experience-tools {
     gap: 0.45rem 0.8rem;
     font-size: 0.54rem;
-    text-align: left;
   }
 
   .mobile-menu .theme-toggle {
