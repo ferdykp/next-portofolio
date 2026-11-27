@@ -1,4 +1,5 @@
 import WorkIndex from "../components/WorkIndex";
+import { projects } from "../data/projects";
 
 export default function Portofolio() {
   return (
@@ -10,7 +11,7 @@ export default function Portofolio() {
       <div className="work-content">
         <div className="work-heading">
           <h2 id="work-title">Made for use.</h2>
-          <span className="work-count">13 projects / full archive</span>
+          <span className="work-count">{projects.length} projects / full archive</span>
         </div>
         <WorkIndex />
       </div>

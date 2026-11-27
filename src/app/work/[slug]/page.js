@@ -27,12 +27,12 @@ export async function generateMetadata({ params }) {
   };
 }
 
-function NuctechCover() {
+function ProjectCover({ project }) {
   return (
-    <div className="case-nuctech-cover" role="img" aria-label="Typographic cover for the Nuctech warehouse system">
-      <span>Nuctech Company Limited</span>
-      <strong>Warehouse<br />&amp; spare parts</strong>
-      <span>Indonesia / Operations</span>
+    <div className="case-project-cover" role="img" aria-label={`Cover for ${project.name}`}>
+      <span>{project.category}</span>
+      <strong>{project.name}</strong>
+      <span>{project.role}</span>
     </div>
   );
 }
@@ -63,7 +63,7 @@ export default async function ProjectPage({ params }) {
           {project.images.length ? (
             <Image src={project.images[0]} alt={project.alt} fill priority sizes="100vw" />
           ) : (
-            <NuctechCover />
+            <ProjectCover project={project} />
           )}
         </div>
 
@@ -83,6 +83,14 @@ export default async function ProjectPage({ params }) {
             </ul>
           </div>
         </section>
+
+        {project.repository && (
+          <p className="case-repository">
+            <a href={project.repository} target="_blank" rel="noreferrer">
+              View source on GitHub <span aria-hidden="true">↗</span>
+            </a>
+          </p>
+        )}
 
         {project.images.length > 1 && (
           <section className="case-gallery" aria-label={`${project.name} screenshots`}>

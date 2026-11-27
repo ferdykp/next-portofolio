@@ -185,6 +185,22 @@ export const projects = [
     images: ["penlok1.png", "penlok2.jpeg", "penlok3.jpeg"].map((file) => `/assets/portofolio/penlok/${file}`),
     alt: "Lab presence detection dashboard and device",
   },
+  {
+    slug: "face-recognition-attendance",
+    number: "14",
+    name: "Face Recognition Attendance",
+    title: "Face Recognition Attendance | Edge Device & Dashboard",
+    category: "Attendance system",
+    description:
+      "An attendance system combining face recognition on a Lichee Pi 4A with a web dashboard for attendance records and employee management.",
+    role: "Software Engineer",
+    scope:
+      "Integrated a face recognition model and camera on a Lichee Pi 4A, with a companion dashboard for attendance records and employee management.",
+    stack: ["Lichee Pi 4A", "Runcam", "Face Recognition", "Quasar", "Vue.js", "Node.js", "Express.js", "Yocto / Poky"],
+    images: [],
+    alt: "",
+    repository: "https://github.com/ferdykp/absence-project",
+  },
 ];
 
 export const experience = [

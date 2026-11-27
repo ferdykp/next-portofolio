@@ -21,10 +21,10 @@ export default function WorkIndex() {
             sizes="(max-width: 800px) 100vw, 90vw"
           />
         ) : (
-          <div className="nuctech-cover" aria-hidden="true">
-            <span>{activeProject.organization}</span>
-            <strong>Warehouse<br />&amp; spare parts</strong>
-            <span>Indonesia / Operations</span>
+          <div className="project-cover" aria-hidden="true">
+            <span>{activeProject.category}</span>
+            <strong>{activeProject.name}</strong>
+            <span>{activeProject.role}</span>
           </div>
         )}
         <span className="work-preview-caption">
